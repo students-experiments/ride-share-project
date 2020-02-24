@@ -2,17 +2,11 @@
 
 ## Description
 
-&nbsp&nbsp&nbsp&nbspFor those that have used the UIC’s nighttime riding application, there may have been moments where you were frustrated with the inaccurate time estimates and route planning. The service runs after 11pm and is unreliable for UIC students that are looking out for their safety. Our project’s goal is to tackle the issues that the UIC nighttime ridesharing fails to accomplish. This application will provide more informative and accurate estimates on time to pickup and dropoff. If the application surpasses the current application in terms of functionality, there will be requests made to UIC to reassess their current implementation.
+For those that have used the UIC’s nighttime riding application, there may have been moments where you were frustrated with the inaccurate time estimates and route planning. The service runs after 11pm and is unreliable for UIC students that are looking out for their safety. Our project’s goal is to tackle the issues that the UIC nighttime ridesharing fails to accomplish. This application will provide more informative and accurate estimates on time to pickup and dropoff. If the application surpasses the current application in terms of functionality, there will be requests made to UIC to reassess their current implementation.
 
 This project will be utilizing basic CRUD functionalities, geolocation, Google maps API, Firebase, and Docker.
 
 ## Authors
-
-TODO: List group members, each group member must EITHER be marked "web programming novice" OR list a
-specialization - you don't need to implement it all yourself, but you do need to be in charge of
-getting it described and added. Your expertise self-evaluation is completely on the honor system.
-
-For instance:
 
 | Member | Web dev level | Specialization |
 | --- | --- | --- |
