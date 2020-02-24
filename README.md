@@ -1,4 +1,4 @@
-# {{TEAMNAME}} Final Project
+CREATE Table Students Final Project
 
 TODO: Fill out this file with the following information
 
