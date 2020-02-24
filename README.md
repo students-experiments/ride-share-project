@@ -37,9 +37,9 @@ This project will be utilizing basic CRUD functionalities, geolocation, Google m
 
 | Member | Web dev level | Specialization |
 | --- | --- | --- |
-| Siddhanth | Web Programming Novice | |
-| Anoop | Web Programming Novice | |
-| Kevin | Web Programming Novice | |
+| Siddhanth | Web Programming Novice | Cloud database integration with Firebase |
+| Anoop | Web Programming Novice | Cloud database integration with Firebase |
+| Kevin | Web Programming Novice | Cloud database integration with Firebase |
 
 ## Deliverables for checkpoint 2
 The UI should be completed with some of the CRUD functionalities in place and asking for a ride. 
@@ -77,5 +77,4 @@ functionality you will be adding.
 
 # Installation
 
-By the time you get to the end of the final project, this section should have a full set of
-instructions for how to spin up your app.
+*TBD*
