@@ -1,15 +1,10 @@
-CREATE Table Students Final Project
-
-TODO: Fill out this file with the following information
-
+## CREATE Table Students Final Project
 
 ## Description
 
-TODO: An English language description of what your application does, intended for a developer
-audience. Pretend this is the real `README.md` for your app that will show up on GitHub: what do you
-want people to know about it? What does it do? Why should they use it/check it out/hack on it? This
-should be approximately two paragraphs. Take a look at the description of your favorite software
-repository for inspiration.
+  For those that have used the UIC’s nighttime riding application, there may have been moments where you were frustrated with the inaccurate time estimates and route planning. The service runs after 11pm and is unreliable for UIC students that are looking out for their safety. Our project’s goal is to tackle the issues that the UIC nighttime ridesharing fails to accomplish. This application will provide more informative and accurate estimates on time to pickup and dropoff. If the application surpasses the current application in terms of functionality, there will be requests made to UIC to reassess their current implementation.
+
+This project will be utilizing basic CRUD functionalities, geolocation, Google maps API, Firebase, and Docker.
 
 ## Authors
 
@@ -21,9 +16,9 @@ For instance:
 
 | Member | Web dev level | Specialization |
 | --- | --- | --- |
-| Ned the Novice | web programming novice | |
-| Isaac the Intermediate | Took IT 202, built something in php once | I want to learn about website performance so I will be adding performance tests and keeping a performance log. |
-| Edith the Expert | Interned as a web dev for the last 2 semesters | I will containerize the app and configure it to run within Kubernetes, integrate it with a CI/CD platform so that the deployed version is updated once all tests pass, and I will run a load test with several synthetic long-session users to demonstrate rolling updates to the code. |
+| Siddhanth | Web Programming Novice | |
+| Anoop | Took IT 202, built something in php once | I want to learn about website performance so I will be adding performance tests and keeping a performance log. |
+| Kevin | Interned as a web dev for the last 2 semesters | I will containerize the app and configure it to run within Kubernetes, integrate it with a CI/CD platform so that the deployed version is updated once all tests pass, and I will run a load test with several synthetic long-session users to demonstrate rolling updates to the code. |
 
 ## Deliverables for checkpoint 2
 
