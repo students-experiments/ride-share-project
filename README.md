@@ -42,10 +42,16 @@ This project will be utilizing basic CRUD functionalities, geolocation, Google m
 | Kevin | Web Programming Novice | |
 
 ## Deliverables for checkpoint 2
-
-Outline in English what the deliverables will be for checkpoint 2. Provide a concise list that is
-amenable to being translated into specific tests. Pro-tip: if you write that concise list here, you
-should be able to easily translate it into a collection of test suites.
+The UI should be completed with some of the CRUD functionalities in place and asking for a ride. 
+* Registration
+  - Driver Registration API
+  - Rider Registration API
+  - List Drivers Registered 
+  - List Riders Registered
+* Upon starting the application, the user is prompted to login
+  - Authenticate Registered Rider
+  - Authenticate Registered Driver
+  - Redirect to relevant pages for authenticated driver and rider
 
 For each specialization, you must list specific checkpoints that are relevant to that particular specialization.
 
