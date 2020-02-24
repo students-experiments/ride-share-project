@@ -6,7 +6,7 @@ For those who have used the UIC’s nighttime riding application, there may have
 
 This project will be utilizing basic CRUD functionalities, geolocation, Openrouteservice, Firebase, and Docker.
 
-## English-langugage test descriptions: (User -> Driver / Rider)
+## English-language test descriptions: (User -> Driver / Rider)
 
 * Account Creation
   - It lets a user create an account 
@@ -66,7 +66,7 @@ The UI should be completed with some of the CRUD functionalities in place and as
 ## Deliverables for final project
 
 * Multiple rides should be shareable
-* Algorithm for ride sharing is neesh and simple
+* Algorithm for ride sharing is logical and simple
 * Rider should be able to track driver after making a request
 * Enable notification for rider and driver with relevant information
 
@@ -77,5 +77,5 @@ The UI should be completed with some of the CRUD functionalities in place and as
     - Firebase for database CRUD functionalities and easy integration with other Google services
          
 # Installation
-*TBD*
-*Maybe a JetBrains Deployment Server ヽ（´ー｀）┌ *
+*TBD*\
+*Maybe a JetBrains Deployment Server* ヽ（´ー｀）┌ 
