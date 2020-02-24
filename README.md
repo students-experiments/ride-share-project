@@ -53,23 +53,22 @@ The UI should be completed with some of the CRUD functionalities in place and as
   - Authenticate Registered Driver
   - Redirect to relevant pages for authenticated driver and rider
 
-For each specialization, you must list specific checkpoints that are relevant to that particular specialization.
-
 ## Deliverables for checkpoint 4
-
-Outline in English what the deliverables will be for checkpoint 4. Reminder that this is not *due*
-until checkpoint 2, but failing to plan is planning to fail.
-
-For each specialization, you must list specific checkpoints that are relevant to that particular specialization.
+* Drivers should be able to:
+  - Start a ride
+  - End ride with confirmation
+  - Have transit information
+* Riders should be able to:
+  - Request one ride with Geo location & other relevant parameters
+  - Get assigned to a driver for pickup
+  - View transit information 
 
 ## Deliverables for final project
 
-Outline in English what the deliverables will be for the final checkpoint. This will should be
-similar to the **Description** above, but written out as an explicit checklist rather than a human
-readable description. Reminder that this is not *due* until checkpoint 4, but failing to plan is
-planning to fail.
-
-For each specialization, you must list specific checkpoints that are relevant to that particular specialization.
+* Multiple rides should be shareable
+* Algorithm for ride sharing is neesh and simple
+* Rider should be able to track driver after making a request
+* Enable notification for rider and driver with relevant information
 
 ## Specialization deliverables
 
