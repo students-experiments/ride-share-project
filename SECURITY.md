@@ -21,12 +21,13 @@
 
 
 
-## Best practices (security-wise) for the assignment:  
+## Best practices (security-wise) for the assignment to be on the defensive:  
 * Linter to enforce code structure and avoid unneeded visual complexity  
 * Database input sanitation to prevent injection attacks such as SQLi  
 * Check the input before sending to the database for odd input  
 * Close the database access right after the CRUD operation is performed  
-* Keep the logic flow simple to minimize errors  
+* Keep the logic flow simple to minimize semantic errors  
 * Clever solutions usually add confusion; KISS  
-* Hide/encrypt passwords and keys to prevent breaches  
+* Hide/encrypt passwords and keys to prevent breaches
+  * Firebase is not HIPAA complient, so breaches deemed to be possible. More encryption needed.
 
