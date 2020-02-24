@@ -4,7 +4,7 @@
 
 For those who have used the UIC’s nighttime riding application, there may have been moments when you were frustrated with the inaccurate time estimates and route planning. The service runs after 11pm and is unreliable for UIC students that are looking out for their safety. Our project’s goal is to tackle the issues that the UIC nighttime ridesharing fails to accomplish. This application will try to implement more efficient and smarter routing algorithms to provide more informative and accurate estimates on time to pickup and dropoff. If the application surpasses the current application in terms of functionality, there will be requests made to UIC to reassess their current implementation.
 
-This project will be utilizing basic CRUD functionalities, geolocation, Openroute Service, Firebase, and Docker.
+This project will be utilizing basic CRUD functionalities, geolocation, Openrouteservice, Firebase, and Docker.
 
 ## English-langugage test descriptions: (User -> Driver / Rider)
 
@@ -35,7 +35,7 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 
 ## Authors
 
-| Member | Web dev level | Specialization |
+| Member | Web dev level | Team Specialization |
 | --- | --- | --- |
 | Siddhanth | Web Programming Novice | Cloud database integration with Firebase |
 | Anoop | Web Programming Novice | Cloud database integration with Firebase |
@@ -77,5 +77,5 @@ The UI should be completed with some of the CRUD functionalities in place and as
     - Firebase for database CRUD functionalities and easy integration with other Google services
          
 # Installation
-
 *TBD*
+*Maybe a JetBrains Deployment Server ヽ（´ー｀）┌ *
