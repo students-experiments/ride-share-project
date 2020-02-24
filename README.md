@@ -2,7 +2,7 @@
 
 ## Description
 
-  For those that have used the UIC’s nighttime riding application, there may have been moments where you were frustrated with the inaccurate time estimates and route planning. The service runs after 11pm and is unreliable for UIC students that are looking out for their safety. Our project’s goal is to tackle the issues that the UIC nighttime ridesharing fails to accomplish. This application will provide more informative and accurate estimates on time to pickup and dropoff. If the application surpasses the current application in terms of functionality, there will be requests made to UIC to reassess their current implementation.
+&nbsp&nbsp&nbsp&nbspFor those that have used the UIC’s nighttime riding application, there may have been moments where you were frustrated with the inaccurate time estimates and route planning. The service runs after 11pm and is unreliable for UIC students that are looking out for their safety. Our project’s goal is to tackle the issues that the UIC nighttime ridesharing fails to accomplish. This application will provide more informative and accurate estimates on time to pickup and dropoff. If the application surpasses the current application in terms of functionality, there will be requests made to UIC to reassess their current implementation.
 
 This project will be utilizing basic CRUD functionalities, geolocation, Google maps API, Firebase, and Docker.
 
@@ -17,8 +17,8 @@ For instance:
 | Member | Web dev level | Specialization |
 | --- | --- | --- |
 | Siddhanth | Web Programming Novice | |
-| Anoop | Took IT 202, built something in php once | I want to learn about website performance so I will be adding performance tests and keeping a performance log. |
-| Kevin | Interned as a web dev for the last 2 semesters | I will containerize the app and configure it to run within Kubernetes, integrate it with a CI/CD platform so that the deployed version is updated once all tests pass, and I will run a load test with several synthetic long-session users to demonstrate rolling updates to the code. |
+| Anoop | Web Programming Novice | |
+| Kevin | Web Programming Novice | |
 
 ## Deliverables for checkpoint 2
 
