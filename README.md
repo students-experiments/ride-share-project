@@ -18,34 +18,38 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It doesn’t let a user login without the right password 
   - It lets a logged in user to update their profile 
   - It doesn’t let a user login while already logged in
+  - It checks if a Rider is still in a ride or not
+  - It checks if a Driver is still available for requests
 * Account Logout
   - It lets a user logout
   - It doesn’t let you logout if you aren’t logged in
-  - It saves the user’s data in the database 
+  - It checks if the user's current status reflects properly in the database 
 * Transit (user or driver)
   - It checks if the user (or driver) is in transit upon login
   - It checks if the user (or driver) is in transit once a match is made
   - It doesn’t let a user make another request once in transit
   - It shares rides for riders in a given perimeter
+  - It removes the driver from the available drivers list once thier vehicle capacity is full
+  - It adds the driver to the available drivers list once their vehicle is no longer full
 * Ending Transit
   - It checks if the user is no longer in the database for users currently in transit
   - It checks if the driver is no longer in the database for drivers currently in transit
-  - It sends the driver to the availability page
+  - It sends the driver to the "waiting for riders" page
   - It sends the user back to the request page  
+  - It makes sure that the Driver ending one transit with a Rider does not take the Driver out from the available drivers list
 
 ## Authors
 
 | Member | Web dev level | Team Specialization |
 | --- | --- | --- |
-| Siddhanth | Web Programming Novice | Cloud database integration with Firebase |
+| Siddhanth | Web Programming Novice | Express-React Views Integration |
 | Anoop | Web Programming Novice | Cloud database integration with Firebase |
 | Kevin | Web Programming Novice | Cloud database integration with Firebase |
 
 ## Deliverables for checkpoint 2
-The UI should be completed with some of the CRUD functionalities in place and asking for a ride. 
+The UI should be completed with some of the CRUD functionalities. 
 * Registration
-  - Driver Registration API
-  - Rider Registration API
+  - Register a Driver and Rider
   - List Drivers Registered 
   - List Riders Registered
 * Upon starting the application, the user is prompted to login
@@ -77,5 +81,5 @@ The UI should be completed with some of the CRUD functionalities in place and as
     - Firebase for database CRUD functionalities and easy integration with other Google services
          
 # Installation
-*TBD*\
-*Maybe a JetBrains Deployment Server* ヽ（´ー｀）┌ 
+*TBD*
+No known installations needed for Firebase, Express-React Views to be downloaded/loaded on your computer.
