@@ -30,7 +30,7 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 * Ending Transit
   - It checks if the user is no longer in the database for users currently in transit
   - It checks if the driver is no longer in the database for drivers currently in transit
-  - It sends the driver to the Driver availability page
+  - It sends the driver to the "waiting for riders" page
   - It sends the user back to the ride request page  
 
 ## Authors
