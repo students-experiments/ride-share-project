@@ -18,10 +18,13 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It doesn’t let a user login without the right password 
   - It lets a logged in user to update their profile 
   - It doesn’t let a user login while already logged in
+  - It checks if a Rider is still in a ride or not
+  - It checks if a Driver is still available for requests
+  
 * Account Logout
   - It lets a user logout
   - It doesn’t let you logout if you aren’t logged in
-  - It saves the user’s data in the database 
+  - It checks if the user's current status reflects properly in the database 
 * Transit (user or driver)
   - It checks if the user (or driver) is in transit upon login
   - It checks if the user (or driver) is in transit once a match is made
@@ -33,14 +36,14 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It checks if the user is no longer in the database for users currently in transit
   - It checks if the driver is no longer in the database for drivers currently in transit
   - It sends the driver to the "waiting for riders" page
-  - It sends the user back to the ride request page  
-  - It makes sure that the Driver ending one transit with a Rider does not take the Driver out from the available drivers list 
+  - It sends the user back to the request page  
+  - It makes sure that the Driver ending one transit with a Rider does not take the Driver out from the available drivers list
 
 ## Authors
 
 | Member | Web dev level | Team Specialization |
 | --- | --- | --- |
-| Siddhanth | Web Programming Novice | Vue and/or React integration for front-end development |
+| Siddhanth | Web Programming Novice | Vue and/or React integration for Front-end |
 | Anoop | Web Programming Novice | Cloud database integration with Firebase |
 | Kevin | Web Programming Novice | Cloud database integration with Firebase |
 
@@ -53,7 +56,7 @@ The UI should be completed with some of the CRUD functionalities.
 * Upon starting the application, the user is prompted to login
   - Authenticate Registered Rider
   - Authenticate Registered Driver
-  - Redirect to relevant pages for authenticated Driver or Rider
+  - Redirect to relevant pages for authenticated driver and rider
 
 ## Deliverables for checkpoint 4
 * Drivers should be able to:
@@ -66,6 +69,7 @@ The UI should be completed with some of the CRUD functionalities.
   - View transit information 
 
 ## Deliverables for final project
+
 * Multiple rides should be shareable
 * Algorithm for ride sharing is logical and simple
 * Rider should be able to track driver after making a request
@@ -77,8 +81,8 @@ The UI should be completed with some of the CRUD functionalities.
   * Cloud:
     - Firebase for database CRUD functionalities and easy integration with other Google services
   * Front-end:
-    - Vue and/or React to make the UI look smoother and friendlier
+    - Vue and/or React to make the UI look smoother and friendlier  
          
 # Installation
 *TBD*\
-No known installations needed for Firebase, React, or Vue to be downloaded/loaded on your computer. 
+No known installations needed for Firebase, React, or Vue to be downloaded/loaded on your computer.
