@@ -27,11 +27,14 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It checks if the user (or driver) is in transit once a match is made
   - It doesn’t let a user make another request once in transit
   - It shares rides for riders in a given perimeter
+  - It removes the driver from the available drivers list once thier vehicle capacity is full
+  - It adds the driver to the available drivers list once their vehicle is no longer full
 * Ending Transit
   - It checks if the user is no longer in the database for users currently in transit
   - It checks if the driver is no longer in the database for drivers currently in transit
   - It sends the driver to the "waiting for riders" page
   - It sends the user back to the ride request page  
+  - It makes sure that the Driver ending one transit with a Rider does not take the Driver out from the available drivers list 
 
 ## Authors
 
