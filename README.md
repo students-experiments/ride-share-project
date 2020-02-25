@@ -8,30 +8,30 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 
 ## English-language test descriptions: (User -> Driver / Rider)
 
-* Account Creation\
+* Account Creation
   - It lets a user create an account 
   - It doesn’t let a user create an account with a taken username 
   - It doesn’t let a user create an account with a weak password
   - It doesn’t let a user create an account with an invalid password 
-* Account Login\
+* Account Login
   - It lets a user login to their account
   - It doesn’t let a user login without the right password 
   - It lets a logged in user to update their profile 
   - It doesn’t let a user login while already logged in
   - It checks if a Rider is still in a ride or not
   - It checks if a Driver is still available for requests
-* Account Logout\
+* Account Logout
   - It lets a user logout
   - It doesn’t let you logout if you aren’t logged in
   - It checks if the user's current status reflects properly in the database 
-* Transit (user or driver)\
+* Transit (user or driver)
   - It checks if the user (or driver) is in transit upon login
   - It checks if the user (or driver) is in transit once a match is made
   - It doesn’t let a user make another request once in transit
   - It shares rides for riders in a given perimeter
   - It removes the driver from the available drivers list once thier vehicle capacity is full
   - It adds the driver to the available drivers list once their vehicle is no longer full
-* Ending Transit\
+* Ending Transit
   - It checks if the user is no longer in the database for users currently in transit
   - It checks if the driver is no longer in the database for drivers currently in transit
   - It sends the driver to the "waiting for riders" page
@@ -42,7 +42,7 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 
 | Member | Web dev level | Team Specialization |
 | --- | --- | --- |
-| Siddhanth | Web Programming Novice | Vue and/or React integration for Front-end |
+| Siddhanth | Web Programming Novice | Express-React Views Integration |
 | Anoop | Web Programming Novice | Cloud database integration with Firebase |
 | Kevin | Web Programming Novice | Cloud database integration with Firebase |
 
@@ -79,9 +79,7 @@ The UI should be completed with some of the CRUD functionalities.
 **Specializations**
   * Cloud:
     - Firebase for database CRUD functionalities and easy integration with other Google services
-  * Front-end:
-    - Vue and/or React to make the UI look smoother and friendlier  
          
 # Installation
-*TBD*\
-No known installations needed for Firebase, React, or Vue to be downloaded/loaded on your computer.
+*TBD*
+No known installations needed for Firebase, Express-React Views to be downloaded/loaded on your computer.
