@@ -37,21 +37,20 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 
 | Member | Web dev level | Team Specialization |
 | --- | --- | --- |
-| Siddhanth | Web Programming Novice | Cloud database integration with Firebase |
+| Siddhanth | Web Programming Novice | Vue and/or React integration for front-end development |
 | Anoop | Web Programming Novice | Cloud database integration with Firebase |
 | Kevin | Web Programming Novice | Cloud database integration with Firebase |
 
 ## Deliverables for checkpoint 2
 The UI should be completed with some of the CRUD functionalities in place and asking for a ride. 
 * Registration
-  - Driver Registration API
-  - Rider Registration API
+  - Register a Driver and Rider
   - List Drivers Registered 
   - List Riders Registered
 * Upon starting the application, the user is prompted to login
   - Authenticate Registered Rider
   - Authenticate Registered Driver
-  - Redirect to relevant pages for authenticated driver and rider
+  - Redirect to relevant pages for authenticated Driver or Rider
 
 ## Deliverables for checkpoint 4
 * Drivers should be able to:
@@ -64,7 +63,6 @@ The UI should be completed with some of the CRUD functionalities in place and as
   - View transit information 
 
 ## Deliverables for final project
-
 * Multiple rides should be shareable
 * Algorithm for ride sharing is logical and simple
 * Rider should be able to track driver after making a request
@@ -75,7 +73,9 @@ The UI should be completed with some of the CRUD functionalities in place and as
 **Specializations**
   * Cloud:
     - Firebase for database CRUD functionalities and easy integration with other Google services
+  * Front-end:
+    - Vue and/or React to make the UI look smoother and friendlier
          
 # Installation
 *TBD*\
-*Maybe a JetBrains Deployment Server* ヽ（´ー｀）┌ 
+No known installations needed for Firebase, React, or Vue to be downloaded/loaded on your computer. 
