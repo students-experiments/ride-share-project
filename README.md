@@ -45,7 +45,7 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 | Kevin | Web Programming Novice | Cloud database integration with Firebase |
 
 ## Deliverables for checkpoint 2
-The UI should be completed with some of the CRUD functionalities in place and asking for a ride. 
+The UI should be completed with some of the CRUD functionalities. 
 * Registration
   - Register a Driver and Rider
   - List Drivers Registered 
