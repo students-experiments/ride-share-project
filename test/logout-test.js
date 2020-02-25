@@ -61,10 +61,9 @@ describe('application', async () => {
     await server.close();
   });
 
-  describe("register", async () => {
-    it("lets a user create an account");
-    it("doesn't allow duplicate usernames");
-    it("doesn't allow a user to create an account with a weak password");
-    it("doesn't allow a user to create an account with an invalid password");
+  describe("logout", async () => {
+    it("lets a user logout");
+    it("requires a user to be logged in while logging out");
+    it("requires the transit status in the database to be consistent with the actual current transit status of the user");
   });
 });

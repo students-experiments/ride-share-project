@@ -53,6 +53,19 @@ describe('application', async () => {
     return s;
   }
 
-  
+  before(async () => {
+    server = app.listen(PORT);
+  });
+
+  after(async () => {
+    await server.close();
+  });
+
+  describe("login", async () => {
+    it("lets a user login to his/her account");
+    it("doesn't allow a user to login without the right password");
+    it("requires the user to be logged in while updating the profile");
+    it("checks if the user's session is running already");
+  });
   
 });
