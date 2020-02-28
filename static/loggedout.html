@@ -1,0 +1,73 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <div class="header">
+    <h1>Express</h1>
+    <p>Welcome to Express!</p>
+  </div>
+
+  <div class="app">
+    <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <div class="section">
+            <form action="register" method="POST">
+              <div class="section-title">
+                Wanna register?
+              </div>
+              <div>
+                <label for="email">email:</label>
+                <input class="form-control" name="email" id="registeremail" type="email"/>
+              </div>
+
+              <div>
+                <label for="password">password:</label>
+                <input class="form-control" for="password" name="password" id="registerpassword" type="password" />
+              </div>
+              
+              <div><button class="btn btn-secondary btn-block btn-sm">Register</button></div>
+              
+            </form>
+
+            <form action="sign_in_with_google" method="GET">
+              <div class="section-title">
+                Wanna Sign In with Google?
+              </div>
+              
+              <div><button class="btn btn-secondary btn-block btn-sm">Sign In With Google</button></div>
+              
+            </form>
+
+
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="section">
+            <form action="login" method="POST">
+              <div class="section-title">
+                Wanna login?
+              </div>
+              <div>
+                <label for="username">username:</label>
+                <input class="form-control" name="username" id="loginusername" />
+              </div>
+              <div>
+                <label for="password">password:</label>
+                <input class="form-control" for="password" name="password" id="loginpassword" type="password" />
+              </div>
+              <div><button class="btn btn-secondary btn-block btn-sm">Login</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

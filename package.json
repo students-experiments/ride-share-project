@@ -26,10 +26,11 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.0",
+    "firebase": "^7.9.2",
+    "firebaseui": "^4.4.0",
     "hbs": "^4.1.0",
     "morgan": "~1.9.1",
-    "stoppable": "^1.1.0",
-    "firebase": "^7.9.1"
+    "stoppable": "^1.1.0"
   },
   "devDependencies": {
     "axios": "^0.19.2",
