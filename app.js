@@ -10,10 +10,17 @@ if (process.env.NODE_ENV !== 'test') {
   /* only log http requests when not testing */
   app.use(logger('dev'));
 }
+
+app.set('views', __dirname + "/views");
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, './static')));
-app.set('view engine', 'hbs');
 app.use('/', indexRouter);
+
+/* */
+// app.get('/', require('./routes').index);
 
 module.exports = app;

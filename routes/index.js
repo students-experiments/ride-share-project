@@ -22,10 +22,44 @@ router.use(
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  // TODO: send the HTML of the home page if the user is not logged in,
-  // and send the contents of the logged in page if the user is logged in.
-
-  // This is the mock response, remove it when you add your own response.
-  sendLoggedOut(res);
+  // Send home page
+  res.render('home');
 }); 
+
+router.post('/homeDriver', (req, res) => {
+  res.render('homeDriver');
+});
+
+router.post('/homeRider', (req, res) => {
+  res.render('homeRider');
+});
+
+router.post('/registerRider', (req, res) => {
+  // Send rider registration page
+  res.render('registerRider');
+});
+
+router.post('/registerDriver', (req, res) => {
+  // Send driver registration page
+  res.render('registerDriver');
+});
+
+router.post('/loginRider', (req, res) => {
+  // Send rider registration page
+  res.render('loggedInRider', {
+    username: req.body.username
+  });
+});
+
+router.post('/requestRide', (req, res) => {
+  res.render('searchRide');
+});
+
+router.post('/loginDriver', (req, res) => {
+  res.render('loggedInDriver', {
+    username: req.body.username
+  });
+});
+
+// Add routes for register (driver and rider)
 module.exports = router;
