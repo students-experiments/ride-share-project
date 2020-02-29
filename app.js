@@ -2,6 +2,15 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
+const admin = require("firebase-admin");
+
+var serviceAccount = require("/Users/anoopnagabhushan/Desktop/UIC/CS494/ride match/final-project-create-table-students/uic-rider-firebase-adminsdk-5w2n7-934e616fef.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://uic-rider.firebaseio.com"
+});
+
 //firbase dependency
 var firebase = require("firebase");
 // var firebaseui = require('firebaseui');
@@ -33,5 +42,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+
 
 module.exports = app;

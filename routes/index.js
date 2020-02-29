@@ -2,10 +2,11 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 //var firebaseui = require('firebaseui');
-const firebase = require("firebase");
-const auth=firebase.auth;
+const firebase =require('firebase');
+const firebase_admin = require("firebase-admin");
+const auth=firebase_admin.auth;
 const sendLoggedOut = (res) => {
-  res.sendFile(path.join(__dirname, '../static/loggedout.html'));
+  res.sendFile(path.join(__dirname, '../static/home.html'));
 };
 
 const router = express.Router();
@@ -28,12 +29,29 @@ router.get('/', (req, res) => {
 
   sendLoggedOut(res);
 }); 
+router.get('/register',(req, res) => {
+
+  console.log("request",req.query);
+  if(req.query.user === 'driver'){
+    console.log("driver registry:");
+    res.sendFile(path.join(__dirname, '../static/driver-register.html'));
+  }else if(req.query.user === 'rider'){
+    console.log("Rider registry:");
+    res.sendFile(path.join(__dirname, '../static/rider-register.html'));
+  }
+  else{
+    console.log('register failing');
+    res.render('home');
+  }
+
+});
 
 
-router.post('/register', (req, res) => {
+router.post('/register-rider', (req, res) => {
   // TODO: check that the user doesn't exist and add this user to the database.
   // Check whether username already exists in local store
 
+  console.log('in register-rider');
   
   email=req.body.email;
   pass=req.body.password;
@@ -42,27 +60,87 @@ router.post('/register', (req, res) => {
   console.log("password",pass);
   if(!email || !pass){
     
-    return console.log("Email and password needed");
+    console.log("Email and password needed");
+    res.render('rider-register');
+
   }
-  firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(result){
+  else{
+    
+    firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(result){
 
-    console.log("Email Authenticated");
-    //var token = result.credential.accessToken;
-    // The signed-in user info.
-    //console.log(result);
-    var user = result.user;
-    console.log("uidddd",user.uid);
-    res.render('home');
+      console.log("Email Authenticated");
+      //var token = result.credential.accessToken;
+      // The signed-in user info.
+      //console.log(result);
+      var user = result.user;
+      console.log("uidddd",user.uid);
+      var param={"uid": user.uid , "role" : "rider"};
+      console.log("params",param);
+      dbstore(param);
 
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    return console.log(errorMessage);
-    // ...
-  });
+      res.render('home');
+
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      return console.log(errorMessage);
+    });
+  }
     
   });
+  function dbstore(params){
+    console.log("params in DBStore",params);
+    var db = firebase_admin.database();
+    var ref = db.ref('server/users/');
+    //var usersRef = ref.child("users");
+    ref.set({
+      uid:params.uid,
+      role: params.role
+      });
+  }
+
+
+  router.post('/register-driver', (req, res) => {
+    // TODO: check that the user doesn't exist and add this user to the database.
+    // Check whether username already exists in local store
+  
+    
+    email=req.body.email;
+    pass=req.body.password;
+  
+    console.log("email:",email);
+    console.log("password",pass);
+    if(!email || !pass){
+      
+      console.log("Email and password needed");
+
+    }
+    else{
+      firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(result){
+    
+        console.log("Email Authenticated");
+        //var token = result.credential.accessToken;
+        // The signed-in user info.
+        //console.log(result);
+        var user = result.user;
+        console.log("uidddd",user.uid);
+        
+        var param={"uid": user.uid , "role" : "driver"};
+        console.log("params",param);
+        dbstore(param);
+        res.render('home');
+    
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        return console.log(errorMessage);
+        
+      });
+    }
+      
+    });
 
   // router.get('/sign_in_with_google', (req, res) => {
   //   var provider = new firebase.auth.GoogleAuthProvider();
