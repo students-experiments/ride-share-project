@@ -1,4 +1,3 @@
-// Import the dependencies for testing
 const assert = require('assert');
 const axios = require('axios').default;
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
