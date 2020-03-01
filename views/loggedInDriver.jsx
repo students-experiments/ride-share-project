@@ -18,7 +18,7 @@ function driverLoggedIn(props) {
                 <h2> Welcome {props.username}</h2>
 
                 <form action = "/searchRide" method = "POST">
-                    <button type = "submit" class = "btn btn-lg btn-secondary"> Search for a ride </button>
+                    <button type = "submit" class = "btn btn-lg btn-secondary"> Ready to pick up </button>
                 </form>
             </body>
         </html>

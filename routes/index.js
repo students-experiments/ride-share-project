@@ -34,12 +34,12 @@ router.post('/homeRider', (req, res) => {
   res.render('homeRider');
 });
 
-router.post('/registerRider', (req, res) => {
+router.get('/registerRider', (req, res) => {
   // Send rider registration page
   res.render('registerRider');
 });
 
-router.post('/registerDriver', (req, res) => {
+router.get('/registerDriver', (req, res) => {
   // Send driver registration page
   res.render('registerDriver');
 });
@@ -58,6 +58,22 @@ router.post('/requestRide', (req, res) => {
 router.post('/loginDriver', (req, res) => {
   res.render('loggedInDriver', {
     username: req.body.username
+  });
+});
+
+router.post('/searchRide', (req, res) => {
+  // Make the required mapping and then send the driver pickup page
+
+  // list of riders mapped is hardcoded for now
+  res.render('driverPickup', {
+    list: ['rider 1', 'rider 2', 'rider 3', 'rider 4']
+  });
+});
+
+
+router.post('/startRide', (req, res) => {
+  res.render('driverTransit', {
+    list: ['rider 1', 'rider 2', 'rider 3', 'rider 4']
   });
 });
 

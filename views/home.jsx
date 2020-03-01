@@ -25,11 +25,11 @@ function HomePage(props) {
                         <button type = "submit" class = "btn btn-primary"> Login as Rider </button>
                     </form>
 
-                    <form action = "/registerDriver" method = "POST">
+                    <form action = "/registerDriver" method = "GET">
                         <button type = "submit" class = "btn btn-secondary"> Drivers Register Here </button>
                     </form>
 
-                    <form action = "/registerRider" method = "POST">
+                    <form action = "/registerRider" method = "GET">
                         <button type = "submit" class = "btn btn-secondary"> Riders Register Here </button>
                     </form>
                 </div>

@@ -18,7 +18,7 @@ function HomePageRider(props) {
 
                 <div class = "main">
                     <h2> Login to your Account </h2>
-                    <form action = "/" method = "POST">
+                    <form action = "/loginRider" method = "POST">
                         <label for = "username" class = "sr-only"> Username </label>
                         <input type = "text" id = "username" name = "username" class = "form-control" placeholder = "Username"/>
                         <br />
