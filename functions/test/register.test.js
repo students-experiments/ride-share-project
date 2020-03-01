@@ -53,6 +53,18 @@ describe('application', async () => {
     return s;
   }
 
-  
-  
+  before(async () => {
+    server = app.listen(PORT);
+  });
+
+  after(async () => {
+    await server.close();
+  });
+
+  describe("register", async () => {
+    it("lets a user create an account");
+    it("doesn't allow duplicate usernames");
+    it("doesn't allow a user to create an account with a weak password");
+    it("doesn't allow a user to create an account with an invalid password");
+  });
 });
