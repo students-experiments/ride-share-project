@@ -1,13 +1,13 @@
 var React = require('react');
 
-function HomePageDriver(props) {
+function HomePageRider(props) {
     
     return(
         <html>
             <head>
                 <title>UIC Night Rider</title>
                 <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
-                <link rel="stylesheet" href="/stylesheets/styleHome.css" />
+                <link rel="stylesheet" href="/stylesheets/style.css" />
             </head>
 
             <body>
@@ -18,10 +18,10 @@ function HomePageDriver(props) {
 
                 <div class = "main">
                     <h2> Login to your Account </h2>
-                    <form action = "/loginDriver" method = "POST">
-                        <label for = "username" class = "sr-only"> Username </label>
-                        <input type = "text" id = "username" name = "username" class = "form-control" placeholder = "Username"/>
-                        <br />
+                    <form action = "/loginRider" method = "POST">
+                        <label for="inputEmail" class = "sr-only">Email</label>
+                        <input name = "email" type="email" id = "inputEmail" class = "form-control" placeholder = "Email" required />
+                       <br />
                         <label for = "password" class = "sr-only"> Password </label>
                         <input type = "password" id = "password" name = "password" class = "form-control" placeholder = "Password"/>
                         <br />
@@ -34,4 +34,4 @@ function HomePageDriver(props) {
     );
 }
 
-module.exports = HomePageDriver;
+module.exports = HomePageRider;
