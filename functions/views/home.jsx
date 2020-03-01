@@ -16,19 +16,19 @@ function HomePage(props) {
                 </div>
 
                 <div class = "main">
-                    <form action = "/homeDriver" method = "GET">
+                    <form action = "/login-driver" method = "GET">
                         <button type = "submit" class = "btn btn-primary"> Login as Driver </button>
                     </form>
 
-                    <form action = "/homeRider" method = "GET">
+                    <form action = "/login-rider" method = "GET">
                         <button type = "submit" class = "btn btn-primary"> Login as Rider </button>
                     </form>
 
-                    <form action = "/registerDriver" method = "GET">
+                    <form action = "/register-driver" method = "GET">
                         <button type = "submit" class = "btn btn-secondary"> Drivers Register Here </button>
                     </form>
 
-                    <form action = "/registerRider" method = "GET">
+                    <form action = "/register-rider" method = "GET">
                         <button type = "submit" class = "btn btn-secondary"> Riders Register Here </button>
                     </form>
                 </div>
