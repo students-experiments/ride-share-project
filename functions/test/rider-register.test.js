@@ -5,11 +5,23 @@ const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
-const app = require('../app');
+const app = require('../index');
 
 axiosCookieJarSupport(axios);
 
 const PORT = 3000;
+
+beforeEach(async () => {
+    client = axios.create();
+    // make a new cookie jar every time you create a new client
+    client.defaults.jar = new tough.CookieJar();
+  
+    server = stoppable(app.listen(PORT));
+    });
+  
+  afterEach(async () => {
+    server.stop();
+  });
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -62,9 +74,9 @@ describe('application', async () => {
   });
 
   describe("register", async () => {
-    it("lets a user create an account");
+    it("lets a rider create an account");
     it("doesn't allow duplicate usernames");
-    it("doesn't allow a user to create an account with a weak password");
-    it("doesn't allow a user to create an account with an invalid password");
+    it("doesn't allow a rider to create an account with a weak password");
+    it("doesn't allow a rider to create an account with an invalid password");
   });
 });

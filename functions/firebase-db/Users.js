@@ -3,7 +3,7 @@ const firebase_admin = require("firebase-admin")
 const firebase=require("firebase");
 
 // const serviceAccount = require('/Users/anoopnagabhushan/Desktop/UIC/CS494/ride match/final-project-create-table-students/firebase-service-account.json');
-const serviceAccount = require("../../firebase-service-account.json");
+const serviceAccount = require("../../uic-rider-firebase-adminsdk-5w2n7-a8a9ff0ef5.json");
 var refreshToken;
 const admin_config={
     credentials:firebase_admin.credential.cert(serviceAccount),

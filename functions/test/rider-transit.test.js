@@ -5,11 +5,23 @@ const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
-const app = require('../app');
+const app = require('../index');
 
 axiosCookieJarSupport(axios);
 
 const PORT = 3000;
+
+beforeEach(async () => {
+  client = axios.create();
+  // make a new cookie jar every time you create a new client
+  client.defaults.jar = new tough.CookieJar();
+
+  server = stoppable(app.listen(PORT));
+  });
+
+afterEach(async () => {
+  server.stop();
+});
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -61,9 +73,8 @@ describe('application', async () => {
     await server.close();
   });
 
-  describe("logout", async () => {
-    it("lets a user logout");
-    it("requires a user to be logged in while logging out");
-    it("requires the transit status in the database to be consistent with the actual current transit status of the user");
+  describe("transit", async () => {
+    it("checks if the rider is still in a ride");
+    // More test cases
   });
 });
