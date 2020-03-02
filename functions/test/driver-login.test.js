@@ -61,7 +61,53 @@ describe('application', async () => {
   });
 
   describe("login", async () => {
-    it("Lets a driver login");
-    // more tests
+    it("requires the driver to be registered before logging in", async() => {
+        let response = await client.post("/driver-login", {
+          email : "kevin@uic-rider.firebaseio.com",
+          password : "Hell0"
+        });
+        assert(!response.data.includes("Account doesn't exist."));
+      });
+  
+  
+      it("lets a rider login to their account", async() => {
+        // Have to register an account first
+        let registerAccount = await client.post("/driver-register", {
+          email : "kevin@uic-rider.firebaseio.com", 
+          password : "Hell0", 
+        });
+  
+        // Then login and see if the added driver was allowed in
+        let response = await client.post("/driver-login", {
+          email : "kevin@uic-rider.firebaseio.com",
+          password : "Hell0"
+        });
+        assert(response.data.includes("Welcome"));
+      });
+  
+  
+      it("doesn't allow a rider to login without the right password", async() => {
+        // Have to register an account first
+        let registerAccount = await client.post("/driver-register", {
+          email : "kevin@uic-rider.firebaseio.com", 
+          password : "Hell0", 
+        });
+      
+        // Check for correct password
+        let response = await client.post("/driver-login", {
+          email : "kevin@uic-rider.firebaseio.com",
+          password : "Hell0"
+        });
+        assert(!response.data.includes("Invalid credentials."));
+      });
+  
+  
+      it("checks if the user's session is running already", async () => {
+        let response = await client.post("/driver-login", {
+          email : "kevin@uic-rider.firebaseio.com",
+          password : "Hell0"
+        });
+        assert(!response.data.includes("Ride in progress"));
+      });
   });
 });

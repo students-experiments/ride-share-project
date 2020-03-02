@@ -61,32 +61,40 @@ describe('application', async () => {
   });
 
   describe("login", async () => {
-    it("requires the user to be registered before logging in", async() => {
+    it("requires the rider to be registered before logging in", async() => {
       let response = await client.post("/login", {
         email : "kevin@uic-rider.firebaseio.com",
         password : "Hell0"
       });
-      assert(!response.data.includes("Account doesn't exist yet."));
+      assert(!response.data.includes("Account doesn't exist."));
     });
 
 
     it("lets a rider login to their account", async() => {
-      // Have to register an account first
+      // Have to register a rider account first
       let registerAccount = await client.post("/rider-register", {
-        username : "kevin@uic-rider.firebaseio.com", 
+        email : "kevin@uic-rider.firebaseio.com", 
         password : "Hell0", 
       });
-      // Then login and see if the added users was allowed
-      let response = await client.post("/login", {
+
+      // Then login and see if the added rider was allowed in
+      let response = await client.post("/rider-login", {
         email : "kevin@uic-rider.firebaseio.com",
         password : "Hell0"
       });
-      assert(!response.data.includes("Welcome"));
+      assert(response.data.includes("Welcome"));
     });
 
 
     it("doesn't allow a rider to login without the right password", async() => {
-      let response = await client.post("/login", {
+      // Have to register an account first
+      let registerAccount = await client.post("/rider-register", {
+        email : "kevin@uic-rider.firebaseio.com", 
+        password : "Hell0", 
+      });
+    
+      // Check for correct password
+      let response = await client.post("/rider-login", {
         email : "kevin@uic-rider.firebaseio.com",
         password : "Hell0"
       });
@@ -94,9 +102,13 @@ describe('application', async () => {
     });
 
 
-    it("requires the user to be logged in while updating the profile");
-    it("checks if the user's session is running already");
-  });
-  
+    it("checks if the user's session is running already", async () => {
+      let response = await client.post("/rider-login", {
+        email : "kevin@uic-rider.firebaseio.com",
+        password : "Hell0"
+      });
+      assert(!response.data.includes("Ride in progress"));
+    });
 
+  });
 });
