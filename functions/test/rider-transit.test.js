@@ -61,10 +61,8 @@ describe('application', async () => {
     await server.close();
   });
 
-  describe("register", async () => {
-    it("lets a user create an account");
-    it("doesn't allow duplicate usernames");
-    it("doesn't allow a user to create an account with a weak password");
-    it("doesn't allow a user to create an account with an invalid password");
+  describe("transit", async () => {
+    it("checks if the rider is still in a ride");
+    // More test cases
   });
 });

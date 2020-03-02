@@ -1,3 +1,4 @@
+// Import the dependencies for testing
 const assert = require('assert');
 const axios = require('axios').default;
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
@@ -60,11 +61,9 @@ describe('application', async () => {
     await server.close();
   });
 
-  describe("login", async () => {
-    it("lets a user login to his/her account");
-    it("doesn't allow a user to login without the right password");
-    it("requires the user to be logged in while updating the profile");
-    it("checks if the user's session is running already");
+  describe("logout", async () => {
+    it("lets a rider logout");
+    it("requires a rider to be logged in while logging out");
+    it("requires the transit status in the database to be consistent with the actual current transit status of the user");
   });
-  
 });
