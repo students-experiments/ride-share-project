@@ -11,6 +11,18 @@ axiosCookieJarSupport(axios);
 
 const PORT = 3000;
 
+beforeEach(async () => {
+  client = axios.create();
+  // make a new cookie jar every time you create a new client
+  client.defaults.jar = new tough.CookieJar();
+
+  server = stoppable(app.listen(PORT));
+  });
+
+afterEach(async () => {
+  server.stop();
+});
+
 describe('application', async () => {
   /* fill these in before each test */
   let server = {};

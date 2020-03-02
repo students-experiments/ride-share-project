@@ -62,9 +62,23 @@ describe('application', async () => {
   });
 
   describe("register", async () => {
-    it("lets a driver create an account");
+    it("lets a driver create an account", async () => {
+      let response = await client.post("/driver-register", {
+        email : "abc@xyz.com",
+        password : "Hell0"
+      });
+      assert(!response.data.includes("Ride in progress"));
+    });
+
+
+      
     it("doesn't allow duplicate usernames");
     it("doesn't allow a driver to create an account with a weak password");
     it("doesn't allow a driver to create an account with an invalid password");
   });
+
+
+
+
+
 });
