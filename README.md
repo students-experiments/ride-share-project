@@ -58,38 +58,31 @@ The UI should be completed with some of the CRUD functionalities.
   - Redirect to relevant pages for authenticated driver and rider
 
 ## Deliverables for checkpoint 4
-1. The front end should be able to:   
+1. The rider side of the application should be able to:  
    * Have a front-end that is very simple in looks   
-   * Login a user and take them to their respective page based on their role (rider or driver)    
-   * Logout a user and take them to the login page    
-   * Register a user and assign them a role (rider or driver) based on their inputs on account creation    
-   * Allow a rider to request a ride     
-   * Allow a driver to be available to pickup riders that sent out requests    
-2. The database should be able to:     
-   * Manage authorization of access to rider and driver's accounts
-   * Add a rider or driver and assign them a userID along with their designated "roles"   
-   * Update the status of a rider when they enter or exit a ride  
-   * Update the status of the driver when he is waiting for requests or if ride is full   
-   * Delete an account if the user so wishes to delete their account    
-3. The backend should be able to:   
-   * Create requests to the database for user information     
-   * Get information from the database to prepare to be shown to the user  
-4. Drivers should be able to:  
-   * Start a ride 
-   * Have basic information on the rider
-   * State how much room they have left 
-   * End a ride with confirmation  
-   * Have current transit information   
-5. Riders should be able to:    
-   * Request a ride with geo location
-   * Be assigned to a driver for pcikup
+   * Login or register the rider and take them to their respective page 
+   * Update the database with a new user with a userID and role (rider or driver) and other basic information
+   * Allow a ride request from the rider with geolocation
+   * Be assigned to a driver for pickup
+   * Update the status of the rider in the database once they join a ride
+   * View the information about the driver 
    * View transit information
-   * Have basic information on the driver
-   * Say how many people will be joining the ride
-6. The application should be able to: 
-   * Start a ride from beginning to end    
-   * Have a basic algorithm for picking up and dropping off riders   
-   * Show location of the driver in respect to the rider's requested location  
+   * Update the rider's status in the database when the rider gets off
+   * Send the rider to the 'request a ride' page once the ride is over
+   
+2. The driver side of the application should be able to:  
+   * Have a front-end that is very simple in looks   
+   * Login or register the driver and take them to their respective page 
+   * Update the database with a new user with a userID and role (rider or driver) and other basic information
+   * Allow the driver to be available for picking up riders
+   * Be assigned a rider to pick up
+   * Update the amount of room left in the ride when picking up a rider 
+   * View basic information about the rider
+   * Show the driver the route to take to efficiently drop off the rider
+   * Update the driver's status if the driver ends their driving session
+   * Sends the driver to the 'available to pickup' page if ending their session
+   
+   
   
 ## Deliverables for final project
 
