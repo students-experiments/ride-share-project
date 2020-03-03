@@ -14,7 +14,7 @@ Big issues being tackled taken from: https://owasp.org/www-project-top-ten/
         - Gain admin privileges  
         - Check if passwords are hidden  
 * Sensitive Data Exposure 
-  - An attacker may want to:   
+  - An attacker may want to:      
         - Check faults in system architecture
         - Check known API vulnerabilities   
         - Check if API keys were stored properly 
@@ -39,5 +39,5 @@ Big issues being tackled taken from: https://owasp.org/www-project-top-ten/
 * Keep the logic flow simple to minimize semantic errors  
 * Clever solutions usually add confusion; KISS  
 * Hide/encrypt passwords and keys to prevent breaches
-  * Firebase is not HIPAA complient, so breaches deemed to be possible. More encryption needed.
+* Firebase is not HIPAA complient, so breaches deemed to be possible. More encryption needed.
 
