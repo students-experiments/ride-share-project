@@ -58,15 +58,32 @@ The UI should be completed with some of the CRUD functionalities.
   - Redirect to relevant pages for authenticated driver and rider
 
 ## Deliverables for checkpoint 4
-* Drivers should be able to:
-  - Start a ride
-  - End ride with confirmation
-  - Have transit information
-* Riders should be able to:
-  - Request one ride with Geo location & other relevant parameters
-  - Get assigned to a driver for pickup
-  - View transit information 
-
+1. The rider side of the application should be able to:  
+   * Have a front-end that is very simple in looks   
+   * Login or register the rider and take them to their respective page 
+   * Update the database with a new user with a userID and role (rider or driver) and other basic information
+   * Allow a ride request from the rider with geolocation
+   * Be assigned to a driver for pickup
+   * Update the status of the rider in the database once they join a ride
+   * View the information about the driver 
+   * View transit information
+   * Update the rider's status in the database when the rider gets off
+   * Send the rider to the 'request a ride' page once the ride is over
+   
+2. The driver side of the application should be able to:  
+   * Have a front-end that is very simple in looks   
+   * Login or register the driver and take them to their respective page 
+   * Update the database with a new user with a userID and role (rider or driver) and other basic information
+   * Allow the driver to be available for picking up riders
+   * Be assigned a rider to pick up
+   * Update the amount of room left in the ride when picking up a rider 
+   * View basic information about the rider
+   * Show the driver the route to take to efficiently drop off the rider
+   * Update the driver's status if the driver ends their driving session
+   * Sends the driver to the 'available to pickup' page if ending their session
+   
+   
+  
 ## Deliverables for final project
 
 * Multiple rides should be shareable
