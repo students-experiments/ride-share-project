@@ -81,7 +81,7 @@ The UI should be completed with some of the CRUD functionalities.
    * Show the driver the route to take to efficiently drop off the rider
    * Update the driver's status if the driver ends their driving session
    * Sends the driver to the 'available to pickup' page if ending their session
-   
+   [Wiki for more imformation](https://github.com/ckanich-classrooms/final-project-create-table-students/wiki/Discusssions)
    
   
 ## Deliverables for final project
