@@ -85,6 +85,7 @@ function validateUserRole(uid,role){
 
 
 }
+
 function loginUser(user){
     console.log("user",user);
     return new Promise((resolve,reject)=>{
@@ -108,6 +109,7 @@ function loginUser(user){
       });
     });
 }
+
 function prepareUserDBObject(user){
     var data;
     data={

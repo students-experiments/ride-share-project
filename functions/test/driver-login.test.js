@@ -4,23 +4,16 @@ const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
-const app = require('../app');
+const app = require('../index.js');
+
 
 axiosCookieJarSupport(axios);
 
-const PORT = 3000;
 
 beforeEach(async () => {
-  client = axios.create();
-  // make a new cookie jar every time you create a new client
-  client.defaults.jar = new tough.CookieJar();
-
-  server = stoppable(app.listen(PORT));
+  client = app;
 });
 
-afterEach(async () => {
-  server.stop();
-});
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -28,7 +21,7 @@ describe('application', async () => {
   let client = {};
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = `http://localhost:${PORT}/`;
+  axios.defaults.baseURL = `https://uic-rider.firebaseapp.com`;
   axios.defaults.validateStatus = () => true;
 
   /* Utility functions
@@ -64,71 +57,91 @@ describe('application', async () => {
     return s;
   }
 
-  before(async () => {
-    server = app.listen(PORT);
-  });
-
-  after(async () => {
-    await server.close();
-  });
-
   describe("login", async () => {
     it("requires the driver to be registered before logging in", async() => {
-        let response = await client.post("/driver-login", {
+        axios.post("/login-driver", {
           email : "abc@xyz.com",
           password : "Hell0"
-        });
-        assert(!response.data.includes("Account doesn't exist."));
+        })
+        .then((response) => {
+          assert(!response.data.includes("Account doesn't exist."));
+          return;  
+        })
+        .catch();
       });
-  
-  
-      it("lets a rider login to their account", async() => {
+
+      it("lets a driver login to their account", async() => {
         // Have to register an account first
-        let registerAccount = await client.post("/driver-register", {
+        let registerAccount = axios.post("/register-driver", {
           email : "abc@xyz.com", 
           password : "Hell0", 
         });
-  
-        // Then login and see if the added driver was allowed in
-        let response = await client.post("/driver-login", {
-          email : "abc@xyz.com",
-          password : "Hell0"
-        });
-        assert(response.data.includes("Welcome"));
+        registerAccount.then(()=>{
+          let response = axios.post("/login-driver", {
+            email : "abc@xyz.com",
+            password : "Hell0"
+          });
+
+          return response;
+        }).then((response)=>{
+          assert(response.data.includes("Welcome"));
+          return;          
+        })
+        .catch()
       });
   
   
-      it("doesn't allow a rider to login without the right password", async() => {
+      it("doesn't allow a driver to login without the right password", async() => {
         // Have to register an account first
-        let registerAccount = await client.post("/driver-register", {
-          email : "abc@xyz.com", 
-          password : "Hell0", 
-        });
+        // let registerAccount = await client.post("/driver-register", {
+        //   email : "abc@xyz.com", 
+        //   password : "Hell0", 
+        // });
       
-        // Check for correct password
-        let response = await client.post("/driver-login", {
-          email : "abc@xyz.com",
-          password : "Hell0"
+        // // Check for correct password
+        // let response = await client.post("/login-driver", {
+        //   email : "abc@xyz.com",
+        //   password : "Hell0"
+        // });
+        // assert(!response.data.includes("Invalid credentials."));
+        
+        let registerAccount = await axios.post("/driver-register", {
+            email : "abc@xyz.com", 
+            password : "Hell0", 
         });
-        assert(!response.data.includes("Invalid credentials."));
+
+        registerAccount.then(() => {
+          let response = axios.post("/login-driver", {
+              email : "abc@xyz.com",
+              password : "Hell0"
+          });
+          return response;
+        }).then((response) => {
+            assert(!response.data.includes("Invalid credentials."));
+            return;
+        })
+        .catch();
       });
   
-  
-      it("checks if the user's session is running already", async () => {
+      it("checks if the driver's session is running already", async () => {
         // Register for account first 
-        let registerAccount = await client.post("/driver-register", {
+        let registerAccount = axios.post("/register-driver", {
           email : "abc@xyz.com", 
           password : "Hell0", 
         });
         
-        // Login to the account 
-        let response = await client.post("/driver-login", {
-          email : "abc@xyz.com",
-          password : "Hell0"
-        });
-
-        // Check for session conflicts
-        assert(!response.data.includes("Session in progress"));
+        registerAccount.then(() => {
+          let response = axios.post("/login-driver", {
+            email : "abc@xyz.com",
+            password : "Hell0"
+          });
+          return response;
+        })
+        .then((response) => {
+          assert(!response.data.includes("Session in progress"));
+          return;
+        })
+        .catch();        
       });
   });
 });
