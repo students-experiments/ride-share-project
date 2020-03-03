@@ -1,6 +1,10 @@
 name: CI
 
-on: [pull_request]
+on: 
+  issues: [opened,edited]
+  pull_request: 
+    branches: [master]
+    
 
 jobs:
   all-tests:
@@ -13,9 +17,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - working-directory: ../../
-    - run: cd functions
     - run: npm ci
+      working-directory: ./functions
     - run: npm test
+      working-directory: ./functions
       env:
         CI: true
