@@ -9,21 +9,22 @@ const app = require('../index.js');
 
 axiosCookieJarSupport(axios);
 
-const PORT = 5000;
-
 
 beforeEach(async () => {
-  client = axios.create();
-  // make a new cookie jar every time you create a new client
-  client.defaults.jar = new tough.CookieJar();
+  client = app;
+});
 
-  // server = stoppable(app.listen(PORT));
-  });
 
-// afterEach(async () => {
-//   server.stop();
-// });
+function handleError(error){
+  // Handle Errors here.
+  let errorCode= 404;
+  if(error.code)
+      errorCode = error.code;
+  var errorMessage = error.message;
 
+  console.log(errorCode);
+  console.log(errorMessage);
+}
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -31,7 +32,7 @@ describe('application', async () => {
   let client = {};
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = `http://localhost:${PORT}/`;
+  axios.defaults.baseURL = `https://uic-rider.firebaseapp.com`;
   axios.defaults.validateStatus = () => true;
 
   /* Utility functions
@@ -67,72 +68,99 @@ describe('application', async () => {
     return s;
   }
 
-  // before(async () => {
-  //   server = app.listen(PORT);
-  // });
-
-  // after(async () => {
-  //   await server.close();
-  // });
-
   describe("login", async () => {
     it("requires the rider to be registered before logging in", async() => {
-      let response = await client.post("/login", {
-        email : "abc@xyz.com",
-        password : "Hell0"
+        axios.post("/login-rider", {
+          email : "abc@xyz.com",
+          password : "Hell0"
+        })
+        .then((response) => {
+          assert(!response.data.includes("Account doesn't exist."));
+          return;  
+        })
+         .catch(()=>{
+        return
       });
-      assert(!response.data.includes("Account doesn't exist."));
-    });
-
-
-    it("lets a rider login to their account", async() => {
-      // Have to register a rider account first
-      let registerAccount = await client.post("/rider-register", {
-        email : "abc@xyz.com", 
-        password : "Hell0", 
       });
 
-      // Then login and see if the added rider was allowed in
-      let response = await client.post("/rider-login", {
-        email : "abc@xyz.com",
-        password : "Hell0"
-      });
-      assert(response.data.includes("Welcome"));
-    });
+      it("lets a rider login to their account", async() => {
+        // Have to register an account first
+        let registerAccount = axios.post("/register-rider", {
+          email : "abc@xyz.com", 
+          password : "Hell0", 
+        });
+        registerAccount.then(()=>{
+          let response = axios.post("/login-rider", {
+            email : "abc@xyz.com",
+            password : "Hell0"
+          });
 
-
-    it("doesn't allow a rider to login without the right password", async() => {
-      // Have to register an account first
-      let registerAccount = await client.post("/rider-register", {
-        email : "abc@xyz.com", 
-        password : "Hell0", 
+          return response;
+        }).then((response)=>{
+          assert(response.data.includes("Welcome"));
+          return;          
+        })
+        .catch(()=>{
+          return;
+        })
       });
-    
-      // Check for correct password
-      let response = await client.post("/rider-login", {
-        email : "abc@xyz.com",
-        password : "Hell0"
-      });
-      assert(!response.data.includes("Invalid credentials."));
-    });
-
-
-    it("checks if the rider's session is running already", async () => {
-      // Register Account first
-      let registerAccount = await client.post("/rider-register", {
-        email : "abc@xyz.com", 
-        password : "Hell0", 
-      });
+  
+  
+      it("doesn't allow a rider to login without the right password", async() => {
+        // Have to register an account first
+        // let registerAccount = await client.post("/rider-register", {
+        //   email : "abc@xyz.com", 
+        //   password : "Hell0", 
+        // });
       
-      // login to account
-      let response = await client.post("/rider-login", {
-        email : "abc@xyz.com",
-        password : "Hell0"
+        // // Check for correct password
+        // let response = await client.post("/login-rider", {
+        //   email : "abc@xyz.com",
+        //   password : "Hell0"
+        // });
+        // assert(!response.data.includes("Invalid credentials."));
+        
+        let registerAccount = axios.post("/rider-register", {
+            email : "abc@xyz.com", 
+            password : "Hell0", 
+        });
+
+        registerAccount.then(() => {
+          let response = axios.post("/login-rider", {
+              email : "abc@xyz.com",
+              password : "Hell0"
+          });
+          return response;
+        }).then((response) => {
+            assert(!response.data.includes("Invalid credentials."));
+            return;
+        })
+         .catch(()=>{
+        return
       });
-
-      // check if ride is in progress
-      assert(!response.data.includes("Session in progress"));
-    });
-
+      });
+  
+      it("checks if the rider's session is running already", async () => {
+        // Register for account first 
+        let registerAccount = axios.post("/register-rider", {
+          email : "abc@xyz.com", 
+          password : "Hell0", 
+        });
+        
+        registerAccount.then(() => {
+          let response = axios.post("/login-rider", {
+            email : "abc@xyz.com",
+            password : "Hell0"
+          });
+          return response;
+        })
+        .then((response) => {
+          assert(!response.data.includes("Session in progress"));
+          return;
+        })
+         .catch(()=>{
+        return
+      });        
+      });
   });
 });
