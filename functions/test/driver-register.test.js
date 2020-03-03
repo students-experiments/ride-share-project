@@ -5,11 +5,14 @@ const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
-const app = require('../index');
+const app = require('../index.js');
 
 axiosCookieJarSupport(axios);
-
-const PORT = 3000;
+  
+  
+beforeEach(async () => {
+  client = app;
+});
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -17,7 +20,7 @@ describe('application', async () => {
   let client = {};
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = `http://localhost:${PORT}/`;
+  axios.defaults.baseURL = `https://uic-rider.firebaseapp.com`;
   axios.defaults.validateStatus = () => true;
 
   /* Utility functions
@@ -53,43 +56,72 @@ describe('application', async () => {
     return s;
   }
 
-  async function createRandomUser(axiosClient) {
+  async function createRandomUser() {
     const newUser = {
-      username: getRandomString(10),
+      email: getRandomString(5) + '@' + getRandomString(5) + '.com',
       password: getRandomString(10),
-      number: Math.floor(psrand() * 100),
     };
-    const response = await axiosClient.post('/register', newUser);
-    return { newUser, response };
+    axios.post('/register-driver', newUser)
+    .then((response) => {
+      return {newUser, response};
+    })
+    .catch();
   }
-
-  before(async () => {
-    server = app.listen(PORT);
-  });
-
-  after(async () => {
-    await server.close();
-  });
 
   describe("register", async () => {
     it("lets a driver create an account", async () => {
-      let response = await client.post("/register-driver", {
+      axios.get("/register-driver", {
         email : "abc@xyz.com",
         password : "Hell0"
-      });
-      assert(!response.data.includes("Ride in progress"));
+      })
+      .then((response) => {
+        assert(!response.data.includes("Ride in progress"));
+        return;
+      })
+      .catch();
     });
 
 
+    it("doesn't allow duplicate usernames", async () => {
+      const {driver1, response1} =  createRandomUser();
       
-    it("doesn't allow duplicate usernames");
+      axios.post('/register-driver', driver1)
+      .then((response) => {
+        assert(!response.data.includes('Welcome'));
+        assert(response.data.includes('That username is already taken'));
+        return;
+      })
+      .catch();
+    });
 
-    it("doesn't allow a driver to create an account with a weak password");
-    it("doesn't allow a driver to create an account with an invalid password");
+    it("doesn't allow a driver to create an account with a weak password", async () => {
+      axios.post('/register-driver', {
+        email: 'abc@xyz.com',
+        password: '123456'
+      })
+      .then((response) => {
+        assert(!response.data.includes('Welcome'));
+        assert(
+          response.data.includes(
+            'Weak Password. The password must contain at least 8 characters and at least one special character'
+          )
+        );
+        return;
+      })
+      .catch();
+    });
+
+    it("doesn't allow a driver to create an account with an invalid password", async () => {
+      axios.post('/register-driver', {
+        email: 'abc@xyz.com',
+        password: '123 456'
+      })
+      .then((response) => {
+        assert(!response.data.includes('Welcome'));
+        assert(response.data.includes('Enter a valid password'));
+        return;
+      })
+      .catch();
+    });
   });
-
-
-
-
-
 });
