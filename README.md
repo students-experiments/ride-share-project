@@ -58,15 +58,39 @@ The UI should be completed with some of the CRUD functionalities.
   - Redirect to relevant pages for authenticated driver and rider
 
 ## Deliverables for checkpoint 4
-* Drivers should be able to:
-  - Start a ride
-  - End ride with confirmation
-  - Have transit information
-* Riders should be able to:
-  - Request one ride with Geo location & other relevant parameters
-  - Get assigned to a driver for pickup
-  - View transit information 
-
+1. The front end should be able to:   
+   * Have a front-end that is very simple in looks   
+   * Login a user and take them to their respective page based on their role (rider or driver)    
+   * Logout a user and take them to the login page    
+   * Register a user and assign them a role (rider or driver) based on their inputs on account creation    
+   * Allow a rider to request a ride     
+   * Allow a driver to be available to pickup riders that sent out requests    
+2. The database should be able to:     
+   * Manage authorization of access to rider and driver's accounts
+   * Add a rider or driver and assign them a userID along with their designated "roles"   
+   * Update the status of a rider when they enter or exit a ride  
+   * Update the status of the driver when he is waiting for requests or if ride is full   
+   * Delete an account if the user so wishes to delete their account    
+3. The backend should be able to:   
+   * Create requests to the database for user information     
+   * Get information from the database to prepare to be shown to the user  
+4. Drivers should be able to:  
+   * Start a ride 
+   * Have basic information on the rider
+   * State how much room they have left 
+   * End a ride with confirmation  
+   * Have current transit information   
+5. Riders should be able to:    
+   * Request a ride with geo location
+   * Be assigned to a driver for pcikup
+   * View transit information
+   * Have basic information on the driver
+   * Say how many people will be joining the ride
+6. The application should be able to: 
+   * Start a ride from beginning to end    
+   * Have a basic algorithm for picking up and dropping off riders   
+   * Show location of the driver in respect to the rider's requested location  
+  
 ## Deliverables for final project
 
 * Multiple rides should be shareable
