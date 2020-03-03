@@ -1,8 +1,19 @@
+/* eslint-disable promise/always-return */
 const functions = require('firebase-functions');
 const express = require('express');
 const users = require('./firebase-db/Users.js');
+const session = require('express-session');
 const app=express();
 
+const router=express.Router();
+router.use(
+    session({
+      cookie: {
+        maxAge: 60000,
+      },
+      secret: 'mySecret',
+    }),
+  );
 app.set('views','./views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
@@ -30,25 +41,21 @@ app.post('/register-and-login-rider', (req, res) => {
     users.registerUser(user_data).then((result) => {
         console.log('registered User',user_data.email);
         res.render('loggedInRider');
-        return res;
+
     }).catch((error) => {
-        res.send("Yo Bro check up whats the issue here:  "+error);
-        return res;
+        res.send("Yo Bro check up whats the issue here:  " + error);
     });
     
 });
+
 function prepare_user_data(req,role){
+
+    var user_data = {"email":req.body.email,
+                    "pass":req.body.pwd,
+                    "username":req.body.username,
+                    };
     if(role==='rider'){
-        user_data = {"email":req.body.email,
-                    "pass":req.body.pwd,
-                    "username":req.body.username,
-                    "uin":req.body.uin 
-                };
-    }else{
-        user_data = {"email":req.body.email,
-                    "pass":req.body.pwd,
-                    "username":req.body.username,
-                };
+        user_data["uin"]=req.body.uin 
     }
     return user_data;
 }
@@ -60,10 +67,8 @@ app.post('/register-and-login-driver', (req, res) => {
     users.registerUser(user_data).then((result) => {
         console.log('registered User',user_data.email);
         res.render('loggedInDriver');
-        return res;
     }).catch((error) => {
         res.send("Yo Bro check up whats the issue here:  "+error);
-        return res;
     });
 });
 
@@ -72,15 +77,31 @@ app.get('/register-rider', (req, res) => {
     res.render('registerRider');
 });
 
+function loginUser(req,role){
+    data = { "email":req.body.email,
+    "pass":req.body.password,   
+    "role":role
+    };
+    let loggedIn=users.loginUser(data);
+    return loggedIn;
+}
 app.post('/loginDriver', (req, res) => {
-    data={"email":req.body.email,"pass":req.body.password};
-    users.loginUser(data);
-    res.render('loggedInDriver');    
+
+    loginUser(req,'driver')
+    .then(()=>{
+        console.log("Driver Logged In");
+        res.render('loggedInDriver');    
+        return;
+    }).catch((error)=>{
+        res.send("Yo Bro U are not allowed on our site. " + error );
+        return res;
+    });
+    
 });
 
 app.post('/loginRider', (req, res) => {
-    data={"email":req.body.email,"pass":req.body.password};
-    users.loginUser(data)
+    
+    loginUser(req,'rider')
     .then(()=>{
         console.log("Rider Logged In");
         return res.render('loggedInRider');
