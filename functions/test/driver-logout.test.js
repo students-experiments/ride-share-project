@@ -7,30 +7,34 @@ const stoppable = require('stoppable');
 
 const app = require('../index.js');
 
-const firebase_admin = require("firebase-admin")
+ const firebase_admin = require("firebase-admin")
 
-const admin_config={
-    credentials:firebase_admin.credential.applicationDefault(),
-    databaseURL: "https://uic-rider.firebaseio.com"
-}
+// const admin_config={
+//     credentials:firebase_admin.credential.applicationDefault(),
+//     databaseURL: "https://uic-rider.firebaseio.com"
+// }
 
-firebase_admin.initializeApp(admin_config);
+// firebase_admin.initializeApp(admin_config);
 
 axiosCookieJarSupport(axios);
 
 const PORT = 5000;
 
 beforeEach(async () => {
-  client = axios.create();
-  // make a new cookie jar every time you create a new client
-  client.defaults.jar = new tough.CookieJar();
-
-  // server = stoppable(app.listen(PORT));
+  client = app;
   });
 
-// afterEach(async () => {
-//   server.stop();
-// });
+
+function handleError(error){
+  // Handle Errors here.
+  let errorCode= 404;
+  if(error.code)
+      errorCode = error.code;
+  var errorMessage = error.message;
+
+  console.log(errorCode);
+  console.log(errorMessage);
+}
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -74,45 +78,56 @@ describe('application', async () => {
     return s;
   }
 
-  // before(async () => {
-  //   server = app.listen(PORT);
-  // });
-
-  // after(async () => {
-  //   await server.close();
-  // });
-
+  
   describe("logout", async () => {
     it("lets a driver logout", async () => {
-      const response = await client.post('/logout-driver');
-      assert(response.data.includes('Login to your Account'));
+      axios.post('/logout-driver')
+      .then((response) => {
+        assert(response.data.includes('Login to your Account'));
+        return;
+      })
+       .catch(()=>{
+        return
+      });
     });
 
     it("requires a driver to be logged in while logging out", async () => {
       // From the driver landing page, hit the "ready to pickup" button, go to the next page
       // If the user is logged in then the next page will have the option to start the ride. 
       // Then on the next page hit logout. If logged out successfully then the user is sent to the login page.
-      const responseReady = await client.post('/readyPickup');
-      assert(responseReady.data.includes('Start the ride'));
-
-      const responseLogout = await client.post('/logout');
-      assert(responseLogout.data.includes('Login to your Account'))
+      const responseReady = axios.post('/readyPickup');
+      responseReady.then(() => {
+        const responseLogout = axios.post('/logout');
+        return responseLogout;
+      })
+      .then((response) => {
+        assert(responseReady.data.includes('Start the ride'));
+        assert(responseLogout.data.includes('Login to your Account'));
+        return;  
+      })
+       .catch(()=>{
+        return
+      });
     });
 
     it("requires the transit status in the database to be consistent with the actual current transit status of the user", async () => {
       
-      // const db = firebase_admin.firestore();
-
-      // const transitList = db.collection("roles").doc("rider-status").get();
-
-      // transitList
-      // .then((response) => {
-      //     assert(response.exists);
-      //     let currentStatus = response.data().onTransit;
-      //     let 
-      //     return;
-      // })
-
+      const db = firebase_admin.firestore();
+      const currentTransitStatus = db.collection("driver-status").doc("uid").get();
+      
+      currentTransitStatus
+      .then((response) => {
+          assert(response.exists);
+          const transitList = db.collection("role").doc("driver").get();
+          
+          assert(transitList.exists);
+          assert((response.data().onTransit && transitList.data().transit.includes("uid")) || 
+          (!response.data().onTransit && transitList.data().registered.includes("uid")));
+          return;
+      })
+       .catch(()=>{
+        return
+      });
     });
   });
 });

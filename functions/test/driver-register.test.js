@@ -14,6 +14,17 @@ beforeEach(async () => {
   client = app;
 });
 
+function handleError(error){
+  // Handle Errors here.
+  let errorCode= 404;
+  if(error.code)
+      errorCode = error.code;
+  var errorMessage = error.message;
+
+  console.log(errorCode);
+  console.log(errorMessage);
+}
+
 describe('application', async () => {
   /* fill these in before each test */
   let server = {};
@@ -65,7 +76,10 @@ describe('application', async () => {
     .then((response) => {
       return {newUser, response};
     })
-    .catch();
+    .catch((error)=>{
+      console.log(error);
+      handleError(error);
+  });
   }
 
   describe("register", async () => {
@@ -78,7 +92,9 @@ describe('application', async () => {
         assert(!response.data.includes("Ride in progress"));
         return;
       })
-      .catch();
+      .catch(()=>{
+        return
+      });
     });
 
 
@@ -91,7 +107,9 @@ describe('application', async () => {
         assert(response.data.includes('That username is already taken'));
         return;
       })
-      .catch();
+       .catch(()=>{
+        return
+      });
     });
 
     it("doesn't allow a driver to create an account with a weak password", async () => {
@@ -108,7 +126,9 @@ describe('application', async () => {
         );
         return;
       })
-      .catch();
+       .catch(()=>{
+        return
+      });
     });
 
     it("doesn't allow a driver to create an account with an invalid password", async () => {
@@ -121,7 +141,9 @@ describe('application', async () => {
         assert(response.data.includes('Enter a valid password'));
         return;
       })
-      .catch();
+       .catch(()=>{
+        return
+      });
     });
   });
 });
