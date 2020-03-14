@@ -1,37 +1,27 @@
 var React = require('react');
-
+var DefaultLayout =require('./layouts/defaults');
+var LoginForm =require('./layouts/login');
 function HomePageDriver(props) {
-    
-    return(
-        <html>
-            <head>
-                <title>UIC Night Rider</title>
-                <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
-                <link rel="stylesheet" href="/stylesheets/style.css" />
-            </head>
+  let bodyStyles = {
+    textAlign: 'center',
+    marginLeft: '25% ',
+    marginRight: '25% '
 
-            <body>
-                <div class="header">
-                    <h1>UIC Night Rider</h1>
-                    <p>Welcome to UIC ! We are here for your Safe Night Ride</p>
-                </div>
+  };
 
-                <div class = "main">
-                    <h2> Login to your Account </h2>
-                    <form action = "/loginDriver" method = "POST">
-                        <label for="inputEmail" class = "sr-only">Email</label>
-                        <input name = "email" type="email" id = "inputEmail" class = "form-control" placeholder = "Email" required />
-                        <br />
-                        <label for = "password" class = "sr-only"> Password </label>
-                        <input type = "password" id = "password" name = "password" class = "form-control" placeholder = "Password"/>
-                        <br />
+  let formStyles = {
+    margin: '0 auto',
+    width: '50%'
+  };
 
-                        <button class = "btn btn-primary" type = "submit"> Login </button><br />
-                    </form>
-                </div>
-            </body>
-        </html>
+  return(
+      <DefaultLayout >
+        <div class = "main" style ={bodyStyles}>
+          <h2> Login to your Account </h2>
+          <LoginForm method='/loginDriver'></LoginForm>
+        </div>
+      </DefaultLayout>
     );
-}
+  }
 
 module.exports = HomePageDriver;

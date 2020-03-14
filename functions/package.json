@@ -5,7 +5,7 @@
     "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
-    "start": "npm run shell",
+    "start": "browserify -t babelify view_js/main.js --standalone main -o view_js/main.js  && node index.js",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -13,7 +13,14 @@
     "node": "8"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "babelify": "^10.0.0",
+    "browserify": "^14.3.0",
     "consolidate": "^0.15.1",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "firebase": "^7.9.3",
@@ -21,7 +28,8 @@
     "firebase-functions": "^3.3.0",
     "handlebars": "^4.7.3",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "session-file-store": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
