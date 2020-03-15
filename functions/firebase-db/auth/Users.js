@@ -1,9 +1,12 @@
 /* eslint-disable promise/catch-or-return */
-const firebase_admin = require("firebase-admin")
+const firebase_admin = require('../init-db').firebase_admin
 const firebase=require("firebase");
 const validation=require('./validate.js');
 const utils=require('../util.js');
-const firebase_config=require('../firebase-config.js')
+const strings=require('../strings');
+
+
+
 
 var db = firebase_admin.firestore();
 
@@ -43,6 +46,23 @@ var db = firebase_admin.firestore();
             })
         });
     }
+    function storeSessionRole(session,role){
+        return new Promise((resolve,reject)=>{
+            var sessionRef = db.collection('sessions').doc(session);
+            // Atomically add a new region to the "regions" array field.
+            sessionRef.set({
+                role : role
+            }).then((res)=>{
+                resolve({sessionCookie: session});
+                console.log('session cookie saved in DB',res);
+                return res;
+            }).catch((error)=>{
+                utils.handleError(error);
+                reject(new Error("Unable to store Session. "+ error.message));
+                return ;
+            });
+        });
+    }
 
     function loginUser(user){
         console.log("user",user);
@@ -70,6 +90,22 @@ var db = firebase_admin.firestore();
         });
     }
 
+    function getSessionRole(session){
+        
+        return new Promise((resolve,reject)=>{
+        var sessionRef = db.collection('sessions').doc(session);
+        sessionRef.get().then((doc)=> {
+            if (!doc.exists) {
+                reject(new Error("Session Invalid"));
+            } 
+            resolve(doc.data().role);
+            return doc.data().role;
+        }).catch((error)=>{
+            reject(new Error('Session Document unable to fetch' + error.message));
+        });
+    });
+
+    }
 
 
 
@@ -107,4 +143,6 @@ var db = firebase_admin.firestore();
 
 module.exports.registerUser=registerUser;
 module.exports.loginUser=loginUser;
+module.exports.storeSessionRole=storeSessionRole;
+module.exports.getSessionRole=getSessionRole;
 

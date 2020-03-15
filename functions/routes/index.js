@@ -1,49 +1,62 @@
-/* eslint-disable promise/always-return */
-const functions = require('firebase-functions');
+
 const express = require('express');
-const users = require('./firebase-db/auth/Users.js');
+const users = require('../firebase-db/auth/Users.js');
+const firebase_admin=require('../firebase-db/init-db').firebase_admin;
 const session = require('express-session');
-const app = express();
-const auth_controller=require('./controllers/auth.js');
-const cookieParser = require('cookie-parser');
-//const FileStore = require('session-file-store')(session)
-const firebase_admin = require("firebase-admin")
-const firebase_config=require('./firebase-db/firebase-config')
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
-// app.use(session({
-//   secret: 'asdf;lkjh3lkjh235l23h5l235kjh',
-//   resave: true,
-//   saveUninitialized: false,
-//   save: new FileStore(),
-//   cookie: {
-//     expires: 600000
-//     }
-// }))
+const router = express.Router();
 
-app.set('views','./views');
-app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine());
+router.get('/', (req, res,next) => {
+    console.log(req.cookies);
+    if (req.cookies && req.cookies.session) {
+        const sessionCookie = `${req.cookies.session}`;
+    // Verify the session cookie. In this case an additional check is added to detect
+    // if the user's Firebase session was revoked, user deleted/disabled, etc.
+        firebase_admin.auth().verifySessionCookie(
+        sessionCookie, true /** checkRevoked */)
+            .then((decodedClaims) => {
+                console.log('cookie verified',decodedClaims);
+                console.log('session:',sessionCookie);
+                next();
+            }).catch(error => {
+                // Session cookie is unavailable or invalid. Force user to login.
+                console.log(error);
+                res.render('home');
+            });
+    }else{
+        console.log('no cookies set');
+        res.render('home');
+    }
+    
+    }, (req, res) => {
+        const session=`${req.cookies.session}`;
+        users.getSessionRole(session).then((role)=>{
+            if(role==='rider'){
+                res.render('loggedInRider');
+            }
+            else{
+                res.render('loggedInDriver');
+            }
+        }).catch((error)=>{
+            console.log(error);
+            res.render('home');
+        });
 
-app.get('/',(request,response)=>{
-    response.render('home');
-})
-app.get('/login-driver', (req, res) => {
-    res.render('loginDriver');
+  });
+
+router.get('/login-driver', (req, res) => {
+    res.render('login',{role: 'driver'});
 });
 
-
-app.get('/login-rider', (req, res) => {
-    res.render('loginRider');
+router.get('/login-rider', (req, res) => {
+    res.render('login',{role: 'rider'});
 });
 
-app.get('/register-driver', (req, res) => {
+router.get('/register-driver', (req, res) => {
     res.render('registerDriver');
 });
 
-app.post('/register-and-login-rider', (req, res) => {
+router.post('/register-and-login-rider', (req, res) => {
         user_data=prepare_user_data(req,'rider');
         user_data['role']="rider";
         users.registerUser(user_data).then(() => {
@@ -66,7 +79,7 @@ function prepare_user_data(req,role){
     return user_data;
 }
 
-app.post('/register-and-login-driver', (req, res) => {
+router.post('/register-and-login-driver', (req, res) => {
 
     user_data=prepare_user_data(req,'driver');
     user_data['role']="driver";
@@ -78,7 +91,7 @@ app.post('/register-and-login-driver', (req, res) => {
     });
 });
 
-app.get('/register-rider', (req, res) => {
+router.get('/register-rider', (req, res) => {
     
     res.render('registerRider');
 });
@@ -93,7 +106,7 @@ function loginUser(req,role){
 
     return loggedIn;
 }
-app.post('/loginDriver', (req, res) => {
+router.post('/loginDriver', (req, res) => {
 
     loginUser(req,'driver')
     .then(()=>{
@@ -106,16 +119,17 @@ app.post('/loginDriver', (req, res) => {
     });
     
 });
-app.get('/rider-landing',(req,res)=>{
-    if(req.isAuthenticated)
+router.get('/rider-landing',(req,res)=>{
+    if(req.uid)
     {
         res.render('loggedInRider');
     }
     res.send('404.');
 })
 
-app.post('/loginRider', (req, res) => {
+router.post('/loginRider', (req, res) => {
     const expiresIn = 60 *  5  * 1000;
+    
     loginUser(req,'rider')
     .then((idToken)=>{
         console.log('idtoken',idToken);
@@ -129,11 +143,15 @@ app.post('/loginRider', (req, res) => {
         let  sessionCookie=firebase_admin.auth().createSessionCookie(idToken, {expiresIn})
         return sessionCookie;
     }).then((sessionCookie) => {
-            // Set cookie policy for session cookie.
-        const options = {maxAge: expiresIn, httpOnly: true, secure: true};
-        res.cookie('session', sessionCookie, options);
+        //stiring session role in DB
+        let storeSession=users.storeSessionRole(sessionCookie,'rider');
+        return storeSession;
+    }).then((storeSession)=>{
+        // Set cookie policy for session cookie.
+        const options = {maxAge: expiresIn, httpOnly: true};
+        res.cookie('session', storeSession.sessionCookie, options);
         res.render('loggedInRider');
-        return res;
+        //return res;
             
     }).catch((error)=>{
         res.status(401). send('UNAUTHORIZED REQUEST!' + error );
@@ -142,8 +160,8 @@ app.post('/loginRider', (req, res) => {
     
 });
 
-app.post('/logout',(req,res)=>{
+router.post('/logout',(req,res)=>{
     res.clearCookie('session');
     res.render('home');
 })
-exports.app = functions.https.onRequest(app);
+module.exports = router;

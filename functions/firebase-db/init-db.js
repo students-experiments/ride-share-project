@@ -1,5 +1,5 @@
-
-const firebase_admin = require("firebase-admin")
+//firebase
+let firebase_admin = require("firebase-admin")
 const firebase=require("firebase");
 
 const firebaseConfig = {
@@ -14,11 +14,16 @@ const firebaseConfig = {
     measurementId: "G-1QYZ38TLBN"
   };
 
-  // Initialize Firebase
-  firebase_admin.initializeApp(firebaseConfig);
-  firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+firebase_admin.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-  var db = firebase_admin.firestore();
-  module.exports ={
-      db: db
-  }
+const firestore =firebase_admin.firestore();
+
+exports.firebase_admin=firebase_admin;
+exports.firestore=firestore;
+// USAGE:
+/*
+    - require the needed module from this init-db file.
+    - find an example in validate.js
+*/

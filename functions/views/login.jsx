@@ -1,7 +1,14 @@
 var React = require('react');
 var DefaultLayout =require('./layouts/defaults');
 var LoginForm =require('./layouts/login');
-function HomePageDriver(props) {
+function assignMethod(role){
+    if(role==='rider'){
+        return '/loginRider'
+    }else{
+        return '/loginDriver';
+    }
+}
+function Login(props) {
   let bodyStyles = {
     textAlign: 'center',
     marginLeft: '25% ',
@@ -18,10 +25,10 @@ function HomePageDriver(props) {
       <DefaultLayout >
         <div class = "main" style ={bodyStyles}>
           <h2> Login to your Account </h2>
-          <LoginForm method='/loginDriver'></LoginForm>
+          <LoginForm method={assignMethod(props.role)}></LoginForm>
         </div>
       </DefaultLayout>
     );
   }
 
-module.exports = HomePageDriver;
+module.exports = Login;

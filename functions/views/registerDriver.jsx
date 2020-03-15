@@ -1,6 +1,11 @@
 const React = require('react');
 var DefaultLayout=require('./layouts/defaults');
 
+function validate(){
+    var password = document.getElementById("pwd");
+    console.log('password: ',password);
+    //confirm_password = document.getElementById("confirm_password");
+}
 function driverRegistration(props) {
     let bodyStyles = {
         textAlign: 'center'
@@ -29,15 +34,15 @@ function driverRegistration(props) {
                     <input name = "email" type="email" id = "inputEmail" class = "form-control" placeholder = "Email" required />
 
                     <label for = "pwd" class = "sr-only">Password</label>
-                    <input name = "pwd" type = "password" id = "pwd" class = "form-control" placeholder = "Password" required />
+                    <input name = "pwd" type = "password" id = "pwd" class = "form-control" onChange={validate()} placeholder = "Password" required />
                     
                     <label for = "confPwd" class = "sr-only">Confirm Password</label>
-                    <input name = "confPwd" type = "password" id = "confPwd" class = "form-control" placeholder = "Confirm Password" required />
-
-                    <div class="checkbox mb-3">
-                        <input type="checkbox" id = "rememberMe" value="remember-me" />
-                        <label for = "rememberMe"> Remember Me </label>
-                    </div>
+                    <input name = "confPwd" type = "password" id = "confPwd" class = "form-control" onKeyUp={validate()} placeholder = "Confirm Password" required />
+                    {
+                        
+                        
+                      
+                    }
 
                     <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>

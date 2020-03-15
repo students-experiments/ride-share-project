@@ -5,7 +5,7 @@
     "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
-    "start": "browserify -t babelify view_js/main.js --standalone main -o view_js/main.js  && node index.js",
+    "start": "browserify -t babelify view_js/main.js --standalone main -o view_js/main.js  && node app.js",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -36,5 +36,13 @@
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.1.6"
   },
-  "private": true
+  "private": true,
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

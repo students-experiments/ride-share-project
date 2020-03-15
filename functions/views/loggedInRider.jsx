@@ -15,7 +15,7 @@ function riderLoggedIn(props) {
             </head>
 
             <body style = {bodyStyles}>
-                <h2> Welcome {props.username} </h2>
+                <h2> Welcome Rider{props.username} </h2>
 
                 <form action = "/logout" method = "POST">
                     <button type = "submit" className = "btn btn-lg btn-secondary"> Logout </button>

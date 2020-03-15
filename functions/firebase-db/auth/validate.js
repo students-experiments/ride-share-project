@@ -1,8 +1,24 @@
-const firebase_admin = require("firebase-admin")
-const firebase_config=require('../firebase-config.js');
 
+//const firebase=require("firebase");
 
-var db = firebase_admin.firestore();
+// const firebaseConfig = {
+//     credentials: firebase_admin.credential.applicationDefault(),
+//     apiKey: "AIzaSyAlfC_SV4Nbc9lfnmLnpOed58K9jYMB8N8",
+//     authDomain: "uic-rider.firebaseapp.com",
+//     databaseURL: "https://uic-rider.firebaseio.com",
+//     projectId: "uic-rider",
+//     storageBucket: "uic-rider.appspot.com",
+//     messagingSenderId: "158636708222",
+//     appId: "1:158636708222:web:519350eb086a15306a632f",
+//     measurementId: "G-1QYZ38TLBN"
+//   };
+
+  // Initialize Firebase
+  //firebase_admin.initializeApp(firebaseConfig);
+  //firebase.initializeApp(firebaseConfig);
+
+var firebase_admin = require ('../../app').firebase_admin;
+var db = require('../init-db').firestore;
 
     function validateUser(user){
         return new Promise((resolve,reject)=>{
