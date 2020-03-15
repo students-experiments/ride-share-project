@@ -50,7 +50,6 @@ Big issues being tackled taken from: https://owasp.org/www-project-top-ten/
         - Make drivers appear to take an alternate path
         - Make riders location change 
         - Alter estimated time arrival 
-        - Nullify a driver or rider's transit request
 
 * FirebaseAuth/Firestore 
   - An attacker may want to:   
@@ -64,9 +63,16 @@ Big issues being tackled taken from: https://owasp.org/www-project-top-ten/
         - Inject javascript files where possible
         - Try to register a driver as a rider 
         - Try to register a rider as a driver
-        - End sessions abrutly to cause data leaks
-   
-   
+        - End web sessions abrutly to cause data leaks
+
+* Transit 
+  - An attacker may want to:   
+        - Nullify a driver or rider's transit request
+        - Grab information on route planning/algorithms
+        - Not allow a driver to accept requests
+        - End driving/riding sessions abrutly   
+
+
 ## Best Practices (security-wise) for the project in specific would be:
 * Geolocation
   - Vet geolocation service providers for vulnerability possibilities
@@ -82,4 +88,9 @@ Big issues being tackled taken from: https://owasp.org/www-project-top-ten/
 * Front-end React
   - Sanitize data inputs from text fields
   - Only support more recent versions of tool kits and APIs
+
+* Transit
+  - Ensure the database is open for minimum time possible
+  - Do database snapshots to compare status's for any unwanted changes
+  - Store the information on a driver with rider(s) transit safely to deter modifications
   
