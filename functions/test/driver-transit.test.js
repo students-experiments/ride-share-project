@@ -67,10 +67,17 @@ describe('application', async () => {
     return s;
   }
 
-  describe("login", async () => {
-    it("requires the driver to be registered before logging in");
-    it("lets a driver login to their account");  
-    it("doesn't allow a driver to login without the right password");
-    it("checks if the driver's session is running already");
+  describe("transit", async () => {
+    it("requires the driver to be registered and \
+     logged in before searching for riders");
+    it("lets a driver start a ride");  
+    it("ensures the database reflects the \
+    driver's current seat capacity remaining");
+    it("notifies a driver of the nearest rider request"); 
+    it("allows a driver to accept/deny request");  
+    it("lets a driver pick up a rider");
+    it("ensures the database reflects the \
+    driver's current transit status");
+    it("lets a driver drop off a rider");
   });
 });
