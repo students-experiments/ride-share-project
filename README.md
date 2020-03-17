@@ -24,6 +24,8 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It lets a user logout
   - It doesn’t let you logout if you aren’t logged in
   - It checks if the user's current status reflects properly in the database 
+  
+(Tests for Checkpoint 4)
 * Transit (user or driver)
   - It checks if the user (or driver) is in transit upon login
   - It checks if the user (or driver) is in transit once a match is made
@@ -102,5 +104,8 @@ After cloning the repository:
   - npm install
   - npm install -g firebase-tools
 
+To start the application:
+  - firebase serve --only functions,hosting
+  
 For testing https-based deployment:
   - https://uic-rider.firebaseapp.com
