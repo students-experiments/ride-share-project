@@ -1,27 +1,29 @@
-// Import the dependencies for testing
 const assert = require('assert');
 const axios = require('axios').default;
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
-const app = require('../app');
+const app = require('../index.js');
+
 
 axiosCookieJarSupport(axios);
 
-const PORT = 3000;
 
 beforeEach(async () => {
-  client = axios.create();
-  // make a new cookie jar every time you create a new client
-  client.defaults.jar = new tough.CookieJar();
-
-  server = stoppable(app.listen(PORT));
-  });
-
-afterEach(async () => {
-  server.stop();
+  client = app;
 });
+
+function handleError(error){
+  // Handle Errors here.
+  let errorCode= 404;
+  if(error.code)
+      errorCode = error.code;
+  var errorMessage = error.message;
+
+  console.log(errorCode);
+  console.log(errorMessage);
+}
 
 describe('application', async () => {
   /* fill these in before each test */
@@ -29,7 +31,7 @@ describe('application', async () => {
   let client = {};
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = `http://localhost:${PORT}/`;
+  axios.defaults.baseURL = `https://uic-rider.firebaseapp.com`;
   axios.defaults.validateStatus = () => true;
 
   /* Utility functions
@@ -65,16 +67,17 @@ describe('application', async () => {
     return s;
   }
 
-  before(async () => {
-    server = app.listen(PORT);
-  });
-
-  after(async () => {
-    await server.close();
-  });
-
   describe("transit", async () => {
-    it("checks if the rider is still in a ride");
-    // More test cases
+    it("requires the rider to be registered and \
+    logged in before requesting a ride");
+    it("lets a rider request a ride");  
+    it("lets a rider state their location");  
+    it("lets the rider know when a driver accpets the request");
+    it("lets the rider see the time until pickup"); 
+    it("lets the rider cancel the ride");
+    it("lets the rider know of driver status");  
+    it("updates the DB rider transit status once ride is over");
+    it("sends a user back to the \"Request a Ride\" page \
+    after ride finishes");
   });
 });
