@@ -98,5 +98,9 @@ The UI should be completed with some of the CRUD functionalities.
     - Firebase for database CRUD functionalities and easy integration with other Google services
          
 # Installation
-*TBD*
-No known installations needed for Firebase, Express-React Views to be downloaded/loaded on your computer.
+After cloning the repository:
+  - npm install
+  - npm install -g firebase-tools
+
+For testing https-based deployment:
+  - https://uic-rider.firebaseapp.com
