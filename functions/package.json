@@ -5,7 +5,7 @@
     "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
-    "start": "npm run shell",
+    "start": "browserify -t babelify view_js/main.js --standalone main -o view_js/main.js  && node app.js",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "test": "mocha --reporter spec"
@@ -14,9 +14,16 @@
     "node": "8"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "babelify": "^10.0.0",
+    "browserify": "^14.3.0",
     "axios": "^0.19.2",
     "axios-cookiejar-support": "^0.5.1",
     "consolidate": "^0.15.1",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "express-session": "^1.17.0",
@@ -27,6 +34,7 @@
     "mocha": "^7.1.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "session-file-store": "^1.4.0",
     "stoppable": "^1.1.0"
   },
   "devDependencies": {
@@ -34,5 +42,13 @@
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.1.6"
   },
-  "private": true
+  "private": true,
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -1,5 +1,5 @@
 const React = require('react');
-
+var DefaultLayout=require('./layouts/defaults');
 function riderRegistration(props) {
     let bodyStyles = {
         textAlign: 'center'
@@ -11,14 +11,8 @@ function riderRegistration(props) {
     };
 
     return (
-        <html>
-            <head>
-                <title> Register Rider </title>
-                <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
-                <link rel="stylesheet" href="/stylesheets/style.css" />
-            </head>
-
-            <body style = {bodyStyles}>
+        <DefaultLayout>
+            <div style = {bodyStyles}>
                 <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
                 <h2 class="h3 mb-3 font-weight-normal"> Create Your Account </h2>
                 <form action = "/register-and-login-rider" class="form-signin" method = "POST" style = {formStyles}>
@@ -45,9 +39,9 @@ function riderRegistration(props) {
 
                     <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
-            </form>
-            </body>
-        </html>
+                </form>
+            </div>
+        </DefaultLayout>
     );
 }
 
