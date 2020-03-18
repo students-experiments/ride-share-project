@@ -111,17 +111,25 @@ router.post('/loginDriver', (req, res) => {
     loginUser(req,'driver')
     .then(()=>{
         console.log("Driver Logged In");
-        res.render('loggedInDriver');    
-        return;
+        // eslint-disable-next-line promise/no-nesting
+        users.getUserName()
+        .then((name) => {
+            return res.render('loggedInDriver', {
+                username: name
+            })
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     }).catch((error)=>{
         res.send("Yo Bro U are not allowed on our site. " + error );
         return res;
     });
     
 });
+
 router.get('/rider-landing',(req,res)=>{
-    if(req.uid)
-    {
+    if(req.uid) {
         res.render('loggedInRider');
     }
     res.send('404.');
@@ -150,9 +158,17 @@ router.post('/loginRider', (req, res) => {
         // Set cookie policy for session cookie.
         const options = {maxAge: expiresIn, httpOnly: true};
         res.cookie('session', storeSession.sessionCookie, options);
-        res.render('loggedInRider');
-        //return res;
-            
+        // eslint-disable-next-line promise/no-nesting
+        users.getUserName()
+        .then((name) => {
+            return res.render('loggedInRider', {
+                username: name
+            });
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+        //return res;            
     }).catch((error)=>{
         res.status(401). send('UNAUTHORIZED REQUEST!' + error );
         return res;
