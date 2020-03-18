@@ -5,7 +5,7 @@ const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
-const app = require('../index.js');
+const app = require('../app.js');
 
  const firebase_admin = require("firebase-admin")
 
