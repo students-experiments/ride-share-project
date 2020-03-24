@@ -3,7 +3,7 @@ var React = require('react');
 var PropTypes = require('prop-types');
 function LoginLayout(props) {
   return (
-            <form action = {props.method} method = "POST">
+            <form action = {props.method}  method = "POST">
             <div>
                 <label for="inputEmail" class = "sr-only">Email</label>
                     <input name = "email" type="email" id = "inputEmail" class = "form-control" placeholder = "Email" required />
@@ -12,7 +12,7 @@ function LoginLayout(props) {
                     <input type = "password" id = "password" name = "password" class = "form-control" placeholder = "Password"/>
                     <br />
 
-                    <button class = "btn btn-primary" type = "submit"> Login </button><br />
+                    <button class = "btn btn-primary" type = "submit" role={props.role}> Login </button><br />
             </div>
             </form>
   );
