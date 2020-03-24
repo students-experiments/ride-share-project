@@ -1,6 +1,6 @@
 var React = require('react');
 var DefaultLayout =require('./layouts/defaults');
-var LoginForm =require('./layouts/login');
+var LoginForm =require('./layouts/defaultLoginForm');
 function assignMethod(role){
     if(role==='rider'){
         return '/loginRider'
@@ -25,7 +25,7 @@ function Login(props) {
       <DefaultLayout >
         <div class = "main" style ={bodyStyles}>
           <h2> Login to your Account </h2>
-          <LoginForm method={assignMethod(props.role)}></LoginForm>
+          <LoginForm method={assignMethod(props.role)} role = {props.role}></LoginForm>
         </div>
       </DefaultLayout>
     );
