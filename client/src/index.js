@@ -5,7 +5,7 @@ import history from './history';
 
 import {   Route, Link } from 'react-router';
 import LoginPage from './components/SignIn/LoginPage';
-import NewLogin from './NewLogin';
+
 import * as ROUTES from './constants/routes';
 import * as ROLES from './constants/roles';
 import RegisterPage from './components/SignUp/RegisterPage';
@@ -23,7 +23,7 @@ ReactDOM.render(
     </Route>
 
     <Route exact path ={ROUTES.RIDER_LOG_IN} >
-        <NewLogin  role = {ROLES.RIDER_ROLE} />
+        <LoginPage  role = {ROLES.RIDER_ROLE} />
     </Route>
     <Route exact path = '/login' >
         <LoginPage role = {ROLES.DRIVER_ROLE} />

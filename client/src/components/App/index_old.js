@@ -1,29 +1,14 @@
 import React from 'react';
 
-import ReactDOM from "react-dom";
-import "../../css/bootstrap.min.css";
-import "../../css/style.css";
 import { DefaultLayout } from '../../layouts/DefaultLayout';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Navigation from '../Navigation';
 
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
-
-
-
 import {LoginForm} from "../SignIn/login";
 import {RegisterForm} from "../../register";
 
-// import SignUpPage from '../SignUp';
-import SignInPage from '../SignIn/sign-in';
-// import PasswordForgetPage from '../PasswordForget';
-// import HomePage from '../Home';
-// import AccountPage from '../Account';
-// import AdminPage from '../Admin';
-
-
+// not being used
 
 class App extends React.Component {
     constructor(props) {

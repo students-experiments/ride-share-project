@@ -3,18 +3,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import "../../css/bootstrap.min.css";
 import "../../css/style.css";
-import { DefaultLayout } from '../../layouts/DefaultLayout';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Navigation from '../Navigation/RouteNavigation';
 
-import * as ROUTES from '../../constants/routes';
-import * as ROLES from '../../constants/roles';
-
-
-
-
-import {LoginForm} from "../SignIn/login_";
-import {RegisterForm} from "../../register";
 class App extends React.Component {
     render() {
         return (
