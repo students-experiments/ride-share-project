@@ -36,7 +36,8 @@ router.get("/",(req, res, next) => {
         if (role === "rider") {
           res.redirect("/rider/landing");
         } else {
-          res.redirect("/driver-landing");
+          //res.redirect("/driver/landing");
+          res.sendFile(require('path').join(__dirname, '../views/loggedInDriver.html'));
         }
       })
       .catch(error => {
@@ -51,7 +52,7 @@ router.post("/addUserClaims",(req,res)=>{
   res.sendStatus(200);
 });
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   if (req.cookies && req.cookies.session) {
     const sessionCookie = `${req.cookies.session}`;
     sessions.deleteLoggedInSession(sessionCookie);
@@ -177,13 +178,14 @@ router.get("/driver/landing", (req, res) => {
     if (req.cookies && req.cookies.session && req.cookies.csrfToken) {
       //verify csrf token TODO
       console.log("driver session and csrf verified");
-      res.render("loggedInDriver");
+      res.sendFile(require('path').join(__dirname, '../views/loggedInDriver.html'));
+      //res.render("loggedInDriver");
     } else {
       res.status(401).send("UNAUTHORIZED REQUEST!");
       return res;
     }
   });
-  
+
   router.get("/rider/landing", (req, res) => {
     console.log("Inside /rider/landing route");
     console.log(req.cookies + " " + req.cookies.session);
