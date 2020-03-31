@@ -39,13 +39,13 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
 * Transit (rider)
   - It requires the rider to be registered and logged in before requesting a ride
   - It lets a rider request a ride
-  - It lets a rider input their location
+  - It lets a rider input his/her location
   - It notifies the rider when a driver accepts the request
-  - It lets the rider see the time to pickup
+  - It lets the rider see the driver's ETA
   - It lets the rider cancel the ride
   - It lets the rider know the driver's current status
   - It updates the rider's transit status in the database after the ride finishes
-  - It sends the rider back to the "Request a Ride" page after the ride is finishes
+  - It sends the rider back to the "Request a Ride" page after the ride finishes
   
 
 ## Authors
