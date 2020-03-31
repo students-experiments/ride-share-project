@@ -2,26 +2,57 @@ const React = require("react");
 
 function driverLoggedIn(props) {
     let bodyStyles = {
-        textAlign: 'center',
-        marginTop: '7%'
+        height: 100,
+        margin: 0,
+        padding: 0
     };
+    // let headStyle={
+    //     map {
+    //         height: 100%;
+    //         }
+    //         html, body {
+    //         height: 100%;
+    //         margin: 0;
+    //         padding: 0;
+    //         }
+    // }
 
     return(
         <html>
-            <head>
-                <title> Welcome </title>
-                <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
-                <link rel="stylesheet" href="/stylesheets/style.css" />
-            </head>
+  <head>
+    <style type="text/css">
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map">
+    
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfC_SV4Nbc9lfnmLnpOed58K9jYMB8N8
+            &libraries=visualization&callback=initMap">
+        </script>
+    </div>
+    <form action = "/logout" method = "GET">
+        <button type = "submit" className = "btn btn-lg btn-secondary"> Logout </button>
+    </form>
 
-            <body style = {bodyStyles}>
-                <h2> Welcome Driver {props.username}</h2>
 
-                <form action = "/logout" method = "POST">
-                    <button type = "submit" className = "btn btn-lg btn-secondary"> Logout </button>
-                </form>
-            </body>
-        </html>
+
+
+
+    <script>
+      // The JavaScript code that creates the Firebase map goes here.
+    </script>
+
+  </body>
+</html>
     );
 }
 

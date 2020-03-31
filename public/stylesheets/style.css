@@ -5,6 +5,7 @@ body {
   margin: 0;
 }
 
+
 .header {
   text-align: center;
   background: #0da4ca;
@@ -37,7 +38,6 @@ form {
   display: block;
   margin: 10;
 }
-
 .favorites {
   padding: 1rem;
   text-align: center;
