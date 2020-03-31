@@ -118,3 +118,4 @@ To start the application:
   
 For testing https-based deployment:
   - https://uic-rider.firebaseapp.com
+  - "uic-night-ride-service-account.json" contains params for read only access for firebase data.
