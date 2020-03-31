@@ -26,19 +26,27 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It checks if the user's current status reflects properly in the database 
   
 (Tests for Checkpoint 4)
-* Transit (user or driver)
-  - It checks if the user (or driver) is in transit upon login
-  - It checks if the user (or driver) is in transit once a match is made
-  - It doesn’t let a user make another request once in transit
-  - It shares rides for riders in a given perimeter
-  - It removes the driver from the available drivers list once thier vehicle capacity is full
-  - It adds the driver to the available drivers list once their vehicle is no longer full
-* Ending Transit
-  - It checks if the user is no longer in the database for users currently in transit
-  - It checks if the driver is no longer in the database for drivers currently in transit
-  - It sends the driver to the "waiting for riders" page
-  - It sends the user back to the request page  
-  - It makes sure that the Driver ending one transit with a Rider does not take the Driver out from the available drivers list
+* Transit (driver)
+  - It checks if the driver is registered and logged in before searching for riders
+  - It lets a driver start a ride
+  - It ensures the database reflects the driver's actual seat capacity remaining
+  - It notifies a driver of the nearest rider request
+  - It allows a driver to accept/deny request
+  - It lets a driver pick up a rider
+  - It ensures the database reflects the driver's current transit status
+  - It lets a driver drop off a rider
+  
+* Transit (rider)
+  - It requires the rider to be registered and logged in before requesting a ride
+  - It lets a rider request a ride
+  - It lets a rider input their location
+  - It notifies the rider when a driver accepts the request
+  - It lets the rider see the time to pickup
+  - It lets the rider cancel the ride
+  - It lets the rider know the driver's current status
+  - It updates the rider's transit status in the database after the ride finishes
+  - It sends the rider back to the "Request a Ride" page after the ride is finishes
+  
 
 ## Authors
 
