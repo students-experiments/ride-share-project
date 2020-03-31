@@ -109,6 +109,7 @@ The UI should be completed with some of the CRUD functionalities.
          
 # Installation
 After cloning the repository:
+  - cd functions
   - npm install
   - npm install -g firebase-tools
 
@@ -117,3 +118,5 @@ To start the application:
   
 For testing https-based deployment:
   - https://uic-rider.firebaseapp.com
+
+Firebase Service Account JSON file (required for getting admin credentials to make Cloud Firestore Database read/write operations) is not added in the repository.
