@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-app.use(cors({ origin: true }));
+app.use(cors({ origin: false }));
 app.use(bodyParser.json());
 // Support URL-encoded bodies.
 app.use(

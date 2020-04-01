@@ -116,12 +116,13 @@ router.post("/loginRider", (req, res) => {
 
 
 function login(req, res, role,redirectURL) {
+  console.log("Request from react \n" + req.body.email + " " + req.body.password);
   data = {
     email: req.body.email,
     pass: req.body.password,
     role: role
   };
-  console.log("role from req", req.body.role);
+  // console.log("role from req", req.body.role);
 
   const expiresIn = 60 * 5 * 1000;
   let userDetail;
@@ -154,14 +155,19 @@ function login(req, res, role,redirectURL) {
       // Set cookie policy for session cookie.
       const options = { maxAge: expiresIn, httpOnly: true };
       res.cookie("session", storeSession.sessionCookie, options);
-      res.redirect(redirectURL);
-      return res;
+      
+      console.log(redirectURL);
+      
+      res.redirect(".." + redirectURL);
+      
     })
     .catch(error => {
+      console.error(error);
       res.status(401).send("UNAUTHORIZED REQUEST!" + error);
       return res;
     });
 }
+
 router.get("/driver/landing", (req, res) => {
     if (req.cookies && req.cookies.session && req.cookies.csrfToken) {
       //verify csrf token TODO
@@ -174,6 +180,8 @@ router.get("/driver/landing", (req, res) => {
   });
   
   router.get("/rider/landing", (req, res) => {
+    console.log("Inside /rider/landing route");
+    console.log(req.cookies + " " + req.cookies.session);
     if (req.cookies && req.cookies.session && req.cookies.csrfToken) {
       //verify csrf token TODO
       console.log("user session and csrf verified");
@@ -182,6 +190,7 @@ router.get("/driver/landing", (req, res) => {
       res.status(401).send("UNAUTHORIZED REQUEST!");
       return res;
     }
+    
   });
   
 module.exports = router;
