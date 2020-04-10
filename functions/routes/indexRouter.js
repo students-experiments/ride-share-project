@@ -45,6 +45,11 @@ router.get("/",(req, res, next) => {
       });
   }
 );
+router.post("/addUserClaims",(req,res)=>{
+
+  console.log("user data got",req.body);
+  res.sendStatus(200);
+});
 
 router.post("/logout", (req, res) => {
   if (req.cookies && req.cookies.session) {
@@ -158,7 +163,7 @@ function login(req, res, role,redirectURL) {
       
       console.log(redirectURL);
       
-      res.redirect(".." + redirectURL);
+      res.send("yes in rider landing");
       
     })
     .catch(error => {
@@ -182,14 +187,15 @@ router.get("/driver/landing", (req, res) => {
   router.get("/rider/landing", (req, res) => {
     console.log("Inside /rider/landing route");
     console.log(req.cookies + " " + req.cookies.session);
-    if (req.cookies && req.cookies.session && req.cookies.csrfToken) {
-      //verify csrf token TODO
-      console.log("user session and csrf verified");
-      res.render("loggedInRider");
-    } else {
-      res.status(401).send("UNAUTHORIZED REQUEST!");
-      return res;
-    }
+    res.send("inside rider landing");
+    // if (req.cookies && req.cookies.session && req.cookies.csrfToken) {
+    //   //verify csrf token TODO
+    //   console.log("user session and csrf verified");
+    //   res.render("loggedInRider");
+    // } else {
+    //   res.status(401).send("UNAUTHORIZED REQUEST!");
+    //   return res;
+    // }
     
   });
   
