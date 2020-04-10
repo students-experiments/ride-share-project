@@ -1,77 +1,53 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./bootstrap.min.css";
-import "./style.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router} from 'react-router';
+import history from './history';
 
-import { DefaultLayout } from "./layouts/DefaultLayout";
-import {LoginForm} from "./Login";
-import {RegisterForm} from "./Register";
+import {   Route, Link } from 'react-router';
+import LoginPage from './components/SignIn/LoginPage';
+import NewLogin from './NewLogin';
+import * as ROUTES from './constants/routes';
+import * as ROLES from './constants/roles';
+import RegisterPage from './components/SignUp/RegisterPage';
+import {RiderLoggedIn} from './loggedInRider';
+import ForgotPasswordForm from './components/PasswordForget/ForgotPassword';
+import 'semantic-ui-css/semantic.min.css'
+//import * as ROUTES from './constants/routes';
 
-class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            bodyStyles: {
-                textAlign: 'center',
-                marginLeft: '25% ',
-                marginRight: '25% '
-            },
-            currentPage: "home"
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(e) {
-        this.setState({
-            currentPage: e.target.name
-        });
-    }
-
-    render() {
-        if(this.state.currentPage === "home")
-        return (
-            <DefaultLayout>
-                <form name = "driverLoginPage" onSubmit={this.handleSubmit} style = {this.state.bodyStyles}>
-                    <button type = "submit" className="btn btn-primary" > Login as Driver </button>
-                </form>
-
-                <form name = "riderLoginPage" onSubmit={this.handleSubmit} style = {this.state.bodyStyles}>
-                    <button type = "submit" className="btn btn-primary"> Login as Rider</button>
-                </form>
-
-                <form name = "driverRegisterPage" onSubmit={this.handleSubmit} style = {this.state.bodyStyles}>
-                    <button type="submit" className="btn btn-secondary"> Drivers Register Here</button>
-                </form>
-
-                <form name = "riderRegisterPage" onSubmit={this.handleSubmit} style = {this.state.bodyStyles}>
-                    <button type="submit" className="btn btn-secondary"> Riders Register Here</button>
-                </form>
-            </DefaultLayout>
-        );
-
-        else if(this.state.currentPage === "driverLoginPage")
-            return (
-                <LoginForm role = "driver" />
-            );
-
-        else if(this.state.currentPage === "riderLoginPage")
-            return (
-                <LoginForm role = "rider" />
-            );
-
-        else if(this.state.currentPage === "driverRegisterPage")
-            return (
-                <RegisterForm role = "driver" />
-            );
-
-        else if(this.state.currentPage === "riderRegisterPage")
-            return (
-                <RegisterForm role = "rider" />
-            );
-    }
-}
-
+import * as routes from './routes';
+// ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
-    <Home />,
-    document.getElementById("root")
-);
+    <Router history={history}>
+    <Route exact path="/" >
+        <RegisterPage  />
+    </Route>
+
+    <Route exact path ={ROUTES.RIDER_LOG_IN} >
+        <NewLogin  role = {ROLES.RIDER_ROLE} />
+    </Route>
+    <Route exact path = '/login' >
+        <LoginPage role = {ROLES.DRIVER_ROLE} />
+    </Route>
+    <Route exact path={ROUTES.RIDER_REGISTER} >
+        <RegisterPage role={ROLES.RIDER_ROLE} />
+    </Route>
+    <Route exact path={ROUTES.DRIVER_REGISTER} >
+        <RegisterPage role={ROLES.DRIVER_ROLE} />
+    </Route>
+    <Route path = '/rider/loggedIN'>
+        <RiderLoggedIn />
+    </Route>
+    <Route path = '/forgot_password'>
+        <ForgotPasswordForm />
+    </Route>
+
+    </Router>,
+    document.getElementById('root')
+  );
+
+
+  /*TODO:
+  1/ use env for firebase constatnst
+  2. create pages before writing anything.
+  */
+  
