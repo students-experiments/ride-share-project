@@ -3,7 +3,7 @@ const users = require("../firebase-db/auth/Users.js");
 const firebase_admin = require("../firebase-db/init-db").firebase_admin;
 const sessions = require("../firebase-db/auth/session");
 const router = express.Router();
-
+const Claims =require('../firebase-db/user/Claims');
 router.get("/",(req, res, next) => {
     if (req.cookies && req.cookies.session) {
       const sessionCookie = `${req.cookies.session}`;
@@ -46,10 +46,26 @@ router.get("/",(req, res, next) => {
       });
   }
 );
-router.post("/addUserClaims",(req,res)=>{
+function requireUser (req,res,next){
+  if(!req.body.data.user)
+  {
+    res.send(400);
+  }
+  else{
+    // eslint-disable-next-line callback-return
+    next();
+  }
 
-  console.log("user data got",req.body);
-  res.sendStatus(200);
+}
+router.post("/addUserClaims",requireUser, (req,res)=>{
+  const {user, claims}= req.body.data;
+  console.log('req recieved:', req.body.data);
+  Claims.setCustomUserClaims(user,claims)
+  .then(()=>res.sendStatus(200))
+  .catch((err)=>{ 
+    console.log(err);
+    res.status(404).send(err)})
+ 
 });
 
 router.get("/logout", (req, res) => {

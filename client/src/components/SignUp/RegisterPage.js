@@ -1,33 +1,36 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 import RegisterForm from "./RegisterForm";
-import { DefaultLayout } from "../../layouts/DefaultLayout.js";
-import {signUp} from '../../actions/user/auth'
-import history from '../../history';
+import {addCustomClaims} from '../../actions/user/auth';
+import {withFirebase } from '../Context/context'
+import {withRouter} from 'react-router-dom';
 
-
-class RegisterPage extends React.Component {
+class RegisterPageBase extends React.Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
     }
    
-    submit(data){
-        signUp(data).then(() => history.push("/login")).catch((err)=>{
-    
-        console.log(err)
-    }
-        );
+    submit(user,claims){
+        console.log("profile",user);
+        console.log("history",this.props.history);
+        console.log('user claims',claims)
+        addCustomClaims(user,claims).then(()=>{
+            this.props.history.push('/login');
+        }).catch((err)=>{
+            alert('was not able to login. try again');
+            console.log(err);
+            this.props.history.push('/');
+        })
+
+       
 
     }
   render() {
     return (
       <div>
-            <DefaultLayout />
             <section className="section-login" >
                 <h2> Register your Account </h2>
-                <RegisterForm submit={this.submit} />
+                    <RegisterForm  submit={this.submit} />
             </section>
       </div>
     );
@@ -35,5 +38,5 @@ class RegisterPage extends React.Component {
 }
 
 
-
+const RegisterPage = withRouter(withFirebase(RegisterPageBase))
 export default RegisterPage;

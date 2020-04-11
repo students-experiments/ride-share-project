@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-export function postUserClaims(uid,claims){
+export function postUserClaims(user,claims){
 
-    const post_params={
+    const data={
         claims:claims,
-        uid:uid
+        user:user
     }
+    const post_params={data}
+    console.log('posting params',post_params);
     return axios.post(`http://localhost:5000/addUserClaims`, post_params);
 }

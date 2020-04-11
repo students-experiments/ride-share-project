@@ -1,10 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Form, Button, Message } from "semantic-ui-react";
 import Validator from "validator";
-import InlineError from "../messages/InlineError";
+import InlineError from "../Messages/InlineError";
+import {withFirebase } from '../Context/context'
 
-class LoginForm extends React.Component {
+
+class LoginFormBase extends React.Component {
   state = {
     data: {
       email: "",
@@ -24,11 +25,19 @@ class LoginForm extends React.Component {
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
-      this.props
-        .submit(this.state.data)
-        .catch(err =>
-          this.setState({ errors: err.response.data.errors, loading: false })
-        );
+      const {email, password} = this.state.data;
+      this.props.firebase
+          .doSignInWithEmailAndPassword(email, password)
+          .then(authUser => {
+              console.log(authUser);
+              this.props
+              .submit(authUser.user)
+          })
+          .catch(err => {
+            console.log(err);
+            this.setState({ loading: false });
+            this.setState({ errors : err.message});
+          });
     }
   };
 
@@ -80,8 +89,6 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = {
-  submit: PropTypes.func.isRequired
-};
+const LoginForm = withFirebase(LoginFormBase);
 
 export default LoginForm;
