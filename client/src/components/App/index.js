@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router} from 'react-router';
 import history from '../../history';
-import Footer from '../../layouts/Footer';
+import Footer from '../../decorators/Footer';
 import {   Route, Link } from 'react-router';
 import LoginPage from '../SignIn/LoginPage';
 import Firebase, { FirebaseContext } from '../Context';
@@ -13,7 +13,7 @@ import RegisterPage from '../SignUp/RegisterPage';
 import ForgotPasswordForm from '../PasswordForget/ForgotPassword';
 import 'semantic-ui-css/semantic.min.css'
 
-import { DefaultLayout } from "../../layouts/DefaultLayout.js";
+import  DefaultLayout from "../../decorators/Header";
 
 
 class App extends React.Component {
