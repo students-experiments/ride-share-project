@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import {withFirebase } from '../Context/context'
 import Firebase from '../Context/index';
-import history from '../../history';
+import resolveUser from '../../controller/UserController'
+import {withRouter} from 'react-router-dom';
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -24,11 +25,12 @@ class LoginPageBase extends React.Component {
       .then((idTokenResult) => {
      // Confirm the user is an Admin.
       console.log('claims',idTokenResult.claims)
-      history.push('/');
+
+      resolveUser(idTokenResult.claims,this.props.history)
       })
       .catch((error) => {
         console.log(error);
-        history.push('/');
+        this.props.history.push('/');
       });
 
 
@@ -49,5 +51,5 @@ class LoginPageBase extends React.Component {
     );
   }
 }
-const LoginPage = withFirebase(LoginPageBase)
+const LoginPage = withRouter(withFirebase(LoginPageBase))
 export default LoginPage;

@@ -3,7 +3,6 @@ import React from "react";
 // import { Form, Button, Message } from "semantic-ui-react";
 import {withFirebase } from '../../Context/context'
 import SignOut from '../../SignOut/SignOutButton';
-
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -34,5 +33,5 @@ class HomePageBase extends React.Component {
     );
   }
 }
-const RiderHomePage = withFirebase(HomePageBase)
-export default RiderHomePage;
+const DriverHomePage = withFirebase(HomePageBase)
+export default DriverHomePage;

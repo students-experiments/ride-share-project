@@ -1,43 +1,50 @@
 import React from 'react';
-import { Router} from 'react-router';
+import { Route, Router } from 'react-router';
+import 'semantic-ui-css/semantic.min.css'
+
+// Imports from internals
 import history from '../../history';
-import Footer from '../../decorators/Footer';
-import {   Route, Link } from 'react-router';
-import LoginPage from '../SignIn/LoginPage';
 import Firebase, { FirebaseContext } from '../Context';
+
+//Header & Footer
+import Header from "../../decorators/Header";
+import Footer from '../../decorators/Footer';
 
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+
+// auth
+import LoginPage from '../SignIn/LoginPage';
 import RegisterPage from '../SignUp/RegisterPage';
-
 import ForgotPasswordForm from '../PasswordForget/ForgotPassword';
-import 'semantic-ui-css/semantic.min.css'
 
-import  DefaultLayout from "../../decorators/Header";
+//Home Pages
+import RiderHomePage from '../Rider/Home/HomePage';
+import DriverHomePage from '../Driver/Home/Homepage';
+
 
 
 class App extends React.Component {
     render() {
         return (
           <div id="root">
-            <DefaultLayout />
+            <Header />
           <FirebaseContext.Provider value={new Firebase()}>
           <Router history = {history}>
-              <Route exact path="/" >
-                  <RegisterPage history = {history} />
+              <Route exact path={ROUTES.ROOT} >
+                  <LoginPage  />
               </Route>
-  
-              <Route exact path ={ROUTES.RIDER_LOG_IN} >
-                  <LoginPage  role = {ROLES.RIDER_ROLE} />
+              <Route exact path ={ROUTES.REGISTER} >
+                  <RegisterPage  />
               </Route>
-              <Route exact path = '/login' >
-                <LoginPage  />
+              <Route exact path = {ROUTES.LOG_IN} >
+                <LoginPage />
               </Route>
-              <Route exact path={ROUTES.RIDER_REGISTER} >
-                  <RegisterPage role={ROLES.RIDER_ROLE} />
+              <Route exact path= {ROUTES.RIDER_HOME} >
+                <RiderHomePage  />
               </Route>
-              <Route exact path={ROUTES.DRIVER_REGISTER} >
-                  <RegisterPage role={ROLES.DRIVER_ROLE} />
+              <Route exact path= {ROUTES.DRIVER_HOME} >
+                <DriverHomePage  />
               </Route>
 
               <Route path = '/forgot_password'>
