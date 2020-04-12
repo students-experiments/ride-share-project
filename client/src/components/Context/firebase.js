@@ -32,6 +32,8 @@ class Firebase {
 
     doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
+    
+    doDeleteUser =() => this.auth.currentUser.delete();
   }
 
 export default Firebase;

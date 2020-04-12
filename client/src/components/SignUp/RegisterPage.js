@@ -17,10 +17,17 @@ class RegisterPageBase extends React.Component {
         addCustomClaims(user,claims).then(()=>{
             this.props.history.push('/login');
         }).catch((err)=>{
-            alert('was not able to login. try again');
+            console.log('was not able to login. try again');
             console.log(err);
-            this.props.history.push('/');
+            this.props.firebase.doDeleteUser()
+            .then(()=>{
+              alert('was not able to login. try again')
+            }).catch((err)=>{
+            console.log("error occure diring delteion", err);
+          })
         })
+        
+       
 
        
 

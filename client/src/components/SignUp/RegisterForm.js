@@ -8,13 +8,14 @@ import {withFirebase } from '../Context/context'
 import {withRouter} from 'react-router-dom';
 
 class RegisterFormBase extends React.Component {
-  state = {
-    data: {
+    Initial={
       email: "",
       password: "",
       uin:"",
       role:""
-    },
+    }
+  state = {
+    data: this.Initial,
     loading: false,
     errors: {}
   };
@@ -51,6 +52,8 @@ class RegisterFormBase extends React.Component {
           .doCreateUserWithEmailAndPassword(email, password)
           .then(authUser => {
               console.log(authUser);
+              this.setState({data : this.Initial});
+              this.setState(({loading: false}))
               this.props
               .submit(authUser.user,user_claims)
           })

@@ -1,4 +1,4 @@
-var db = require("../init-db").firestore;
+var db = require("../../init-db").firestore;
 
 function validateUser(user) {
   return new Promise((resolve, reject) => {

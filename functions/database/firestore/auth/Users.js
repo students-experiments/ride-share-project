@@ -1,5 +1,5 @@
 /* eslint-disable promise/catch-or-return */
-const firebase_admin = require("../init-db").firebase_admin;
+const firebase_admin = require("../../init-db").firebase_admin;
 const firebase = require("firebase");
 const validation = require("./validate.js");
 const utils = require("../util.js");

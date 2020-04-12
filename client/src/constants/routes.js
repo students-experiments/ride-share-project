@@ -2,7 +2,7 @@
 import * as ROLES from './roles';
 
 export const ROOT = '/';
-export const REGISTER = '/egister';
+export const REGISTER = '/register';
 export const LOG_IN = '/login';
 const HOME = 'home';
 export const PASSWORD_FORGET = '/pw-forget';

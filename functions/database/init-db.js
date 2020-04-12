@@ -22,10 +22,9 @@ const firebaseConfig = {
 firebase_admin.initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);
 
-const firestore =firebase_admin.firestore();
-
 exports.firebase_admin=firebase_admin;
-exports.firestore=firestore;
+exports.firestore=firebase_admin.firestore();
+exports.realtimedb=firebase_admin.database();
 // USAGE:
 /*
     - require the needed module from this init-db file.
