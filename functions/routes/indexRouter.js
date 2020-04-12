@@ -10,9 +10,11 @@ const Status =require('../status/status');
 
 const AddDriverLocation_FireStore= require('../database/firestore/driver/AddDriverLocation')
 
-const ClosestDriver= require('../database/firestore/driver/GetClosestDrivers');
+const ClosestDriver= require('../database/firestore/driver/RetriveDrivers');
 
-
+const RideRequest= require('../database/firestore/rider/RideRequest');
+ 
+const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
 
 router.get("/",(req, res, next) => {
     if (req.cookies && req.cookies.session) {
@@ -56,9 +58,15 @@ router.get("/",(req, res, next) => {
       });
   }
 );
+function isRequestUidValid(req){
+  if(!req.body.data.user.uid){
+    return false;
+  } 
+  return true;
+}
 function requireDriverAuth (req,res,next){
 
-  if(!req.body.data.user.uid && req.body.data.user.role !== 'driver')
+  if( isRequestUidValid(req) && req.body.data.user.role !== 'driver')
   {
     res.send(400);
   }
@@ -70,9 +78,22 @@ function requireDriverAuth (req,res,next){
   }
 
 }
+function requireRiderAuth (req,res,next){
+
+  if( isRequestUidValid(req) && req.body.data.user.role !== 'rider') 
+  {
+    res.send(400);
+  }
+  else{
+    console.log("authorised Driver :",req.body.data.user)
+    // eslint-disable-next-line callback-return
+    next();
+  }
+
+}
 function requireUser (req,res,next){
   data=req.body.data;
-  if(!data.uid)
+  if(! isRequestUidValid(req))
   {
     res.send(400);
   }
@@ -140,9 +161,19 @@ router.post('/driver/AddLocation',requireDriverAuth,(req,res)=>{
     })
     */
 })
+/* Request JSON:
+{
+    "data": {
+        "user" :{
+        	"uid": "UJSLK06TrXZuB5SKGaQ86H1J8Ut2",
+        	"role": "driver"
+        }
+    }
+}
+*/
 router.post('/driver/ReadyToPick',requireDriverAuth,(req,res)=>{
   const {user} = req.body.data;
-  DriverStatus.changeDriverStatus(user.uid,Status.TRANSIT)
+  DriverStatus.changeDriverStatus(user.uid,Status.IDLE)
   .then(()=>{
       res.sendStatus(200);
     }).catch((err)=>{
@@ -158,9 +189,62 @@ router.get('/driver/GetClosestDrivers',requireDriverAuth,(req,res)=>{
   
 })
 
+/*
+Request JSON:
+{
+    "data": {
 
-router.get('/getUserStatus',requireUser,(req,res)=>{
+        "user" :{
+        	"uid": "1tQD4hCqipXcRPCYGLufuhFijam2",
+        	"role": "rider"
+        },
+        "request":{
+    		"start":{
+    			"latitude": 20.0,
+        		"longitude": 90.0
+    		},
+    		"end":{
+    			"latitude": 20.0,
+        		"longitude": 90.0
+    		}
+    	}
+        
+    }
+*/
+router.post('/rider/AddRide',requireRiderAuth,(req,res)=>{
+  const {user,request} = req.body.data;
+  RideRequest.addRideRequest(user.uid,request)
+  .then((result)=>{
+    console.log('Rider Requested Success');
+    res.status(200).send({
+      result: result
+    })
+  })
+  .catch((err)=>{
+    console.log('Rider Requested Failed');
+    res.send(500).send(err);
+  })
+})
+router.post('/rider/DeleteRide',requireRiderAuth,(req,res)=>{
+  const {user} = req.body.data;
+  RideRequest.deleteRideRequest(user.uid)
+  .then((result)=>{
+    console.log('Ride request deleted for User');
+    res.status(200).send({
+      result: result
+    })
+  })
+  .catch((err)=>{
+    console.log('Delete Ride Failed');
+    res.status(200).send(err);
+  })
+})
 
+
+
+router.get('/driver/GetIdleDrivers',(req,res)=>{
+  RetriveDrivers.getIdleDrivers();
+  res.sendStatus(200);
 })
 
 router.get("/logout", (req, res) => {

@@ -8,12 +8,13 @@ module.exports.referenceJoiner = function(...args){
     return path;
 }
 
-
+module.exports.REQUEST = 'request'
+module.exports.TRANSIT = 'transit'
 
 // Driver Constansts
 module.exports.DRIVER ='driver'
 module.exports.DRIVER_LOCATION_REF = this.referenceJoiner(' ',this.DRIVER);
-
+module.exports.DRIVER_DEFAULT_CAPACITY = 4;
 
 
 

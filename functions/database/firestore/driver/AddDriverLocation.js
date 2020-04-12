@@ -7,8 +7,9 @@ const geo = require('geofirex').init(admin);
 // https://medium.com/@aaron_lu1/firebase-cloud-firestore-add-set-update-delete-get-data-6da566513b1b
 module.exports.writeDriverLocation = function writeDriverLocation(uid, data) {
     var doc = db.collection(Constants.DRIVER).doc(uid);
-    point= geo.point(data.latitude, data.longitude);
+    var point = geo.point(data.latitude, data.longitude);
     return doc.set({
-      point
+      "point": point.geopoint,
+      "geohash": point.geohash
     }, { merge: true });
   }
