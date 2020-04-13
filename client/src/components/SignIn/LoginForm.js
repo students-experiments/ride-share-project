@@ -3,6 +3,7 @@ import { Form, Button, Message } from "semantic-ui-react";
 import Validator from "validator";
 import InlineError from "../messages/InlineError";
 import {withFirebase } from '../Context/context'
+import { Link } from "react-router-dom";
 
 
 class LoginFormBase extends React.Component {
@@ -84,6 +85,8 @@ class LoginFormBase extends React.Component {
           {errors.password && <InlineError text={errors.password} />}
         </Form.Field>
         <Button primary>Login</Button>
+
+        <Link to="/forgot_password">Forgot Password?</Link>
       </Form>
     );
   }

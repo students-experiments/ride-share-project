@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 import LoginForm from "./LoginForm";
 import {withFirebase } from '../Context/context'
 import Firebase from '../Context/index';
@@ -17,6 +18,9 @@ class LoginPageBase extends React.Component {
         this.submit = this.submit.bind(this);
         
     }
+    //TODO: Change the following to pick route from User Controller
+    routeToRegister = e =>
+    this.props.history.push('/register')
     // under construction needs work
     submit(data){
       console.log('data',data);
@@ -44,7 +48,13 @@ class LoginPageBase extends React.Component {
         <section className="section-login" >
             <h2> Login to your Account </h2>
                 <LoginForm submit={this.submit} />
-        <Link to="/forgot_password">Forgot Password?</Link>
+        
+        <div >
+        <section className="section-login">
+        <Button secondary onClick={this.routeToRegister}>New Here? Register </Button>
+        </section>
+        
+        </div>
       </section>
       </div>
     );

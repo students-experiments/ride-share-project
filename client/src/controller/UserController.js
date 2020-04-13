@@ -12,5 +12,4 @@ export default function resolveUser(user){
     }
     console.log('role: ',user.role)
     return ROUTES.ROOT
-    
 }
