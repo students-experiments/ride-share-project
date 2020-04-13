@@ -1,9 +1,10 @@
 const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
-const indexRouter = require("./routes/indexRouter");
-const riderRouter = require("./routes/riderRouter");
+//const indexRouter = require("./routes/indexRouter");
+const RiderRouter = require("./routes/riderRouter");
 const driverRouter = require("./routes/driverRouter");
+const newRouter =require( './routes/iRouter');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -40,6 +41,9 @@ app.set("views", "./views");
 app.set("view engine", "jsx");
 app.engine("jsx", require("express-react-views").createEngine());
 
-app.use("/", indexRouter);
+// app.use("/", newRouter);
+app.use("/rider", RiderRouter);
+app.use("/driver", driverRouter);
+app.use("/index", newRouter)
 
 exports.app = functions.https.onRequest(app);

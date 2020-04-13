@@ -1,4 +1,4 @@
-var db = require("../init-db").firestore;
+var db = require("../../init-db").firestore;
 
 function validateUser(user) {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function validateUser(user) {
 
 function validateUserRole(uid, role) {
   return new Promise((resolve, reject) => {
-    console.log("invalidation", uid);
+    console.log("in validation", uid);
     var userRef = db.collection("users").doc(uid);
     userRef
       .get()

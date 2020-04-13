@@ -1,4 +1,4 @@
-const firebase_admin = require("../init-db").firebase_admin;
+const firebase_admin = require("../../init-db").firebase_admin;
 const utils = require("../util.js");
 
 var db = firebase_admin.firestore();
