@@ -106,7 +106,7 @@ describe('application', async () => {
         return;  
       })
        .catch(()=>{
-        return
+        return;
       });
     });
 
