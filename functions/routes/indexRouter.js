@@ -1,3 +1,4 @@
+
 const express = require("express");
 const users = require("../database/firestore/auth/Users.js");
 const firebase_admin = require("../database/init-db").firebase_admin;
@@ -15,6 +16,23 @@ const ClosestDriver= require('../database/firestore/driver/RetriveDrivers');
 const RideRequest= require('../database/firestore/rider/RideRequest');
  
 const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
+
+/*
+
+
+
+
+
+THIS FILE IS NOT BEING USED. STILL HERE BECAUSE IT CONTAINS SOME IMP API'S. TAking caution before deletion
+
+
+
+
+
+
+
+
+*/
 
 router.get("/",(req, res, next) => {
     if (req.cookies && req.cookies.session) {
@@ -64,6 +82,7 @@ function isRequestUidValid(req){
   } 
   return true;
 }
+
 function requireDriverAuth (req,res,next){
 
   if( isRequestUidValid(req) && req.body.data.user.role !== 'driver')
@@ -385,15 +404,7 @@ router.get("/driver/landing", (req, res) => {
     console.log("Inside /rider/landing route");
     console.log(req.cookies + " " + req.cookies.session);
     res.send("inside rider landing");
-    // if (req.cookies && req.cookies.session && req.cookies.csrfToken) {
-    //   //verify csrf token TODO
-    //   console.log("user session and csrf verified");
-    //   res.render("loggedInRider");
-    // } else {
-    //   res.status(401).send("UNAUTHORIZED REQUEST!");
-    //   return res;
-    // }
-    
+
   });
   
 module.exports = router;

@@ -17,29 +17,23 @@ module.exports.getTransitData =function (riderUID){
     return new Promise((resolve,reject)=>{
         FindDriver.getDriverMatch(riderUID)
         .then((driverUID)=>{
-            return ChangeDriverStatus.changeDriverStatus(driverUID,Status.TRANSIT)
+            var riderStatusChanged=ChangeRiderStatus.changeRiderStatus(riderUID,Status.TRANSIT);
+            var driverStatusChanged=ChangeDriverStatus.changeDriverStatus(driverUID,Status.TRANSIT);
+            return new Promise.all([riderStatusChanged,driverStatusChanged])
         })
-        .then((driverUID)=>{
-            // eslint-disable-next-line promise/no-nesting
-            ChangeRiderStatus.changeRiderStatus(riderUID,Status.TRANSIT)
-            .then(()=>{
-                var transitId= generateUniqueId(riderUID,driverUID)
-                var transitData={
-                    transitID: transitId,
-                    riderUID: riderUID,
-                    driverUID: driverUID
-                }
-                console.log('transit data',transitData);
-                return resolve(transitData);
-            })
-            .catch((err)=>{
-                ChangeDriverStatus.changeDriverStatus(driverUID,Status.IDLE)
-                console.log('rider status not able to change. Aborting ride match')
-                reject(err)
-            })  
+        .then((res)=>{
+            console.log("Rider and Driver Status changed",res);
+            var transitData={
+                transitID: generateUniqueId(riderUID,driverUID),
+                riderUID: riderUID,
+                driverUID: driverUID
+            }
+            console.log('transit data',transitData);
+            return resolve(transitData);
         })
-        .catch((err)=>{
-            ChangeDriverStatus.changeDriverStatus(driverUID,Status.IDLE)
+        .catch((err) =>{
+            console.log(err);
+            // TODO: write logic when one of the promises fails.
             reject(err);
         })
 
