@@ -1,6 +1,10 @@
 {
   "hosting": {
     "public": "client/build",
+    "rewrites":[{
+      "source": "**",
+      "function": "app"
+    }],
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
-import InlineError from "../Messages/InlineError";
+import InlineError from "../messages/InlineError";
 import validator from "validator";
 import {UIN_CHARACTER_LIMIT} from '../../constants/AppConstants'
 import {withFirebase } from '../Context/context'
