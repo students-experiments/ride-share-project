@@ -112,6 +112,7 @@ After cloning the repository:
   - cd functions
   - npm install
   - npm install -g firebase-tools
+  - npm run build ; cd ..
 
 To start the application:
   - firebase serve --only functions,hosting
@@ -119,3 +120,5 @@ To start the application:
 For testing https-based deployment:
   - https://uic-rider.firebaseapp.com
   - "uic-night-ride-service-account.json" contains params for read only access for firebase data.
+
+

@@ -1,36 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const Claims =require('../database/firestore/user/Claims');
-const DriverStatus = require ('../database/firestore/driver/ChangeStatus');
 const CommonStatus = require ('../database/firestore/common/Status');
-const Status =require('../status/status');
+const Status = require('../status/status');
 
-const AddDriverLocation_FireStore= require('../database/firestore/driver/AddDriverLocation')
-
-const ClosestDriver= require('../database/firestore/driver/RetriveDrivers');
-
-const RideRequest= require('../database/firestore/rider/RideRequest');
- 
-const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
-
-const Transit =require('../database/firestore/common/Transit');
-
+function isRequestUidValid(req) {
+  if (!req.body.data.user.uid) {
+    return false;
+  }
+  return true;
+}
 
 function requireUser(req,res,next){
   data=req.body.data;
-  if(this.isRequestUidValid)
+  if(isRequestUidValid(req))
   {
     res.send(400);
   }
   else{
-    
     console.log("authorised user :",data.uid)
     // eslint-disable-next-line callback-return
     next();
   }
 
 }
-  router.post("/addUserClaims",requireUser, (req,res)=>{
+  router.post("/addUserClaims", (req,res)=>{
     console.log('req recieved:', req.body.data);
     const {uid, claims}= req.body.data;
     Claims.setCustomUserClaims(uid,claims)

@@ -8,5 +8,5 @@ export function postUserClaims(user,claims){
     }
     const post_params={data}
     console.log('posting params',post_params);
-    return axios.post(`http://localhost:5000/addUserClaims`, post_params);
+    return axios.post(`http://localhost:5001/uic-rider/us-central1/app/index/addUserClaims`, post_params);
 }
