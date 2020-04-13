@@ -112,7 +112,7 @@ After cloning the repository:
   - cd functions
   - npm install
   - npm install -g firebase-tools
-  - npm run build ; cd ..
+  - cd client ; npm run build ; cd ..
 
 To start the application:
   - firebase serve --only functions,hosting
