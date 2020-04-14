@@ -3,7 +3,7 @@ const axios = require('axios').default;
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
-
+const db = require("../database/init-db").firestore;
 const app = require('../app.js');
 
 
@@ -69,15 +69,88 @@ describe('application', async () => {
 
   describe("transit", async () => {
     it("requires the rider to be registered and \
-    logged in before requesting a ride");
-    it("lets a rider request a ride");  
-    it("lets a rider state their location");  
-    it("lets the rider know when a driver accpets the request");
-    it("lets the rider see the time until pickup"); 
-    it("lets the rider cancel the ride");
-    it("lets the rider know of driver status");  
-    it("updates the DB rider transit status once ride is over");
+    logged in before requesting a ride", async() => {
+      let riderLogin = axios.post("/rider/AddRide", {
+          start: [20, 90],
+          end: [20, 90]
+      }).then((response) => {
+            assert(response.status !== 500);
+            return;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    });
+
+    it("lets a rider request a ride", async() => {
+      axios.post("/rider/AddRide", {
+        start: [20, 90],
+        end: [20, 90]
+      }).then((response) => {
+            assert(response.status === 200);
+            return;
+      })
+          .catch((err) => {
+            console.error(err);
+          });
+    });
+
+    it("lets a rider state their location", async() => {
+      axios.post("/rider/AddRide", {
+        start: [20, 90],
+        end: [20, 90]
+      }).then((response) => {
+            assert(response.status !== 500);
+            return;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    });
+
+    it("lets the rider know when a driver accepts the request"); // Implementation Pending
+
+    it("lets the rider see the time until pickup"); // Implementation Pending
+
+    it("lets the rider cancel the ride", async() => {
+      axios.delete("/rider/DeleteRide", {
+        params: {
+          uid: "eA5kl"
+        }
+      })
+      .then((response) => {
+            assert(response.status === 200);
+            return;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    });
+
+    it("lets the rider know of driver status"); // Implementation Pending
+
+    it("updates the DB rider transit status once ride is over", async () => {
+      axios.post("/driver/EndRide", { // Driver is the one who stops the ride
+        uid: "eA4KJlm"
+      }).then((response) => {
+            assert(response.status === 200);
+            return;
+          })
+              .then(() => {
+                let riderDb = db.collection("rider").doc("eA4KJlm");
+                riderDb.get()
+                    .then((doc) => {
+                      assert(doc.data().status === "idle");
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                    })
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+    });
     it("sends a user back to the \"Request a Ride\" page \
-    after ride finishes");
+    after ride finishes"); // Implementation Pending
   });
 });
