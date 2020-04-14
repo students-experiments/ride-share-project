@@ -3,31 +3,31 @@
 
 **What were the different functionalities you aimed to finish for each deadline (checkpoints 2, 3, 4)?**
 
- -   Current Functionality of the app:
+- Current Functionality of the app:
 	- security:
-		 - added route protection for UI pages: role based.
-		 - firebase authentication based routing for all pages.
-		 - email and pass verification on FE. 
-    - client side:
-	    - Integration with create-react-app from just a server rendered FE.
-	    - Rider and driver register through firebase on client side.
-	    - auth protected routes for driver landing and rider landing.
-	    - Role based login based on the firebase auth user.
-	    - role based routing within the app components.
-    - Server Side:
-	    - Integration with firebase firestore using admin sdk
-	    - Exploration of GeoPoint Data type for searching based on lat/long.(partial working)
-	    - AddUserClaims API: adds role based claims to User
-	    - AddRide API: addrs rider's request to ride.
-	    - AddLocation API: adds driver location 
-	    - GetRide API: Fetches the ride to Rider if there exists an idle dirver.
-	    - Changing status for drivers and riders based on the activity.
-    -   Who accomplished what
-	    - TODO this item
-    -   What didn’t get done in time
-	    - Wanted to finish the FE code for transit between rider and driver.
-	    - Wanted to complete the transit flow on server side.
-	    - 
+		- added route protection for UI pages: role based.
+		- firebase authentication based routing for all pages.
+		- email and pass verification on FE. 
+	- client side:
+		- Integration with create-react-app from just a server rendered FE.
+		- Rider and driver register through firebase on client side.
+		- auth protected routes for driver landing and rider landing.
+		- Role based login based on the firebase auth user.
+		- role based routing within the app components.
+    	- Server Side:
+		- Integration with firebase firestore using admin sdk
+		- Exploration of GeoPoint Data type for searching based on lat/long.(partial working)
+		- AddUserClaims API: adds role based claims to User
+		- AddRide API: addrs rider's request to ride.
+		- AddLocation API: adds driver location 
+		- GetRide API: Fetches the ride to Rider if there exists an idle dirver.
+		- Changing status for drivers and riders based on the activity.
+    	-   Who accomplished what
+		- TODO this item
+    	-   What didn’t get done in time
+		- Wanted to finish the FE code for transit between rider and driver.
+		- Wanted to complete the transit flow on server side.
+		- 
   **What is the plan of attack for finishing Checkpoint 5??** 
 
 
