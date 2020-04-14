@@ -1,4 +1,4 @@
-**  What were the different functionalities you aimed to finish for each deadline (checkpoints 2, 3, 4)?**
+**What were the different functionalities you aimed to finish for each deadline (checkpoints 2, 3, 4)?**
 
  -   Current Functionality of the app:
 	- security:
