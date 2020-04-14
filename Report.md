@@ -65,4 +65,14 @@
 	 - Building the UI elements using the Components design architecture.
 	 - GCP architecture and tools: firebase, firestore, auth.
 	 -  Geo based searching 
-    -   What is your reason for making those changes (i.e. what you did try, what you learned, what you realized is way harder than it needed to be, and how you realized that)?
+ - Way harder than expected:
+	 - React components setup
+	 - understanding firebase hosting rules
+	 - mistake: tried to use React static pages to get render dynamic content. Spent a lot of time trying to understand the right way of doing FE.
+	 - Firebase auth SDK: firestore cannot be accessed from FE. needs admin sdk for complete access. 
+	 - firebase sessions and auth tokens: initially very  convoluted concepts. but better now.
+ - why did we go for react client ?
+	 - the initial way of using react hindered the architecture.
+	 - It was very difficult to manage user at each step. 
+	 - authentication was a major issue. 
+    
