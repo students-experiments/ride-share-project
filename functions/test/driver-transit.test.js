@@ -74,10 +74,33 @@ describe('application', async () => {
     it("ensures the database reflects the \
     driver's current seat capacity remaining");
     it("notifies a driver of the nearest rider request"); 
-    it("allows a driver to accept/deny request");  
-    it("lets a driver pick up a rider");
+    it("allows a driver to accept/deny request");
+
+    it("lets a driver pick up a rider", async () => {
+      axios.post("driver/ReadyToPick", {
+        uid: "v5KRTG"
+      })
+          .then((response) => {
+            assert(response.status === 200);
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+    });
+
     it("ensures the database reflects the \
     driver's current transit status");
-    it("lets a driver drop off a rider");
+
+    it("lets a driver drop off a rider", async () => {
+      axios.post("/driver/EndRide", {
+        uid: 'e745hy'
+      })
+          .then((response) => {
+            assert(response.status === 200);
+          })
+          .catch((err) => {
+        console.error(err);
+      });
+    });
   });
 });
