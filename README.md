@@ -30,7 +30,6 @@ This project will be utilizing basic CRUD functionalities, geolocation, Openrout
   - It checks if the driver is registered and logged in before searching for riders
   - It lets a driver start a ride
   - It ensures the database reflects the driver's actual seat capacity remaining
-  - It notifies a driver of the nearest rider request
   - It allows a driver to accept/deny request
   - It lets a driver pick up a rider
   - It ensures the database reflects the driver's current transit status
