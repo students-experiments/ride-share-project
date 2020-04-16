@@ -1,6 +1,8 @@
-const db =require('../../init-db').firestore
-const Constants =require('../../ConstantsUtil');
+const db = require('../../init-db').firestore
+const Constants = require('../../ConstantsUtil');
 const admin=require('../../init-db').firebase_admin
+const GeoPoint=require('../common/GeoPoint')
+const FieldStrings =require('../FieldStrings');
 
 // usage or merge  and doc.set - update: 
 // https://medium.com/@aaron_lu1/firebase-cloud-firestore-add-set-update-delete-get-data-6da566513b1b
@@ -10,14 +12,17 @@ module.exports.deleteRideRequest = function (uid) {
       request : admin.firestore.FieldValue.delete()
     }, { merge: true });
   }
+
+/*
+  Adds Ride Request field in rider document
+
+*/
   module.exports.addRideRequest = function (uid, data) {
     var doc = db.collection(Constants.RIDER).doc(uid);
-    var start =new admin.firestore.GeoPoint(data.start.latitude, data.start.longitude);
-    var end = new admin.firestore.GeoPoint(data.start.latitude, data.start.longitude);
     return doc.set({
-      request : {
-        start : start,
-        end : end
+      [FieldStrings.RIDE_REQUEST] : {
+        [FieldStrings.START_LOCATION] : GeoPoint.getGeoPoint(data.start.latitude, data.start.longitude),
+        [FieldStrings.END_LOCATION]  : GeoPoint.getGeoPoint(data.end.latitude, data.end.longitude),
       }
     }, { merge: true });
   }

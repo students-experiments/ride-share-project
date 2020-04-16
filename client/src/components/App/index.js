@@ -22,7 +22,8 @@ import ForgotPasswordForm from '../PasswordForget/ForgotPassword';
 import RiderHomePage from '../Rider/Home/HomePage';
 import DriverHomePage from '../Driver/Home/Homepage';
 
-
+//transit pages
+import RiderTransitPage from '../Rider/transit/transit';
 
 class App extends React.Component {
     render() {
@@ -45,6 +46,9 @@ class App extends React.Component {
               </Route>
               <Route exact path= {ROUTES.DRIVER_HOME} >
                 <DriverHomePage  />
+              </Route>
+              <Route path = '/rider/transit'>
+                  <RiderTransitPage />
               </Route>
 
               <Route path = '/forgot_password'>

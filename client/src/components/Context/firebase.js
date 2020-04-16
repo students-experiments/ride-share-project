@@ -17,6 +17,7 @@ class Firebase {
     constructor() {
         firebase.initializeApp(firebaseConfig);
         this.auth = firebase.auth();
+        this.firestore=firebase.firestore();
     }
     doCreateUserWithEmailAndPassword = (email, password) =>{
         console.log('email',email);
