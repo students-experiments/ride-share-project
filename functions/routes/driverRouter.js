@@ -1,15 +1,13 @@
 const express = require("express");
 const DriverRouter = express.Router();
-const DriverStatus = require ('../database/firestore/driver/DriverStatus');
-const Status =require('../status/status');
 const AddDriverLocation_FireStore= require('../database/firestore/driver/DriverLocation')
 const ClosestDriver= require('../database/firestore/driver/RetriveDrivers');
 const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
 const Utils = require('./utils');
 const DriverTransit = require('../database/firestore/driver/DriverTransit');
-const Capacity = require('../database/firestore/driver/Capacity');
 const DriverMatch = require('../database/firestore/driver/Match')
 const RiderTransit =require('../database/firestore/rider/RiderTransit')
+const DriverPickUp = require('../database/firestore/driver/DriverPickUp')
  /*
   Sample Data for this API:
  {
@@ -64,17 +62,15 @@ const RiderTransit =require('../database/firestore/rider/RiderTransit')
 */
 DriverRouter.post('/ReadyToPick',Utils.requireDriverAuth,(req,res)=>{
   const {user , capacity} = req.body.data;
-  DriverStatus.changeDriverStatus(user.uid,Status.IDLE)
+  DriverPickUp.updateDriverToPick(user.uid,capacity)
   .then(()=>{
-    console.log('Driver Status changed')
-    return Capacity.addCapacity(user.uid,capacity)
-    }).then(()=>{
-      console.log('Driver Vehicle capacity updated')
-      res.json({status: 200, message: "driver Ready to pick up"});
-    }).catch((err)=>{
-      console.log(err);
-      res.status(404).send(err)
-    })
+    console.log('Driver Availble to Pick Up Rider')
+    res.status(200).json({user: user,status: 'success'})
+  })
+  .catch((err)=>{
+    console.log(err);
+    res.status(404).send(err)
+  })
 })
 /*
 JSON Request:
@@ -136,7 +132,7 @@ DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
 
   moverRiderFromMatchedToTransit(driverUID,riderUID)
   .then(()=>{
-    return RiderTransit.updateTransit(riderUID,driverUID)
+    return RiderTransit.addDriverTransit(riderUID,driverUID)
   })
   .then(()=>{
     console.log('Driver Ride accept success')
@@ -158,8 +154,9 @@ DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
 
 DriverRouter.post('/EndRide',Utils.requireDriverAuth,(req,res)=>{
   const {user,rider} = req.body.data;
-  DriverTransit.removeRiderFromTransit(user.uid,rider)
+  DriverTransit.removeRiderFromTransit(user.uid,rider.uid)
   .then(()=>{
+    console.log('removed Rider from Driver')
       res.sendStatus(200);
     }).catch((err)=>{
       console.log(err);
@@ -167,6 +164,18 @@ DriverRouter.post('/EndRide',Utils.requireDriverAuth,(req,res)=>{
     })
 })
 
+
+DriverRouter.post('/EndTransit',Utils.requireDriverAuth,(req,res)=>{
+  const {user} = req.body.data;
+  DriverTransit.endTransit(user.uid)
+  .then(()=>{
+    console.log('Ended Transit for Driver')
+      res.sendStatus(200);
+    }).catch((err)=>{
+      console.log(err);
+      res.status(404).send(err)
+    })
+})
 
 // This query is work in progress . yet to be completed.
 DriverRouter.get('/GetClosestDrivers',Utils.requireDriverAuth,(req,res)=>{

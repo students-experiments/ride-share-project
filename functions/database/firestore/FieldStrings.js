@@ -1,4 +1,4 @@
-module.exports.VEHICLE_CAPACITY ='capacity';
+module.exports.CAPACITY_AVAILABILE ='capacity_available';
 module.exports.LOCATION ='location';
 module.exports.RIDE_REQUEST='ride_request'
 

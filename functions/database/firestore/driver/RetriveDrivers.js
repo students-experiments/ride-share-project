@@ -38,7 +38,7 @@ module.exports.getIdleDrivers = function () {
 This api gets the potential driver who can pick up the rider
 */
 module.exports.getPotentialDriver = function () {
-    var query = db.collection(Constants.DRIVER).where(FieldString.VEHICLE_CAPACITY,'>', Constants.VEHICLE_MIN_CAPACITY)
+    var query = db.collection(Constants.DRIVER).where(FieldString.CAPACITY_AVAILABILE,'>', Constants.VEHICLE_MIN_CAPACITY)
     return query.limit(1).get();
     
 }

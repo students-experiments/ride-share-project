@@ -9,12 +9,12 @@ module.exports.addCapacity = function addCapacity(uid, capacity) {
     var doc = db.collection(Constants.DRIVER).doc(uid);
     var cap
     if(!capacity){
-        cap=Constants.DRIVER_DEFAULT_CAPACITY
+        cap=Constants.VEHICLE_DEFAULT_CAPACITY
     }else{
         cap=capacity
     }
     return doc.set({
-      [FieldStrings.VEHICLE_CAPACITY]: cap
+      [FieldStrings.CAPACITY_AVAILABILE]: cap
     }, { merge: true });
   }
   module.exports.decrementCapacity = function decrementCapacity(driverUID, capacity) {
@@ -26,6 +26,6 @@ module.exports.addCapacity = function addCapacity(uid, capacity) {
         cap=capacity
     }
     return doc.update({
-      [FieldStrings.VEHICLE_CAPACITY]: admin.firestore.FieldValue.increment(cap)
+      [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(cap)
     }, { merge: true });
   }
