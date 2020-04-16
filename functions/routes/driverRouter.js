@@ -1,13 +1,15 @@
 const express = require("express");
 const DriverRouter = express.Router();
-const DriverStatus = require ('../database/firestore/driver/ChangeStatus');
+const DriverStatus = require ('../database/firestore/driver/DriverStatus');
 const Status =require('../status/status');
 const AddDriverLocation_FireStore= require('../database/firestore/driver/DriverLocation')
 const ClosestDriver= require('../database/firestore/driver/RetriveDrivers');
 const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
 const Utils = require('./utils');
-const DriverTransit = require('../database/firestore/driver/Transit');
-const Capacity= require('../database/firestore/driver/Capacity');
+const DriverTransit = require('../database/firestore/driver/DriverTransit');
+const Capacity = require('../database/firestore/driver/Capacity');
+const DriverMatch = require('../database/firestore/driver/Match')
+const RiderTransit =require('../database/firestore/rider/RiderTransit')
  /*
   Sample Data for this API:
  {
@@ -99,16 +101,59 @@ JSON Request:
  }
 
 */
+function moverRiderFromMatchedToTransit(driverUID,riderUID){
+  return new Promise((resolve,reject)=>{
+    var data
+    DriverMatch.getRiderDocFromMatchesList(driverUID,riderUID)
+    .then((doc)=>{
+      if(! doc.exists){
+        throw new Error('Rider doesnt exist in Matched List');
+      }
+      data=doc.data();
+      console.log('moving rider to transit')
+      return DriverTransit.addRiderToTransit(driverUID,riderUID,data)
+    })
+    .then(()=>{
+      console.log('removing rider from matched list')
+      return DriverMatch.removeRiderFromMatchesList(driverUID,riderUID)
+    })
+    .then(()=>{
+      resolve(riderUID)
+
+    })
+    .catch((err)=>{
+      console.log('unable to move rider to transit')
+      reject(err)
+    })
+  })
+ 
+}
 
 DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
   const {user,rider} = req.body.data;
-  DriverTransit.addRiderToTransit(user.uid,rider)
+  var riderUID=rider.uid
+  var driverUID=user.uid
+
+  moverRiderFromMatchedToTransit(driverUID,riderUID)
   .then(()=>{
-      res.sendStatus(200);
-    }).catch((err)=>{
-      console.log(err);
-      res.status(404).send(err)
-    })
+    return RiderTransit.updateTransit(riderUID,driverUID)
+  })
+  .then(()=>{
+    console.log('Driver Ride accept success')
+    res.status(200).json({riderUID:riderUID})
+
+  }).catch((err)=>{
+    res.send(404).send(err)
+  })
+  
+
+  // DriverTransit.addRiderToTransit(user.uid,rider)
+  // .then(()=>{
+  //     res.sendStatus(200);
+  //   }).catch((err)=>{
+  //     console.log(err);
+  //     res.status(404).send(err)
+  //   })
 })
 
 DriverRouter.post('/EndRide',Utils.requireDriverAuth,(req,res)=>{

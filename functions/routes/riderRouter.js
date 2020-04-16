@@ -6,8 +6,9 @@ const RouterUtils = require("./utils");
 const RetriveDrivers = require("../database/firestore/driver/RetriveDrivers");
 const RetriveRiders = require("../database/firestore/rider/RetriveRider");
 const DriverMatch = require("../database/firestore/driver/Match");
-const RiderChangeStatus = require("../database/firestore/rider/ChangeStatus");
+const RiderStatus = require("../database/firestore/rider/RiderStatus");
 const Status = require("../status/status");
+const RiderMatch = require('../database/firestore/rider/Match');
 /*
   Request JSON:
   {
@@ -124,7 +125,11 @@ RiderRouter.get("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
     })
     .then(() => {
       console.log("Rider matched to driver.");
-      return RiderChangeStatus.changeRiderStatus(riderUID, Status.MATCHED);
+      return Promise.all([
+        RiderStatus.changeRiderStatus(riderUID, Status.MATCHED),
+        RiderMatch.addDriverMatched(riderUID,driverUID)
+      ])
+
     })
     .then(() => {
       console.log("Changed Rider status to matched");

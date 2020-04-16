@@ -24,9 +24,16 @@ db.collection("cities").doc("DC").delete().then(function() {
 });
 */
 
-  module.exports.removeRiderFromTransit = function removeRiderFromTransit(uid, rider) {
-    var docRef = db.collection(Constants.DRIVER).doc(uid)
-    .collection(Constants.DRIVER_FOUND_MATCHES).doc(rider.uid)
+  module.exports.removeRiderFromMatchesList = function removeRiderFromMatchesList(driverUID, riderUID) {
+    var docRef = db.collection(Constants.DRIVER).doc(driverUID)
+    .collection(Constants.DRIVER_FOUND_MATCHES).doc(riderUID)
     return docRef.delete();
   }
+
+  module.exports.getRiderDocFromMatchesList = function getRiderDocFromMatchesList(driverUID, riderUID) {
+    var docRef = db.collection(Constants.DRIVER).doc(driverUID)
+    .collection(Constants.DRIVER_FOUND_MATCHES).doc(riderUID)
+    return docRef.get();
+  }
+  
 

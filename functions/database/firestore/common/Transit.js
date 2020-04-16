@@ -2,9 +2,9 @@ const db =require('../../init-db').firestore
 const Constants =require('../../ConstantsUtil');
 const admin=require('../../init-db').firebase_admin
 const RetriveDrivers= require('../driver/RetriveDrivers');
-const ChangeDriverStatus =require('../driver/ChangeStatus');
+const ChangeDriverStatus =require('../driver/DriverStatus');
 const Status =require('../../../status/status');
-const ChangeRiderStatus =require ('../rider/ChangeStatus');
+const RiderStatus =require ('../rider/RiderStatus');
 
 const FindDriver =require('./FindDriver')
 /*
@@ -17,7 +17,7 @@ module.exports.getTransitData =function (riderUID){
     return new Promise((resolve,reject)=>{
         FindDriver.getDriverMatch(riderUID)
         .then((driverUID)=>{
-            var riderStatusChanged=ChangeRiderStatus.changeRiderStatus(riderUID,Status.TRANSIT);
+            var riderStatusChanged=RiderStatus.changeRiderStatus(riderUID,Status.TRANSIT);
             var driverStatusChanged=ChangeDriverStatus.changeDriverStatus(driverUID,Status.TRANSIT);
             return new Promise.all([riderStatusChanged,driverStatusChanged])
         })

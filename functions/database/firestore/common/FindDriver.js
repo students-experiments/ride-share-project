@@ -2,8 +2,7 @@ const db = require("../../init-db").firestore;
 const Constants = require("../../ConstantsUtil");
 
 const RetriveDrivers = require("../driver/RetriveDrivers");
-const ChangeDriverStatus = require("../driver/ChangeStatus");
-const Status = require("../../../status/status");
+
 /*
 This function does following things:
 
