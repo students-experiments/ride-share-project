@@ -1,0 +1,40 @@
+--- 
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata: 
+      name: react-uic-rider
+    spec: 
+      replicas: 2
+      selector: 
+        matchLabels: 
+          app: react-uic-rider
+      template: 
+        metadata: 
+          labels: 
+            app: react-uic-rider
+        spec: 
+          containers: 
+            - 
+              image: gcr.io/uic-rider/web-app:v1
+              imagePullPolicy: Always
+              name: react-uic-rider
+              ports: 
+                - 
+                  containerPort: 80
+          restartPolicy: Always
+      
+---
+
+    kind: Service
+    apiVersion: v1
+    metadata:
+      name: react-uic-rider
+    spec:
+      type: NodePort
+      ports:
+        - port: 80
+          targetPort: 80
+          protocol: TCP
+          nodePort: 31000
+      selector:
+        app: react-uic-rider
