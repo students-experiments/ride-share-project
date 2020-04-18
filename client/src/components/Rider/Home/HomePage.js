@@ -14,6 +14,7 @@ class HomePageBase extends React.Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
+
         
     }
     submit(data){
@@ -21,7 +22,14 @@ class HomePageBase extends React.Component {
     }
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
+    this.props.firebase.auth.currentUser.getIdTokenResult()
+      .then((idTokenResult) => {
+     // Confirm the user is an Admin.
+      console.log('claims',idTokenResult.claims)
+      // actual : this.props.history.push(resolveUser
+      })
     return (
+      
         
        <div className="ui search">
         <div className="ui icon input">

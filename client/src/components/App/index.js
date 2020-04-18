@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, Router } from 'react-router';
+import {  BrowserRouter as Router,
+  Switch,
+  Route} from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 
 // Imports from internals
@@ -7,7 +9,7 @@ import history from '../../history';
 import Firebase, { FirebaseContext } from '../Context';
 
 //Header & Footer
-import Header from "../../decorators/Header";
+import PageHeader from "../../decorators/Header";
 import Footer from '../../decorators/Footer';
 
 import * as ROUTES from '../../constants/routes';
@@ -29,32 +31,36 @@ class App extends React.Component {
     render() {
         return (
           <div id="root">
-            <Header />
+            <PageHeader />
           <FirebaseContext.Provider value={new Firebase()}>
           <Router history = {history}>
-              <Route exact path={ROUTES.ROOT} >
+            <Switch>
+              <Route  exact={true} path={ROUTES.ROOT} >
                   <LoginPage  />
               </Route>
-              <Route exact path ={ROUTES.REGISTER} >
+              <Route   path ={ROUTES.REGISTER} >
                   <RegisterPage  />
               </Route>
-              <Route exact path = {ROUTES.LOG_IN} >
+              <Route   path = {ROUTES.LOG_IN} >
                 <LoginPage />
               </Route>
-              <Route exact path= {ROUTES.RIDER_HOME} >
+              <Route   path= {ROUTES.RIDER_HOME} >
                 <RiderHomePage  />
               </Route>
-              <Route exact path= {ROUTES.DRIVER_HOME} >
+              <Route   path= {ROUTES.DRIVER_HOME} >
                 <DriverHomePage  />
               </Route>
-              <Route path = '/rider/transit'>
+              <Route  path= '/rider/transit'>
                   <RiderTransitPage />
               </Route>
+              <Route  path= '/driver/home'>
+                  <DriverHomePage />
+              </Route>
 
-              <Route path = '/forgot_password'>
+              <Route  path = '/forgot_password'>
                   <ForgotPasswordForm />
               </Route>
-  
+              </Switch>
           </Router>
       </FirebaseContext.Provider>
       <hr />

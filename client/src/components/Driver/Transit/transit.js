@@ -4,13 +4,12 @@ import React from "react";
 import {withFirebase } from '../../Context/context'
 import SignOut from '../../SignOut/SignOutButton';
 import {withRouter} from 'react-router-dom';
-import AddLocationForm from './AddLocationForm'
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
 
 
-class HomePageBase extends React.Component {
+class TransitPageBase extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,7 +28,6 @@ class HomePageBase extends React.Component {
           <div class="ui grid container">
               <Grid columns={2} relaxed='very' stackable>
               <Grid.Column textAlign ="center">
-              <AddLocationForm />
                 </Grid.Column>
                 <Grid.Column textAlign ="center" verticalAlign = "bottom">
                 <Button primary onClick={this.routeToRegister}>Ready To Pick Up </Button>
@@ -44,5 +42,5 @@ class HomePageBase extends React.Component {
     );
   }
 }
-const DriverHomePage = withRouter(withFirebase(HomePageBase))
-export default DriverHomePage;
+const DriverTransitPage = withRouter(withFirebase(TransitPageBase))
+export default DriverTransitPage;
