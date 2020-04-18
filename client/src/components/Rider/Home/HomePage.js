@@ -1,8 +1,8 @@
 import React from "react";
 // import { Link } from "react-router-dom";
 // import { Form, Button, Message } from "semantic-ui-react";
-import {withFirebase } from '../../Context/context'
 import SignOut from '../../SignOut/SignOutButton';
+import { withRiderAuthorization } from "../../Sessions";
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
@@ -34,5 +34,5 @@ class HomePageBase extends React.Component {
     );
   }
 }
-const RiderHomePage = withFirebase(HomePageBase)
+const RiderHomePage = withRiderAuthorization(HomePageBase)
 export default RiderHomePage;
