@@ -2,8 +2,13 @@ const express = require("express");
 const RiderRouter = express.Router();
 const RideRequest = require("../database/firestore/rider/RideRequest");
 const Transit = require("../database/firestore/common/Transit");
-const RouterUtils =require('./utils');
-
+const RouterUtils = require("./utils");
+const RetriveDrivers = require("../database/firestore/driver/RetriveDrivers");
+const RetriveRiders = require("../database/firestore/rider/RetriveRider");
+const DriverMatch = require("../database/firestore/driver/Match");
+const RiderStatus = require("../database/firestore/rider/RiderStatus");
+const Status = require("../status/status");
+const RiderMatch = require('../database/firestore/rider/Match');
 /*
   Request JSON:
   {
@@ -85,8 +90,57 @@ RiderRouter.get("/GetRide", RouterUtils.requireRiderAuth, (req, res) => {
       console.log(" from the router", err);
     });
 });
+/*
+The API: does following things:
+1. Get the potential driver -> can be further changed to get the closest driver
+2. 
 
 
+*/
 
+RiderRouter.get("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
+  const { user } = req.body.data;
+  var riderUID = user.uid;
+  var driverPromise = RetriveDrivers.getPotentialDriver();
+  var riderRequestPromise = RetriveRiders.getRiderRequest(user.uid);
+  var riderRequest;
+  var driverUID;
+  var driverData;
+  Promise.all([driverPromise, riderRequestPromise])
+    .then((result) => {
+      // if the driver doesnt exists:
+      if (result[0].docs.length === 0) {
+        throw new Error("Sorry Drivers are not free");
+      }
+      driverUID = result[0].docs[0].id;
+      driverData = result[0].docs[0].data();
+      riderRequest = result[1];
+      console.log("Potential driver matched: ", driverUID);
+      console.log("rider req:", riderRequest);
+      return DriverMatch.addRiderToMatchesList(
+        driverUID,
+        riderUID,
+        riderRequest
+      );
+    })
+    .then(() => {
+      console.log("Rider matched to driver.");
+      return Promise.all([
+        RiderStatus.changeRiderStatus(riderUID, Status.MATCHED),
+        RiderMatch.addDriverMatched(riderUID,driverUID)
+      ])
+
+    })
+    .then(() => {
+      console.log("Changed Rider status to matched");
+      res.status(200).json({
+        status: 'success',
+        data : driverData
+        });
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    });
+});
 
 module.exports = RiderRouter;

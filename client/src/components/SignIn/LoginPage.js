@@ -29,7 +29,9 @@ class LoginPageBase extends React.Component {
       .then((idTokenResult) => {
      // Confirm the user is an Admin.
       console.log('claims',idTokenResult.claims)
-      this.props.history.push(resolveUser(idTokenResult.claims))
+      // actual : this.props.history.push(resolveUser(idTokenResult.claims))
+      this.props.history.push('/rider/transit')
+      
       })
       .catch((error) => {
         console.log(error);

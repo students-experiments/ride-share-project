@@ -11,11 +11,15 @@ module.exports.referenceJoiner = function(...args){
 module.exports.REQUEST = 'request'
 module.exports.TRANSIT = 'transit'
 
+
+
 // Driver Constansts
 module.exports.DRIVER ='driver'
 module.exports.DRIVER_LOCATION_REF = this.referenceJoiner(' ',this.DRIVER);
-module.exports.DRIVER_DEFAULT_CAPACITY = 4;
-
+module.exports.VEHICLE_DEFAULT_CAPACITY = 4;
+module.exports.DRIVER_ACCEPTED_RIDERS = 'transit_riders'
+module.exports.DRIVER_FOUND_MATCHES = 'matched_riders'
+module.exports.VEHICLE_MIN_CAPACITY = 1
 
 
 // Rider constants

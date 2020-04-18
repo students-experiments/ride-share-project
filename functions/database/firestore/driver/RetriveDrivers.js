@@ -10,6 +10,8 @@ const Status =require('../../../status/status');
 const { get } = require('geofirex');
 const {Obeservable, BehaviourSubject} =require('rxjs')
 
+const FieldString=require('../FieldStrings')
+
 // API for fetching driver
 // THIS API is not fucntional. Need to make it work
 module.exports.GetClosestDrivers = function () {
@@ -26,14 +28,21 @@ module.exports.GetClosestDrivers = function () {
     }).catch((err)=>{
         console.log(err)
     })
-   
-    
 }
 module.exports.getIdleDrivers = function () {
     var query = db.collection(Constants.DRIVER).where(Constants.STATUS, '==', Status.IDLE);
     return query.limit(1).get();
     
 }
+/*
+This api gets the potential driver who can pick up the rider
+*/
+module.exports.getPotentialDriver = function () {
+    var query = db.collection(Constants.DRIVER).where(FieldString.CAPACITY_AVAILABILE,'>', Constants.VEHICLE_MIN_CAPACITY)
+    return query.limit(1).get();
+    
+}
+
 
 
 
