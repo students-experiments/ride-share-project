@@ -26,6 +26,7 @@ import DriverHomePage from '../Driver/Home/Homepage';
 
 //transit pages
 import RiderTransitPage from '../Rider/transit/transit';
+import DriverTransitPage from '../Driver/Transit/TransitPage'
 
 class App extends React.Component {
     render() {
@@ -35,7 +36,7 @@ class App extends React.Component {
           <FirebaseContext.Provider value={new Firebase()}>
           <Router history = {history}>
             <Switch>
-              <Route  exact={true} path={ROUTES.ROOT} >
+              <Route  exact path={ROUTES.ROOT} >
                   <LoginPage  />
               </Route>
               <Route   path ={ROUTES.REGISTER} >
@@ -47,14 +48,14 @@ class App extends React.Component {
               <Route   path= {ROUTES.RIDER_HOME} >
                 <RiderHomePage  />
               </Route>
-              <Route   path= {ROUTES.DRIVER_HOME} >
-                <DriverHomePage  />
-              </Route>
               <Route  path= '/rider/transit'>
                   <RiderTransitPage />
               </Route>
               <Route  path= '/driver/home'>
                   <DriverHomePage />
+              </Route>
+              <Route  path= '/driver/transit'>
+                  <DriverTransitPage />
               </Route>
 
               <Route  path = '/forgot_password'>

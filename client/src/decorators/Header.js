@@ -13,7 +13,7 @@ class Header extends React.Component {
                     block>
                         Block Header
                     </Header> */} 
-                    <div className = "header">
+                    <div className = "app_header">
                         <h1>UIC Night Rider</h1>
                         <p> Hello {this.props.name} </p>
                     </div>
