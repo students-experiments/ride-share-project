@@ -1,6 +1,6 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-// import { Form, Button, Message } from "semantic-ui-react";
+import { Form, Button, Grid,Segment } from "semantic-ui-react";
+import AddLocationForm from './AddLocationForm'
 import SignOut from '../../SignOut/SignOutButton';
 import { withDriverAuthorization } from "../../Sessions";
 
@@ -16,23 +16,34 @@ class HomePageBase extends React.Component {
         this.submit = this.submit.bind(this);
         
     }
+   
     submit(data){
      
     }
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
     return (
-        
-       <div className="ui search">
-        <div className="ui icon input">
-            <input className="prompt" type="text" placeholder="Search countries..."/>
-            <i className="search icon"></i>
+        <div >
+          <div class="ui container">
+          <div class="ui grid container">
+              <Grid columns={2} relaxed='very' stackable>
+              <Grid.Column textAlign ="center">
+              <AddLocationForm />
+                </Grid.Column>
+                <Grid.Column textAlign ="center" verticalAlign = "bottom">
+                <Button primary onClick={this.routeToRegister}>Ready To Pick Up </Button>
+                </Grid.Column>
+          </Grid>
+          
+          </div>
+            <SignOut />
         </div>
-       <div className="results"></div>
-       <SignOut />
-   </div>
+        </div>
+
     );
   }
 }
+
 const DriverHomePage = withDriverAuthorization(HomePageBase)
 export default DriverHomePage;
+

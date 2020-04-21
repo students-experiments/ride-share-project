@@ -53,6 +53,7 @@ class LoginFormBase extends React.Component {
     const { data, errors, loading } = this.state;
 
     return (
+
       <Form onSubmit={this.onSubmit} loading={loading}>
         {errors.global && (
           <Message negative>
@@ -62,9 +63,11 @@ class LoginFormBase extends React.Component {
         )}
         <Form.Field error={!!errors.email}>
           <label htmlFor="email">Email</label>
-          <input
+          <Form.Input
             type="email"
             id="email"
+            icon='user'
+            iconPosition='left'
             name="email"
             placeholder="example@example.com"
             value={data.email}
@@ -74,8 +77,10 @@ class LoginFormBase extends React.Component {
         </Form.Field>
         <Form.Field error={!!errors.password}>
           <label htmlFor="password">Password</label>
-          <input
+          <Form.Input
             type="password"
+            icon='lock'
+            iconPosition='left'
             id="password"
             name="password"
             placeholder="Make it secure"
@@ -85,7 +90,7 @@ class LoginFormBase extends React.Component {
           {errors.password && <InlineError text={errors.password} />}
         </Form.Field>
         <Button primary>Login</Button>
-
+        
         <Link to="/forgot_password">Forgot Password?</Link>
       </Form>
     );
