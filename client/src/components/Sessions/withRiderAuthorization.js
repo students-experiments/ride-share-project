@@ -11,6 +11,7 @@ const withRiderAuthorization =
             constructor(props) {
                 super(props);
                 this.redirect = this.redirect.bind(this);
+                
             }
 
             redirect(targetPage) {

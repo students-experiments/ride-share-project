@@ -25,6 +25,7 @@ const DriverPickUp = require('../database/firestore/driver/DriverPickUp')
   }
   */
  DriverRouter.post('/AddLocation',Utils.requireDriverAuth,(req,res)=>{
+   console.log(req.body.data)
   const {user, location} = req.body.data;
   AddDriverLocation_FireStore.writeDriverLocation(user.uid,location)
   .then(()=>{
