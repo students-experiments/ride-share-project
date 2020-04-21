@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button,Segment,Grid,Divider } from "semantic-ui-react";
 import LoginForm from "./LoginForm";
 import {withFirebase } from '../Context/context'
 import Firebase from '../Context/index';
@@ -29,8 +29,8 @@ class LoginPageBase extends React.Component {
       .then((idTokenResult) => {
      // Confirm the user is an Admin.
       console.log('claims',idTokenResult.claims)
-      this.props.history.push(resolveUser(idTokenResult.claims))
-
+      // actual : this.props.history.push(resolveUser(idTokenResult.claims))
+      this.props.history.push('/rider/home')
       
       })
       .catch((error) => {
@@ -45,22 +45,30 @@ class LoginPageBase extends React.Component {
   render() {
     return (
         
-        <div>
+      <div >
+          
             {console.log(this.props.role)}
-        <section className="section-login" >
             <h2> Login to your Account </h2>
-                <LoginForm submit={this.submit} />
+            <div class="ui container">
+            <div class="ui two column centered grid">
+            <Segment placeholder>
+              <Grid columns={2} relaxed='very' stackable>
+                <Grid.Column>
+                  <LoginForm submit={this.submit} />
+                </Grid.Column>
         
-        <div >
-        <section className="section-login">
-        <Button secondary onClick={this.routeToRegister}>New Here? Register </Button>
-        </section>
-        
-        </div>
-      </section>
+                <Grid.Column verticalAlign='middle'>
+                  <Button secondary onClick={this.routeToRegister}>New Here? Register </Button>
+                </Grid.Column>
+              </Grid>
+
+              <Divider vertical>Or</Divider>
+            </Segment>
+            </div>
+            </div>
       </div>
     );
   }
 }
-const LoginPage = withRouter(withFirebase(LoginPageBase))
+const LoginPage = withRouter(withFirebase(LoginPageBase)) 
 export default LoginPage;

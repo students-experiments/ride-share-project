@@ -86,7 +86,7 @@ class RegisterFormBase extends React.Component {
       <Form  onSubmit={this.onSubmit} loading={loading}>
         <Form.Field error={!!errors.uin}>
             <label htmlFor= "uin">UIN</label>
-            <input
+            <Form.Input
             type="text"
             id="uin"
             name="uin"
@@ -99,7 +99,7 @@ class RegisterFormBase extends React.Component {
         </Form.Field>
         <Form.Field error={!!errors.email}>
           <label htmlFor="email">Email</label>
-          <input
+          <Form.Input
             type="email"
             id="email"
             name="email"
