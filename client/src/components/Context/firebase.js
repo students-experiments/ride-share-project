@@ -18,6 +18,7 @@ class Firebase {
         firebase.initializeApp(firebaseConfig);
         this.auth = firebase.auth();
         this.firestore=firebase.firestore();
+        this.uid = ''
     }
     doCreateUserWithEmailAndPassword = (email, password) =>{
         console.log('email',email);
@@ -35,6 +36,11 @@ class Firebase {
     this.auth.currentUser.updatePassword(password);
     
     doDeleteUser =() => this.auth.currentUser.delete();
+    setRole =(data) =>{
+        this.role=data
+    }
+
+    
   }
 
 export default Firebase;

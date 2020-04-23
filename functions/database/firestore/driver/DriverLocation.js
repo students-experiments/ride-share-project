@@ -10,6 +10,6 @@ module.exports.writeDriverLocation = function writeDriverLocation(uid, data) {
     var doc = db.collection(Constants.DRIVER).doc(uid);
     const GeoPoint =require('../common/GeoPoint')
     return doc.set({
-      [FieldStrings.LOCATION]: GeoPoint.getGeoPoint(data.latitude, data.longitude)
+      [FieldStrings.LOCATION]: GeoPoint.getGeoPoint(Number.parseFloat(data.latitude), Number.parseFloat(data.longitude))
     }, { merge: true });
   }
