@@ -19,6 +19,7 @@ class HomePageBase extends React.Component {
     readyToPick = e => {
       this.setState({ReadyLoading:true});
       DriverActions.readyToPick(this.props.firebase.auth.currentUser).then((res)=>{
+        this.props.userId=this.props.firebase.auth.currentUser.uid
         this.props.history.push('/driver/transit');
       })
       .catch((err)=>{
@@ -36,20 +37,20 @@ class HomePageBase extends React.Component {
       
         <div >
           <div className="ui container">
-          <div className="ui grid container">
-              <Grid columns={2} relaxed='very' stackable>
-              <Grid.Column >
-              <AddLocationForm textAlign ="center"/>
-                </Grid.Column>
-                <Grid.Column textAlign ="center" verticalAlign = "bottom">
-                <Button primary onClick={this.readyToPick} loading ={this.state.ReadyLoading} >Ready To Pick Up </Button>
-                
-                </Grid.Column>
-          </Grid>
-          
+            <div className="ui grid container">
+                <Grid columns={2} relaxed='very' stackable>
+                <Grid.Column >
+                <AddLocationForm textAlign ="center"/>
+                  </Grid.Column>
+                  <Grid.Column textAlign ="center" verticalAlign = "bottom">
+                  <Button primary onClick={this.readyToPick} loading ={this.state.ReadyLoading} >Ready To Pick Up </Button>
+                  
+                  </Grid.Column>
+            </Grid>
+            
+            </div>
+              <SignOut />
           </div>
-            <SignOut />
-        </div>
         </div>
 
     );

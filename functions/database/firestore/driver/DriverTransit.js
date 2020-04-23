@@ -16,12 +16,13 @@ module.exports.addRiderToTransit = function addRiderToTransit(
   riderUID,
   transitData
 ) {
-  var docRef = db
+  return db
     .collection(Constants.DRIVER)
     .doc(driverUID)
-    .collection(Constants.DRIVER_ACCEPTED_RIDERS)
-    .doc(riderUID);
-  return docRef.set(transitData);
+    .update({
+      [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayRemove(riderUID)
+    })
+  
 };
 
 /*
