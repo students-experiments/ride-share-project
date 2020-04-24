@@ -45,16 +45,16 @@ class App extends React.Component {
               <Route   path = {ROUTES.LOG_IN} >
                 <LoginPage />
               </Route>
-              <Route   path= {ROUTES.RIDER_HOME} >
+              <Route   path= {ROUTES.RIDER_HOME + '/home'}>
                 <RiderHomePage  />
               </Route>
-              <Route  path= '/rider/transit'>
+              <Route  path= {ROUTES.RIDER_HOME + '/transit'}>
                   <RiderTransitPage />
               </Route>
-              <Route  path= '/driver/home'>
+              <Route  path= {ROUTES.DRIVER_HOME + '/home'}>
                   <DriverHomePage />
               </Route>
-              <Route  path= '/driver/transit'>
+              <Route  path= {ROUTES.DRIVER_HOME + '/transit'}>
                   <DriverTransitPage />
               </Route>
 

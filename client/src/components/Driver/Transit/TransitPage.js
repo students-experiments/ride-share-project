@@ -6,6 +6,7 @@ import SignOut from '../../SignOut/SignOutButton';
 import {withRouter} from 'react-router-dom';
 import RideRequestActionBox from './RideRequestActionBox'
 import IntransitActionBox from './InTransitActionBox'
+import withDriverAuthorization from "../../Sessions/withDriverAuthorization";
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -26,13 +27,13 @@ class TransitPageBase extends React.Component {
   render() {
     return (
         <div >
-          <div class="ui container">
-          <div class="ui grid container">
+          <div className="ui container">
+          <div className="ui grid container">
               <Grid columns={2} relaxed='very' stackable>
               <Grid.Column >
-              <div class="ui segment">
+              <div className="ui segment">
 
-              <h2 class="ui orange center aligned header">Ride Requests</h2>
+              <h2 className="ui orange center aligned header">Ride Requests</h2>
 
                 <RideRequestActionBox />
                 <hr />
@@ -74,5 +75,5 @@ class TransitPageBase extends React.Component {
     );
   }
 }
-const DriverTransitPage = withRouter(withFirebase(TransitPageBase))
+const DriverTransitPage = withDriverAuthorization(TransitPageBase);
 export default DriverTransitPage;

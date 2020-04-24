@@ -70,7 +70,7 @@ class AddLocationFormBase extends React.Component {
             name="longitude"
             placeholder="199.0"
             value={data.longitude}
-            reqiured
+            required
             onChange={this.onChange}
           />
          {errors.longitude && <InlineError text={errors.longitude} />}

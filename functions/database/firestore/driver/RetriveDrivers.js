@@ -32,7 +32,6 @@ module.exports.GetClosestDrivers = function () {
 module.exports.getIdleDrivers = function () {
     var query = db.collection(Constants.DRIVER).where(Constants.STATUS, '==', Status.IDLE);
     return query.limit(1).get();
-    
 }
 /*
 This api gets the potential driver who can pick up the rider

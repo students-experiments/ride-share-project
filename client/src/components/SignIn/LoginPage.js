@@ -16,21 +16,26 @@ class LoginPageBase extends React.Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        
+        this.state = {
+            style: {
+                "textAlign": "center"
+            }
+        };
     }
     //TODO: Change the following to pick route from User Controller
     routeToRegister = e =>
-    this.props.history.push('/register')
+    this.props.history.push('/register');
     // under construction needs work
+
     submit(data){
       console.log('data',data);
       console.log('user',this.props.firebase);
       this.props.firebase.auth.currentUser.getIdTokenResult()
       .then((idTokenResult) => {
      // Confirm the user is an Admin.
-      console.log('claims',idTokenResult.claims)
-      // actual : this.props.history.push(resolveUser(idTokenResult.claims))
-      this.props.history.push('/rider/home')
+      console.log('claims',idTokenResult.claims);
+      this.props.history.push(resolveUser(idTokenResult.claims) + '/home')
+
       
       })
       .catch((error) => {
@@ -46,9 +51,7 @@ class LoginPageBase extends React.Component {
     return (
         
       <div >
-          
-            {console.log(this.props.role)}
-            <h2> Login to your Account </h2>
+            <br/>
             <div class="ui container">
             <div class="ui two column centered grid">
             <Segment placeholder>
