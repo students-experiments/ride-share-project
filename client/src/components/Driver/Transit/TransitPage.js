@@ -62,21 +62,13 @@ class TransitPageBase extends React.Component {
   render() {
     return (
         <div >
-<<<<<<< HEAD
-          <div className="ui container">
-          <div className="ui grid container">
-=======
           {console.log('list',this.transitList)}
           <div class="ui container">
           <div class="ui grid container">
->>>>>>> d610db519804a3558367f592184eeda838b5ae85
               <Grid columns={2} relaxed='very' stackable>
               <Grid.Column >
               <div className="ui segment">
 
-<<<<<<< HEAD
-              <h2 className="ui orange center aligned header">Ride Requests</h2>
-=======
               <h2 class="ui orange center aligned header">Ride Requests</h2>
                 <div class="ui divided items">
                     {this.state.matchedRidersList.map(uid => {
@@ -84,7 +76,6 @@ class TransitPageBase extends React.Component {
                             return <RideRequestActionBox riderUID ={uid}  />
                           })}
                 </div>
->>>>>>> d610db519804a3558367f592184eeda838b5ae85
 
               </div>
               
