@@ -9,11 +9,9 @@ import {withFirebase } from '../../Context/context'
 class RideRequestActionBox extends React.Component {
   state = {
     data: {
-        latitude: "" ,
-        longitude: ""
-    },
-    loading: false,
-    errors: {}
+        riderUid :this.props.riderUID,
+        riderName : 'Rider Name is unknown'
+    }
   };
 
   onChange = e =>
@@ -28,6 +26,7 @@ class RideRequestActionBox extends React.Component {
     
 
   };
+  
 
   validate = data => {
     const errors = {};
@@ -40,7 +39,7 @@ class RideRequestActionBox extends React.Component {
     const { data, errors, loading } = this.state;
 
     return (
-        <div class="ui divided items">
+        
             <div class="item">
                 <div class="ui small image">
                     <img src="https://via.placeholder.com/150"/>
@@ -49,7 +48,7 @@ class RideRequestActionBox extends React.Component {
                     <a class=" header">Rider</a>
                 
                     <div class="description">
-                        <p>Rider UID: </p>
+                        <p>Rider UID: {this.state.data.riderUID} </p>
                         <p>Rider Name: </p>
                     </div>
                     <div class="extra">
@@ -61,7 +60,6 @@ class RideRequestActionBox extends React.Component {
                 </div>
                 
             </div>
-          </div>
 
 
     );

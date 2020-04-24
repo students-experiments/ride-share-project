@@ -71,7 +71,6 @@ class HomePageBase extends React.Component {
 
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
-
     return (
 
        <div style = {this.state.style}>

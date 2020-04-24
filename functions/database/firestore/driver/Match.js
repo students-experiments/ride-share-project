@@ -2,6 +2,7 @@ const db =require('../../init-db').firestore
 const Constants =require('../../ConstantsUtil');
 const admin = require('../../init-db').firebase_admin;
 const Status =require('../../../status/status')
+const FieldStrings = require("../FieldStrings");
 // usage or merge  and doc.set - update: 
 /*
 
@@ -10,9 +11,11 @@ this collections contains documents with each rider, whose ride has been accepte
 
 */
 module.exports.addRiderToMatchesList = function addRiderToMatchesList(driverUID, riderUID,data) {
-    var docRef = db.collection(Constants.DRIVER).doc(driverUID)
-    .collection(Constants.DRIVER_FOUND_MATCHES).doc(riderUID)
-    return  docRef.set(data);
+    return db.collection(Constants.DRIVER).doc(driverUID)
+    .update({
+      [FieldStrings.DRIVER_FOUND_MATCHES]: admin.firestore.FieldValue.arrayUnion(riderUID)
+    })
+    
 
 }
 
@@ -25,9 +28,10 @@ db.collection("cities").doc("DC").delete().then(function() {
 */
 
   module.exports.removeRiderFromMatchesList = function removeRiderFromMatchesList(driverUID, riderUID) {
-    var docRef = db.collection(Constants.DRIVER).doc(driverUID)
-    .collection(Constants.DRIVER_FOUND_MATCHES).doc(riderUID)
-    return docRef.delete();
+    return db.collection(Constants.DRIVER).doc(driverUID)
+    .update({
+      found_matches: admin.firestore.FieldValue.arrayRemove(riderUID)
+    })
   }
 
   module.exports.getRiderDocFromMatchesList = function getRiderDocFromMatchesList(driverUID, riderUID) {

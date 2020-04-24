@@ -3,7 +3,7 @@ import { Form, Button, Message,Input } from "semantic-ui-react";
 import Validator from "validator";
 import InlineError from "../../messages/InlineError";
 import {withFirebase } from '../../Context/context'
-
+import * as Actions from '../../../actions/driver/HomePageActions'
 
 
 class AddLocationFormBase extends React.Component {
@@ -23,9 +23,22 @@ class AddLocationFormBase extends React.Component {
 
   onSubmit = () => {
     const errors = this.validate(this.state.data);
-    console.log(this.state.data);
+    console.log('data',this.state.data);
+
     this.setState({ errors });
-    
+    this.setState({loading: true});
+    Actions.addLocation(this.state.data.latitude,
+      this.state.data.longitude,
+      this.props.firebase.auth.currentUser)
+      .then((res)=>{
+        console.log('Added Location')
+        this.setState({loading: false});
+      })
+      .catch((err)=>{
+        console.log('err');
+        this.setState({loading: false});
+        this.setState({errors: err})
+      })
 
   };
 
@@ -50,13 +63,14 @@ class AddLocationFormBase extends React.Component {
         <Form.Group widths='equal'>
         <Form.Field error={!!errors.latitude}>
         <label htmlFor="latitude">latitude</label>
-        <Input focus
+        <Input 
+            
             type="number"
             id="latitude"
             name="latitude"
             placeholder="199.0"
             value={data.latitude}
-            reqiured
+            
             onChange={this.onChange}
           />
          {errors.latitude && <InlineError text={errors.latitude} />}
@@ -70,7 +84,7 @@ class AddLocationFormBase extends React.Component {
             name="longitude"
             placeholder="199.0"
             value={data.longitude}
-            required
+            
             onChange={this.onChange}
           />
          {errors.longitude && <InlineError text={errors.longitude} />}
