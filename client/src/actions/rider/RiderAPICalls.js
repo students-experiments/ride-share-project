@@ -8,3 +8,11 @@ export function addCoordinates(userObj, requestObj) {
 
     return Server.post('rider/AddRide', data);
 }
+
+export function findMatch(userObj) {
+    const data = {
+        user: userObj
+    };
+
+    return Server.post('rider/FindMatch', data);
+}

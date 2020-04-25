@@ -17,10 +17,15 @@ class RiderTransitPageBase extends React.Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
+        this.updatePage = this.updatePage.bind(this);
         this.state = {
-            matchMade: false,
-            inTransit: false,
+            riderStatus: 'available',
+            driverID: ''
         };
+    }
+
+    updatePage(status) {
+
     }
 
     submit(data){
@@ -28,6 +33,19 @@ class RiderTransitPageBase extends React.Component {
     }
 
     componentDidMount() {
+        this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
+            .onSnapshot(function (doc) {
+                console.log("Current data: ", doc.data());
+                this.setState({
+                    riderStatus: doc.data().status
+                });
+                if (this.state.riderStatus !== 'available')
+                    this.setState({
+                        driverID: doc.data().matched_driver
+                    });
+            }.bind(this));
+    }
+        /*let riderStatus = "available";
         this.props.firebase.auth.onAuthStateChanged((authUser) => {
             if (authUser) { // Only if a user is logged in, otherwise current user will be null
                 let currentUser = this.props.firebase.auth.currentUser;
@@ -36,35 +54,37 @@ class RiderTransitPageBase extends React.Component {
                 this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
                     .onSnapshot(function (doc) {
                         console.log("Current data: ", doc.data());
+                        riderStatus = doc.data().status;
+                        return;
                     });
+                console.log("Current rider status is " + riderStatus);
             }
-        });
-      }
+        });*/
 
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
     render() {
-        if (!this.state.matchMade)
+        if (this.state.riderStatus === 'available')
             return (
                 <div>
-                    <TransitMain/>
+                    <TransitMain />
                     <br />
                     <SignOut />
                 </div>
             );
 
-        else if (this.state.matchMade && !this.state.inTransit)
+        else if (this.state.riderStatus === 'matched')
             return (
                 <div>
-                    <TransitMatched />
+                    <TransitMatched driverUID = {this.state.driverID} />
                     <br />
                     <SignOut />
                 </div>
             );
 
-        else if (this.state.inTransit)
+        else if(this.state.riderStatus === 'transit')
             return (
                 <div>
-                    <TransitFinal />
+                    <TransitFinal driverUID = {this.state.driverID} />
                     <br />
                     <SignOut />
                 </div>

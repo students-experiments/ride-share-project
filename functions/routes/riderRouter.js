@@ -103,7 +103,7 @@ The API: does following things:
 
 */
 
-RiderRouter.get("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
+RiderRouter.post("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
   const { user } = req.body.data;
   var riderUID = user.uid;
   var driverPromise = RetriveDrivers.getPotentialDriver(); // gets the driver with cap more than 0

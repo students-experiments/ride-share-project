@@ -52,8 +52,8 @@ class LoginPageBase extends React.Component {
         
       <div >
             <br/>
-            <div class="ui container">
-            <div class="ui two column centered grid">
+            <div className="ui container">
+            <div className="ui two column centered grid">
             <Segment placeholder>
               <Grid columns={2} relaxed='very' stackable>
                 <Grid.Column>

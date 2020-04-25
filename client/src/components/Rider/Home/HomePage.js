@@ -4,7 +4,6 @@ import { Form, Button, Message, Input } from "semantic-ui-react";
 import * as ROUTES from "../../../constants/routes";
 import SignOut from '../../SignOut/SignOutButton';
 import { withRiderAuthorization } from "../../Sessions";
-import axios from "axios";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
 
 // class structure documentation:
@@ -55,12 +54,13 @@ class HomePageBase extends React.Component {
             }
         };
 
-        axios.post("http://localhost:5001/uic-rider/us-central1/app/rider/AddRide", {
+        /*axios.post("http://localhost:5001/uic-rider/us-central1/app/rider/AddRide", {
             data: {
                 user: userObject,
                 request: requestObject
             }
-        })
+        })*/
+        Actions.addCoordinates(userObject, requestObject)
             .then((res) => {
                 console.log("Sent rider locations");
                 this.props.history.push(ROUTES.RIDER_HOME + '/transit');

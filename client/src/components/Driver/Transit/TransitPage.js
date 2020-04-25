@@ -4,6 +4,7 @@ import React from "react";
 import {withFirebase } from '../../Context/context'
 import SignOut from '../../SignOut/SignOutButton';
 import {withRouter} from 'react-router-dom';
+import { withDriverAuthorization } from "../../Sessions";
 import RideRequestActionBox from './RideRequestActionBox'
 import IntransitActionBox from './InTransitActionBox'
 // class structure documentation:

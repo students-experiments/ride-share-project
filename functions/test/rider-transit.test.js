@@ -6,7 +6,21 @@ const stoppable = require('stoppable');
 const db = require("../database/init-db").firestore;
 const app = require('../app.js');
 
+const userObj = {
+    uid: 'eA54D',
+    role: 'rider'
+};
 
+const requestObj = {
+    start: {
+        latitude: 20,
+        longitude: 30
+    },
+    end: {
+        latitude: 35,
+        longitude: 33
+    }
+};
 axiosCookieJarSupport(axios);
 
 
@@ -69,50 +83,58 @@ describe('application', async () => {
 
   describe("transit", async () => {
     it("requires the rider to be registered and \
-    logged in before requesting a ride", async() => {
-      let riderLogin = axios.post("/rider/AddRide", {
-          start: [20, 90],
-          end: [20, 90]
-      }).then((response) => {
-            assert(response.status !== 500);
-            return;
+    logged in before requesting a ride", () => {
+      axios.post("/rider/FindMatch", {
+          user: userObj,
+          request: requestObj
+      })
+          .then((response) => {
+            assert(response.status !== 400);
           })
           .catch((err) => {
             console.error(err);
           });
     });
 
-    it("lets a rider request a ride", async() => {
-      axios.post("/rider/AddRide", {
-        start: [20, 90],
-        end: [20, 90]
+    it("lets a rider request a ride", () => {
+      axios.post("/rider/FindMatch", {
+          user: userObj,
+          request: requestObj
       }).then((response) => {
-            assert(response.status === 200);
-            return;
+            assert(response.status === 200 || response.data.includes("You have been matched"));
       })
           .catch((err) => {
             console.error(err);
           });
     });
 
-    it("lets a rider state their location", async() => {
-      axios.post("/rider/AddRide", {
-        start: [20, 90],
-        end: [20, 90]
+    it("lets a rider state their location", () => {
+        axios.post("/rider/AddRide", {
+          user: userObj,
+          request: requestObj
       }).then((response) => {
-            assert(response.status !== 500);
-            return;
+            console.log(response.data);
+            assert(response.status === 200);
           })
           .catch((err) => {
             console.error(err);
           });
     });
 
-    it("lets the rider know when a driver accepts the request"); // Implementation Pending
+    it("lets the rider know when a driver accepts the request", () => {
+        axios.post('/rider/FindMatch', {
+            user: userObj,
+            request: requestObj
+        })
+            .then((res) => {
+                assert(res.data.includes("will pick you up"));
+            })
+            .catch(err => err);
+    }); // Implementation Pending
 
     it("lets the rider see the time until pickup"); // Implementation Pending
 
-    it("lets the rider cancel the ride", async() => {
+    it("lets the rider cancel the ride", () => {
       axios.delete("/rider/DeleteRide", {
         params: {
           uid: "eA5kl"
@@ -129,7 +151,7 @@ describe('application', async () => {
 
     it("lets the rider know of driver status"); // Implementation Pending
 
-    it("updates the DB rider transit status once ride is over", async () => {
+    it("updates the DB rider transit status once ride is over", () => {
       axios.post("/driver/EndRide", { // Driver is the one who stops the ride
         uid: "eA4KJlm"
       }).then((response) => {
