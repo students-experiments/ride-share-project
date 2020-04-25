@@ -10,6 +10,6 @@ export default function resolveUser(user){
         console.log('role: ',user.role)
         return '/driver/home'
     }
-    console.log('role: ',user.role)
+    console.log('role: ',user.role);
     return ROUTES.ROOT
 }

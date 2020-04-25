@@ -18,6 +18,7 @@ It would be great if you could deep dive.
 
 */
 module.exports.requireRiderAuth = function (req, res, next) {
+
   if (this.isRequestUidValid || req.body.data.user.role !== "rider") {
     res.send(400);
   } else {

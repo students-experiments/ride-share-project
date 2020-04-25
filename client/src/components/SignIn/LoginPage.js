@@ -16,12 +16,17 @@ class LoginPageBase extends React.Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        
+        this.state = {
+            style: {
+                "textAlign": "center"
+            }
+        };
     }
     //TODO: Change the following to pick route from User Controller
     routeToRegister = e =>
-    this.props.history.push('/register')
+    this.props.history.push('/register');
     // under construction needs work
+
     submit(data){
       console.log('data',data);
       console.log('user',this.props.firebase);
@@ -46,11 +51,9 @@ class LoginPageBase extends React.Component {
     return (
         
       <div >
-          
-            {console.log(this.props.role)}
-            <h2> Login to your Account </h2>
-            <div class="ui container">
-            <div class="ui two column centered grid">
+            <br/>
+            <div className="ui container">
+            <div className="ui two column centered grid">
             <Segment placeholder>
               <Grid columns={2} relaxed='very' stackable>
                 <Grid.Column>

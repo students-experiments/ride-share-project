@@ -32,17 +32,22 @@ const RiderMatch = require('../database/firestore/rider/Match');
       }
   }
   */
+
 RiderRouter.post("/AddRide", RouterUtils.requireRiderAuth, (req, res) => {
   const { user, request } = req.body.data;
+    console.log("From express: ");
+    console.log(user);
+    console.log(request);
+
   RideRequest.addRideRequest(user.uid, request)
     .then((result) => {
-      console.log("Rider Requested Success");
+      console.log("Rider Request Successful");
       res.status(200).send({
         result: result,
       });
     })
     .catch((err) => {
-      console.log("Rider Requested Failed");
+      console.log("Rider Request Failed");
       res.send(500).send(err);
     });
 });
@@ -98,10 +103,10 @@ The API: does following things:
 
 */
 
-RiderRouter.get("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
+RiderRouter.post("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
   const { user } = req.body.data;
   var riderUID = user.uid;
-  var driverPromise = RetriveDrivers.getPotentialDriver(); // gets the driver with cap  more tha 1
+  var driverPromise = RetriveDrivers.getPotentialDriver(); // gets the driver with cap more than 0
   var riderRequestPromise = RetriveRiders.getRiderRequest(user.uid); // will get start and to of the rider.
   var riderRequest;
   var driverUID;

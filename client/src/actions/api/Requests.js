@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export function post(route,data){
     const url= getBaseURL()+ route ;
     console.log('request',{data})

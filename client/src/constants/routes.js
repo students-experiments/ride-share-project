@@ -18,4 +18,4 @@ export const RIDER_HOME=PATH_CONCAT + ROLES.RIDER_ROLE;
 //makes prefix: /driver/ -- which needs to be used for all routes pertaining to driver.
 const DRIVER_PREFIX=PATH_CONCAT + ROLES.DRIVER_ROLE + PATH_CONCAT ;
 
-export const DRIVER_HOME=PATH_CONCAT + ROLES.DRIVER_ROLE +'/home';
+export const DRIVER_HOME=PATH_CONCAT + ROLES.DRIVER_ROLE;

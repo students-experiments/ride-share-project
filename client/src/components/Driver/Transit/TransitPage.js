@@ -4,6 +4,7 @@ import React from "react";
 import {withFirebase } from '../../Context/context'
 import SignOut from '../../SignOut/SignOutButton';
 import {withRouter} from 'react-router-dom';
+import { withDriverAuthorization } from "../../Sessions";
 import RideRequestActionBox from './RideRequestActionBox'
 import IntransitActionBox from './InTransitActionBox'
 import * as DriverTransitActions from '../../../actions/driver/TransitPageActions'
@@ -103,5 +104,5 @@ class TransitPageBase extends React.Component {
     );
   }
 }
-const DriverTransitPage = withRouter(withFirebase(TransitPageBase))
+const DriverTransitPage = withDriverAuthorization(TransitPageBase);
 export default DriverTransitPage;

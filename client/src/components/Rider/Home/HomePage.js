@@ -1,8 +1,10 @@
 import React from "react";
 // import { Link } from "react-router-dom";
-// import { Form, Button, Message } from "semantic-ui-react";
+import { Form, Button, Message, Input } from "semantic-ui-react";
+import * as ROUTES from "../../../constants/routes";
 import SignOut from '../../SignOut/SignOutButton';
 import { withRiderAuthorization } from "../../Sessions";
+import * as Actions from "../../../actions/rider/RiderAPICalls";
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
@@ -13,34 +15,90 @@ class HomePageBase extends React.Component {
 
     constructor(props) {
         super(props);
+        this.addCoordinates = this.addCoordinates.bind(this);
         this.submit = this.submit.bind(this);
 
-        
+        this.state = {
+            style: {
+                "margin": "auto"
+            },
+            startLon: '',
+            startLat: '',
+            endLon: '',
+            endLat: ''
+        };
     }
-    submit(data){
-     
+
+    addCoordinates(e) {
+        this.setState({
+            [e.target.name]: Number(e.target.value)
+        })
     }
+
+    submit(e){
+        // Make an axios post call to appropriate route and take rider to transit page
+        let userObject = {
+            uid: this.props.firebase.auth.currentUser.uid,
+            role: 'rider'
+        };
+
+        let requestObject = {
+            start: {
+                latitude: this.state.startLat,
+                longitude: this.state.startLon
+            },
+            end: {
+                latitude: this.state.endLat,
+                longitude: this.state.endLon
+            }
+        };
+
+        /*axios.post("http://localhost:5001/uic-rider/us-central1/app/rider/AddRide", {
+            data: {
+                user: userObject,
+                request: requestObject
+            }
+        })*/
+        Actions.addCoordinates(userObject, requestObject)
+            .then((res) => {
+                console.log("Sent rider locations");
+                this.props.history.push(ROUTES.RIDER_HOME + '/transit');
+            })
+            .catch(err => err);
+    }
+
+
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
-    // this.props.firebase.auth.currentUser.getIdTokenResult()
-    //   .then((idTokenResult) => {
-    //  // Confirm the user is an Admin.
-    //   console.log('claims',idTokenResult.claims)
-    //   // actual : this.props.history.push(resolveUser
-    //   })
     return (
-      
-        
-       <div className="ui search">
-        <div className="ui icon input">
-            <input className="prompt" type="text" placeholder="Search countries..."/>
-            <i className="search icon"></i>
-        </div>
-       <div className="results"></div>
-       <SignOut />
-   </div>
+
+       <div style = {this.state.style}>
+           <table>
+               <tbody>
+                   <tr>
+                       <td><Input name = "startLon" className = "prompt" type="text" placeholder="Enter start longitude"
+                                  onChange = {this.addCoordinates} /></td>
+                       <td><Input name = "startLat" className = "prompt" type = "text" placeholder = "Enter start latitude"
+                                  onChange = {this.addCoordinates} /></td>
+                   </tr>
+                   <br />
+
+                   <tr>
+                       <td><Input name = "endLon" type="text" className = "prompt" placeholder = "Enter end longitude "
+                                  onChange = {this.addCoordinates} /></td>
+                       <td><Input name = "endLat" type="text" className = "prompt" placeholder = "Enter end latitude "
+                                  onChange = {this.addCoordinates} /></td>
+                   </tr>
+
+                   <tr>
+                       <td><Button type= "submit" onClick = {this.submit}> Add location </Button></td>
+                       <td><SignOut /></td>
+                   </tr>
+               </tbody>
+           </table>
+       </div>
     );
   }
 }
-const RiderHomePage = withRiderAuthorization(HomePageBase)
+const RiderHomePage = withRiderAuthorization(HomePageBase);
 export default RiderHomePage;

@@ -13,7 +13,7 @@ module.exports.TRANSIT = 'transit'
 
 
 
-// Driver Constansts
+// Driver Constants
 module.exports.DRIVER ='driver'
 module.exports.DRIVER_LOCATION_REF = this.referenceJoiner(' ',this.DRIVER);
 module.exports.VEHICLE_DEFAULT_CAPACITY = 4;
