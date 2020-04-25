@@ -5,7 +5,7 @@ const ClosestDriver= require('../database/firestore/driver/RetriveDrivers');
 const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
 const Utils = require('./utils');
 const DriverTransit = require('../database/firestore/driver/DriverTransit');
-const DriverMatch = require('../database/firestore/driver/Match')
+const DriverMatch = require('../database/firestore/driver/DriverMatch')
 const RiderTransit =require('../database/firestore/rider/RiderTransit')
 const DriverPickUp = require('../database/firestore/driver/DriverPickUp')
  /*
@@ -101,12 +101,8 @@ JSON Request:
 function moverRiderFromMatchedToTransit(driverUID,riderUID){
   return new Promise((resolve,reject)=>{
     var data
-    DriverMatch.getRiderDocFromMatchesList(driverUID,riderUID)
-    .then((doc)=>{
-      if(! doc.exists){
-        throw new Error('Rider doesnt exist in Matched List');
-      }
-      data=doc.data();
+    DriverMatch.verifyRiderInMatchesList(driverUID,riderUID)
+    .then(()=>{
       console.log('moving rider to transit')
       return DriverTransit.addRiderToTransit(driverUID,riderUID,data)
     })
@@ -120,12 +116,28 @@ function moverRiderFromMatchedToTransit(driverUID,riderUID){
     })
     .catch((err)=>{
       console.log('unable to move rider to transit')
+      console.log(err)
       reject(err)
     })
   })
  
 }
+/*
+{
+  "data": {
 
+      "user" :{
+          "uid": "UJSLK06TrXZuB5SKGaQ86H1J8Ut2",
+          "role": "driver"
+      },
+      "rider":{
+        "uid":"Ad1I5WhVY1dfGUiPvRuJ3wLils12"
+          
+      }
+      
+  }
+}
+*/
 DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
   const {user,rider} = req.body.data;
   var riderUID=rider.uid
@@ -140,7 +152,8 @@ DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
     res.status(200).json({riderUID:riderUID})
 
   }).catch((err)=>{
-    res.send(404).send(err)
+    console.log(err)
+    res.status(404).json(err)
   })
   
 

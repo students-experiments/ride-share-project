@@ -20,7 +20,8 @@ module.exports.addRiderToTransit = function addRiderToTransit(
     .collection(Constants.DRIVER)
     .doc(driverUID)
     .update({
-      [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayRemove(riderUID)
+      [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayUnion(riderUID),
+      [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(-1)
     })
   
 };
@@ -39,13 +40,12 @@ module.exports.removeRiderFromTransit = function removeRiderFromTransit(
 ) {
   var docRef = db.collection(Constants.DRIVER).doc(driverUID);
   var deleteRiderPromise = docRef
-    .collection(Constants.DRIVER_ACCEPTED_RIDERS)
-    .doc(riderUID)
-    .delete();
+  .update({
+    [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayRemove(riderUID),
+    [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(1)
+  })
   var updateCapacityPromise = docRef.update({
-    [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(
-      -1
-    ),
+    
   });
   return Promise.all([deleteRiderPromise, updateCapacityPromise]);
 };
@@ -60,19 +60,13 @@ and then delete the collections
 
 */
 module.exports.endTransit = function endTransit(driverUID) {
-  var docRef = db.collection(Constants.DRIVER).doc(driverUID);
-  var endTransitCollectionPromise = deleteCollection(
-    db,
-    docRef.collection(Constants.DRIVER_ACCEPTED_RIDERS),
-    Constants.VEHICLE_DEFAULT_CAPACITY
-  );
-  var updateCapacityPromise = docRef.update({
-    [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(
-      -1
-    ),
+  return db.collection(Constants.DRIVER).doc(driverUID)
+  .update({
+    [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.delete(),
+    [FieldStrings.DRIVER_FOUND_MATCHES]: admin.firestore.FieldValue.delete(),
     [FieldStrings.STATUS]: Status.IDLE,
-  });
-  return Promise.all([endTransitCollectionPromise, updateCapacityPromise]);
+    [FieldStrings.CAPACITY_AVAILABILE]: Constants.VEHICLE_DEFAULT_CAPACITY
+  })
 };
 
 function deleteCollection(db, collectionRef, batchSize) {

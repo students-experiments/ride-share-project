@@ -3,7 +3,7 @@ import { Form, Button, Grid,Segment } from "semantic-ui-react";
 import AddLocationForm from './AddLocationForm'
 import SignOut from '../../SignOut/SignOutButton';
 import { withDriverAuthorization } from "../../Sessions";
-import * as DriverActions from '../../../actions/driver/HomePageActions'
+import * as DriverHomeActions from '../../../actions/driver/HomePageActions'
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
@@ -18,11 +18,14 @@ class HomePageBase extends React.Component {
    
     readyToPick = e => {
       this.setState({ReadyLoading:true});
-      DriverActions.readyToPick(this.props.firebase.auth.currentUser).then((res)=>{
-        this.props.userId=this.props.firebase.auth.currentUser.uid
+      DriverHomeActions.readyToPick(this.props.firebase.auth.currentUser)
+      .then((res)=>{
+        
+        console.log('ready to Pick')
         this.props.history.push('/driver/transit');
       })
       .catch((err)=>{
+        console.log(err)
         this.setState({ReadyLoading:false});
         this.setState({errors:err});
       })
