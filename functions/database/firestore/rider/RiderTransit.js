@@ -22,7 +22,7 @@ module.exports.addDriverTransit = function addDriverTransit(riderUID,driverUID) 
 };
 
 
-module.exports.endRide = function endRide(riderUID,driverUID) {
+module.exports.endRide = function endRide(riderUID) {
     var docRef = db.collection(Constants.RIDER).doc(riderUID);
     return docRef.set(
       {

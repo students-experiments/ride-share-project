@@ -34,20 +34,12 @@ db.collection("cities").doc("DC").delete().then(function() {
 });
 */
 
-module.exports.removeRiderFromTransit = function removeRiderFromTransit(
-  driverUID,
-  riderUID
-) {
-  var docRef = db.collection(Constants.DRIVER).doc(driverUID);
-  var deleteRiderPromise = docRef
+module.exports.removeRiderFromTransit = function removeRiderFromTransit(driverUID,riderUID) {
+  return db.collection(Constants.DRIVER).doc(driverUID)
   .update({
     [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayRemove(riderUID),
     [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(1)
   })
-  var updateCapacityPromise = docRef.update({
-    
-  });
-  return Promise.all([deleteRiderPromise, updateCapacityPromise]);
 };
 /*
 

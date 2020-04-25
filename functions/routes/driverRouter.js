@@ -171,11 +171,15 @@ DriverRouter.post('/EndRide',Utils.requireDriverAuth,(req,res)=>{
   DriverTransit.removeRiderFromTransit(user.uid,rider.uid)
   .then(()=>{
     console.log('removed Rider from Driver')
+    return RiderTransit.endRide(rider.uid);
+  })
+  .then(()=>{
       res.sendStatus(200);
-    }).catch((err)=>{
+  })
+  .catch((err)=>{
       console.log(err);
       res.status(404).send(err)
-    })
+  })
 })
 
 
@@ -184,6 +188,7 @@ DriverRouter.post('/EndTransit',Utils.requireDriverAuth,(req,res)=>{
   DriverTransit.endTransit(user.uid)
   .then(()=>{
     console.log('Ended Transit for Driver')
+    
       res.sendStatus(200);
     }).catch((err)=>{
       console.log(err);
