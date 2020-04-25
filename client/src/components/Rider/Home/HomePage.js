@@ -20,7 +20,6 @@ class HomePageBase extends React.Component {
 
         this.state = {
             style: {
-                "textAlign": "center",
                 "margin": "auto"
             },
             startLon: '',
@@ -75,25 +74,27 @@ class HomePageBase extends React.Component {
 
        <div style = {this.state.style}>
            <table>
-               <tr>
-                   <td><Input name = "startLon" className = "prompt" type="text" placeholder="Enter start longitude"
-                              onChange = {this.addCoordinates} /></td>
-                   <td><Input name = "startLat" className = "prompt" type = "text" placeholder = "Enter start latitude"
-                              onChange = {this.addCoordinates} /></td>
-               </tr>
-               <br />
+               <tbody>
+                   <tr>
+                       <td><Input name = "startLon" className = "prompt" type="text" placeholder="Enter start longitude"
+                                  onChange = {this.addCoordinates} /></td>
+                       <td><Input name = "startLat" className = "prompt" type = "text" placeholder = "Enter start latitude"
+                                  onChange = {this.addCoordinates} /></td>
+                   </tr>
+                   <br />
 
-               <tr>
-                   <td><Input name = "endLon" type="text" className = "prompt" placeholder = "Enter end longitude "
-                              onChange = {this.addCoordinates} /></td>
-                   <td><Input name = "endLat" type="text" className = "prompt" placeholder = "Enter end latitude "
-                              onChange = {this.addCoordinates} /></td>
-               </tr>
+                   <tr>
+                       <td><Input name = "endLon" type="text" className = "prompt" placeholder = "Enter end longitude "
+                                  onChange = {this.addCoordinates} /></td>
+                       <td><Input name = "endLat" type="text" className = "prompt" placeholder = "Enter end latitude "
+                                  onChange = {this.addCoordinates} /></td>
+                   </tr>
 
-               <tr>
-                   <td><Button type= "submit" onClick = {this.submit}> Add location </Button></td>
-                   <td><SignOut /></td>
-               </tr>
+                   <tr>
+                       <td><Button type= "submit" onClick = {this.submit}> Add location </Button></td>
+                       <td><SignOut /></td>
+                   </tr>
+               </tbody>
            </table>
        </div>
     );

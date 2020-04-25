@@ -16,50 +16,29 @@ class RiderTransitPageBase extends React.Component {
 
     constructor(props) {
         super(props);
-        this.submit = this.submit.bind(this);
-        this.updatePage = this.updatePage.bind(this);
         this.state = {
             riderStatus: 'available',
             driverID: ''
         };
     }
 
-    updatePage(status) {
-
-    }
-
-    submit(data){
-     
-    }
-
     componentDidMount() {
-        this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
-            .onSnapshot(function (doc) {
-                console.log("Current data: ", doc.data());
-                this.setState({
-                    riderStatus: doc.data().status
-                });
-                if (this.state.riderStatus !== 'available')
-                    this.setState({
-                        driverID: doc.data().matched_driver
-                    });
-            }.bind(this));
-    }
-        /*let riderStatus = "available";
         this.props.firebase.auth.onAuthStateChanged((authUser) => {
-            if (authUser) { // Only if a user is logged in, otherwise current user will be null
-                let currentUser = this.props.firebase.auth.currentUser;
-                console.log('user', currentUser.uid);
-
+            if (authUser) {
                 this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
                     .onSnapshot(function (doc) {
                         console.log("Current data: ", doc.data());
-                        riderStatus = doc.data().status;
-                        return;
-                    });
-                console.log("Current rider status is " + riderStatus);
+                        this.setState({
+                            riderStatus: doc.data().status
+                        });
+                        if (this.state.riderStatus !== 'available')
+                            this.setState({
+                                driverID: doc.data().matched_driver
+                            });
+                    }.bind(this));
             }
-        });*/
+        });
+    }
 
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
     render() {
