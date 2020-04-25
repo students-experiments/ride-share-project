@@ -37,7 +37,7 @@ class LoginFormBase extends React.Component {
           .catch(err => {
             console.log(err);
             this.setState({ loading: false });
-            this.setState({ errors : err.message});
+            this.setState({ errors : {global: err.message}});
           });
     }
   };

@@ -1,11 +1,12 @@
 import React from "react";
 // import { Link } from "react-router-dom";
- import { Form, Button, Grid,Segment,Divider } from "semantic-ui-react";
+ import { Form, Button, Grid,Segment,Divider, Container } from "semantic-ui-react";
 import {withFirebase } from '../../Context/context'
 import SignOut from '../../SignOut/SignOutButton';
 import {withRouter} from 'react-router-dom';
 import RideRequestActionBox from './RideRequestActionBox'
 import IntransitActionBox from './InTransitActionBox'
+import * as DriverTransitActions from '../../../actions/driver/TransitPageActions'
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
@@ -19,14 +20,9 @@ class TransitPageBase extends React.Component {
         this.state={
           transitRidersList : [],
           matchedRidersList:[],
-          uid : "7zSvNOSLt1QKXNO3SuIHxKvi40E3"//this.props.firebase.auth.currentUser.uid
+          driverUID : this.props.firebase.auth.currentUser.uid
         }
-       
-        
-        this.submit = this.submit.bind(this);
-        
-       
-        
+        this.onEndTransit = this.onEndTransit.bind(this);
     }
     /*
 
@@ -43,7 +39,7 @@ class TransitPageBase extends React.Component {
     
     componentDidMount() {
       this.setState({ loading: true });
-      this.props.firebase.firestore.collection('driver').doc(this.state.uid)
+      this.props.firebase.firestore.collection('driver').doc(this.state.driverUID)
       .onSnapshot((doc) =>{
         console.log(doc.data())
         if(doc.data().matched_riders)
@@ -55,59 +51,54 @@ class TransitPageBase extends React.Component {
     
     }
    
-    submit(data){
-     
-    }
+    onEndTransit = () => {
+      console.log(this.props)
+      DriverTransitActions.endTransit(this.state.driverUID)
+      .then(()=>
+      this.props.history.push('/driver/home')
+      )
+      .catch((err)=>{
+        this.setState({loading:false})
+        this.setState({ errors : {global: err.message}});
+      })
+    };
     
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
     return (
-        <div >
-          {console.log('list',this.transitList)}
-          <div class="ui container">
-          <div class="ui grid container">
-              <Grid columns={2} relaxed='very' stackable>
-              <Grid.Column >
-              <div class="ui segment">
-
-              <h2 class="ui orange center aligned header">Ride Requests</h2>
-                <div class="ui divided items">
-                    {this.state.matchedRidersList.map(uid => {
-                            
-                            return <RideRequestActionBox riderUID ={uid}  />
-                          })}
-                </div>
-
-              </div>
-              
-                </Grid.Column>
-                <Grid.Column >
-                  <div class="ui segment">
-
-                    <h2 class="ui olive center aligned header">In Transit</h2>
-                    <p> {this.state.transitRidersList.length}</p>
-
-                    {this.state.transitRidersList.map(transitRiderUID => {
-                      console.log('uid',transitRiderUID)
-                      return <IntransitActionBox riderUID ={transitRiderUID}  />
-                    })}
-                    {/* <IntransitActionBox />
-                      <hr />
-                      <IntransitActionBox />
-                      <hr />
-                      <IntransitActionBox />
-                      <hr />
-                      <IntransitActionBox />
-                      <hr /> */}
-                  </div>
-                </Grid.Column>
-          </Grid>
           
-          </div>
-           
-        </div>
-        <SignOut />
-        </div>
+      <Container >
+      <Grid relaxed='very' >
+         <Grid.Row>
+            <Grid.Column width={6}>
+                  <h2 class="ui orange center aligned header">Ride Requests</h2>
+                  <div class="ui divided items">
+                     {this.state.matchedRidersList.map(riderUID => {
+                     return <RideRequestActionBox riderUID ={riderUID} driverUID= {this.state.driverUID} />
+                     })}
+                  </div>
+            </Grid.Column>
+            <Grid.Column width={6}>
+               
+                  <h2 class="ui olive center aligned header">In Transit</h2>
+                  
+                  {this.state.transitRidersList.map(riderUID =>  {
+                  console.log('uid',riderUID)
+                  return <IntransitActionBox riderUID ={riderUID} driverUID= {this.state.driverUID}  />
+                  })}
+               
+            </Grid.Column>
+            <Grid.Column width={3} >
+               <SignOut />
+               <Button secondary onClick={this.onEndTransit}> 
+                    End Transit
+                  <i class ='right remove icon'></i>
+               </Button>
+            </Grid.Column>
+         </Grid.Row>
+      </Grid>
+   </Container>
+   
 
     );
   }
