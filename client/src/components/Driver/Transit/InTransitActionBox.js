@@ -1,42 +1,65 @@
 import React from "react";
-import { Form, Button, Message,Input,Divider } from "semantic-ui-react";
-import Validator from "validator";
-import InlineError from "../../messages/InlineError";
-import {withFirebase } from '../../Context/context'
-
+import { Form, Button, Message,Input,Divider, Loader,Dimmer, Segment } from "semantic-ui-react";
+import SegmentLoader from './SegmentLoader'
+import * as DriverTransitActions from '../../../actions/driver/TransitPageActions'
 
 
 class IntransitActionBox extends React.Component {
   state = {
     data: {
-        riderUid :this.props.riderUID,
-        riderName : 'Rider Name is unknown'
-    }
+      riderUID :this.props.riderUID,
+      riderName : 'Unknown',
+      driverUID: this.props.driverUID
+    },
+    loading:false,
+    errors:{}
   };
 
+  onEndRider = () => {
+    console.log(this.props)
+    console.log("this.state",this.state.data.riderUID)
+    this.setState({loading:true})
+    DriverTransitActions.endRider(this.state.data.driverUID,this.state.data.riderUID)
+    .then(()=>
+    this.setState({loading:false}))
+    .catch((err)=>{
+      this.setState({loading:false})
+      this.setState({ errors : {global: err.message}});
+    })
+  };
   render() {
+    const { loading,errors } = this.state;
 
     return (
-        <div class="ui divided items">
-            <div class="item">
+      <Segment>
+            <div class="item" >
+              { loading &&  <SegmentLoader />
+              }
+               {errors.global && (
+          <Message negative>
+            <Message.Header>Something went wrong</Message.Header>
+            <p>{errors.global}</p>
+          </Message>
+        )}
+              
                 <div class="ui small image">
                     <img src="https://via.placeholder.com/150"/>
                 </div>
-                <div class="right aligned content">
-                    <a class=" header">Rider</a>
+                <div >
                 
                     <div class="description">
-                        <p>Rider UID: {this.state.data.riderUID}</p>
-                        <p>Rider Name: </p>
+                    <p>Rider UID: {this.state.data.riderUID} </p>
+                        <p>Rider Name: {this.state.data.riderName}</p>
                     </div>
                     <div class="extra">
-                        <div class="ui middle floated secondary button">
+                        <Button negative onClick={this.onEndRider}>
                             End Ride
-                        </div>
+                            <i class="right user delete icon"></i>
+                        </Button>
                     </div>
                 </div>
             </div>
-          </div>
+          </Segment>
 
 
     );
