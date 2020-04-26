@@ -72,14 +72,13 @@ class RegisterFormBase extends React.Component {
     if (!data.password) errors.password = "Can't be blank";
     if (!data.uin) errors.uin="Can't be blank"
     if (!validator.isNumeric(data.uin)) errors.uin="Should be only  numbers"
-    if (data.uin.length != UIN_CHARACTER_LIMIT) errors.uin = "Should exactly contain "+ UIN_CHARACTER_LIMIT+ " numbers"
+    if (data.uin.length !== UIN_CHARACTER_LIMIT) errors.uin = "Should exactly contain "+ UIN_CHARACTER_LIMIT+ " numbers"
 
     return errors;
   };
 
   render() {
     const { data, errors, loading } = this.state;
-    {console.log(errors)}
 
     return (
         <div>

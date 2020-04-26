@@ -1,32 +1,29 @@
 import React from 'react';
-import {  BrowserRouter as Router,
-  Switch,
-  Route} from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css'
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
+import * as ROUTES from '../../constants/routes';
+import Footer from '../../decorators/Footer';
+//Header & Footer
+import PageHeader from "../../decorators/Header";
 // Imports from internals
 import history from '../../history';
 import Firebase, { FirebaseContext } from '../Context';
-
-//Header & Footer
-import PageHeader from "../../decorators/Header";
-import Footer from '../../decorators/Footer';
-
-import * as ROUTES from '../../constants/routes';
-import * as ROLES from '../../constants/roles';
-
+import DriverHomePage from '../Driver/Home/Homepage';
+import DriverTransitPage from '../Driver/Transit/TransitPage';
+import ForgotPasswordForm from '../PasswordForget/ForgotPassword';
+//Home Pages
+import RiderHomePage from '../Rider/Home/HomePage';
+//transit pages
+import RiderTransitPage from '../Rider/transit/transit';
 // auth
 import LoginPage from '../SignIn/LoginPage';
 import RegisterPage from '../SignUp/RegisterPage';
-import ForgotPasswordForm from '../PasswordForget/ForgotPassword';
 
-//Home Pages
-import RiderHomePage from '../Rider/Home/HomePage';
-import DriverHomePage from '../Driver/Home/Homepage';
 
-//transit pages
-import RiderTransitPage from '../Rider/transit/transit';
-import DriverTransitPage from '../Driver/Transit/TransitPage'
+
+
+
+
 
 class App extends React.Component {
     render() {

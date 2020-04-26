@@ -1,14 +1,16 @@
 import React from "react";
-import { withFirebase } from "../Context";
 import { withRouter } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
+import { withFirebase } from "../Context";
 
 const withDriverAuthorization = (Component) => {
     class WithDriverAuthorization extends React.Component {
         constructor(props) {
             super(props);
+            this.state={
+                user: ""
+            }
             this.redirect = this.redirect.bind(this);
-            this.user=""
         }
 
         redirect(targetPage) {
@@ -30,7 +32,6 @@ const withDriverAuthorization = (Component) => {
 
                                 this.redirect("home");
                             }
-                            this.setState(this.user, {uid:currentUser,role:token.claims.role })
                             this.props.firebase.setRole('driver')
                         })
                         .catch(err => err);

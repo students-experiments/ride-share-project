@@ -1,13 +1,11 @@
 import React from "react";
 // import { Link } from "react-router-dom";
- import { Form, Button, Grid,Segment,Divider, Container } from "semantic-ui-react";
-import {withFirebase } from '../../Context/context'
-import SignOut from '../../SignOut/SignOutButton';
-import {withRouter} from 'react-router-dom';
+import { Button, Container, Grid } from "semantic-ui-react";
+import * as DriverTransitActions from '../../../actions/driver/TransitPageActions';
 import { withDriverAuthorization } from "../../Sessions";
-import RideRequestActionBox from './RideRequestActionBox'
-import IntransitActionBox from './InTransitActionBox'
-import * as DriverTransitActions from '../../../actions/driver/TransitPageActions'
+import SignOut from '../../SignOut/SignOutButton';
+import IntransitActionBox from './InTransitActionBox';
+import RideRequestActionBox from './RideRequestActionBox';
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
@@ -21,8 +19,10 @@ class TransitPageBase extends React.Component {
         this.state={
           transitRidersList : [],
           matchedRidersList:[],
-          driverUID : this.props.firebase.auth.currentUser.uid
+          driverUID : (this.props.firebase.auth.currentUser) ? this.props.firebase.auth.currentUser.uid: null ,
+          listener : ''
         }
+        
         this.onEndTransit = this.onEndTransit.bind(this);
     }
     /*
@@ -39,8 +39,10 @@ class TransitPageBase extends React.Component {
     */
     
     componentDidMount() {
+
+      console.log("props",this.props)
       this.setState({ loading: true });
-      this.props.firebase.firestore.collection('driver').doc(this.state.driverUID)
+      this.listener = this.props.firebase.firestore.collection('driver').doc(this.state.driverUID)
       .onSnapshot((doc) =>{
         console.log(doc.data())
         if(doc.data().matched_riders)
@@ -48,16 +50,17 @@ class TransitPageBase extends React.Component {
         if(doc.data().transit_riders)
           this.setState({ transitRidersList:doc.data().transit_riders})
 
-    });
-    
-    }
+    })}
    
     onEndTransit = () => {
       console.log(this.props)
       DriverTransitActions.endTransit(this.state.driverUID)
-      .then(()=>
-      this.props.history.push('/driver/home')
-      )
+      .then(()=>{
+        if(this.state.listener){
+          this.state.listener();
+        }
+        this.props.history.push('/driver/home');
+      })
       .catch((err)=>{
         this.setState({loading:false})
         this.setState({ errors : {global: err.message}});
