@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, Button, Message,Input,Divider, Loader,Dimmer, Segment } from "semantic-ui-react";
-import SegmentLoader from './SegmentLoader'
-import * as DriverTransitActions from '../../../actions/driver/TransitPageActions'
+import { Button, Message, Segment } from "semantic-ui-react";
+import * as DriverTransitActions from '../../../actions/driver/TransitPageActions';
+import SegmentLoader from './SegmentLoader';
 
 
 class IntransitActionBox extends React.Component {
@@ -43,7 +43,7 @@ class IntransitActionBox extends React.Component {
         )}
               
                 <div class="ui small image">
-                    <img src="https://via.placeholder.com/150"/>
+                    <img src="https://via.placeholder.com/150" alt="rider"/>
                 </div>
                 <div >
                 

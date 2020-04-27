@@ -1,7 +1,5 @@
 
 // import {firebase} from '../../firebase/init';
-import {postUserClaims} from '../api/UserRequests';
-import * as Utils from '../utils';
 import * as Server from '../api/Requests';
 
 export function addLocation(latitude,longitude,user){

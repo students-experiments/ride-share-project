@@ -1,11 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
 
-/**
- * Import all page components here
- */
-
-import LoginPageBase from './components/SignIn/LoginPage';
 
 /**
  * All routes go here.

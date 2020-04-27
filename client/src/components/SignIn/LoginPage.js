@@ -1,11 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button,Segment,Grid,Divider } from "semantic-ui-react";
+import { withRouter } from 'react-router-dom';
+import { Button, Divider, Grid, Segment } from "semantic-ui-react";
+import resolveUser from '../../controller/UserController';
+import { withFirebase } from '../Context/context';
 import LoginForm from "./LoginForm";
-import {withFirebase } from '../Context/context'
-import Firebase from '../Context/index';
-import resolveUser from '../../controller/UserController'
-import {withRouter} from 'react-router-dom';
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak

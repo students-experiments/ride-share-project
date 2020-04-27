@@ -1,9 +1,8 @@
 import React from "react";
-import { Form, Button, Message,Input } from "semantic-ui-react";
-import Validator from "validator";
+import { Button, Form, Input, Message } from "semantic-ui-react";
+import * as Actions from '../../../actions/driver/HomePageActions';
+import { withFirebase } from '../../Context/context';
 import InlineError from "../../messages/InlineError";
-import {withFirebase } from '../../Context/context'
-import * as Actions from '../../../actions/driver/HomePageActions'
 
 
 class AddLocationFormBase extends React.Component {

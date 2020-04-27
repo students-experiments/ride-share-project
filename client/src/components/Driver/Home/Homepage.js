@@ -1,9 +1,9 @@
 import React from "react";
-import { Form, Button, Grid,Segment } from "semantic-ui-react";
-import AddLocationForm from './AddLocationForm'
-import SignOut from '../../SignOut/SignOutButton';
+import { Button, Grid } from "semantic-ui-react";
+import * as DriverHomeActions from '../../../actions/driver/HomePageActions';
 import { withDriverAuthorization } from "../../Sessions";
-import * as DriverHomeActions from '../../../actions/driver/HomePageActions'
+import SignOut from '../../SignOut/SignOutButton';
+import AddLocationForm from './AddLocationForm';
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1

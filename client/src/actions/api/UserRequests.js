@@ -19,6 +19,4 @@ function getBaseURL() {
     console.log('prod env')
     return process.env.REACT_APP_PROD_BACKEND_URL
 }
-function addDefaultUserData(firebase){
-    
-}
+

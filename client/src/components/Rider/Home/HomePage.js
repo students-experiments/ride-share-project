@@ -1,10 +1,10 @@
 import React from "react";
 // import { Link } from "react-router-dom";
-import { Form, Button, Message, Input } from "semantic-ui-react";
-import * as ROUTES from "../../../constants/routes";
-import SignOut from '../../SignOut/SignOutButton';
-import { withRiderAuthorization } from "../../Sessions";
+import { Button, Input } from "semantic-ui-react";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
+import * as ROUTES from "../../../constants/routes";
+import { withRiderAuthorization } from "../../Sessions";
+import SignOut from '../../SignOut/SignOutButton';
 
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
