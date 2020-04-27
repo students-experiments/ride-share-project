@@ -100,5 +100,6 @@ class HomePageBase extends React.Component {
     );
   }
 }
+
 const RiderHomePage = withRiderAuthorization(HomePageBase);
 export default RiderHomePage;

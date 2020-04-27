@@ -47,8 +47,7 @@ class TransitPageBase extends React.Component {
           this.setState({ matchedRidersList: doc.data().matched_riders})
         if(doc.data().transit_riders)
           this.setState({ transitRidersList:doc.data().transit_riders})
-
-    });
+      });
     
     }
    

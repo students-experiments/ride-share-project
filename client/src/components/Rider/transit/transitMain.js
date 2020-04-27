@@ -25,28 +25,6 @@ class TransitMain extends React.Component {
             .catch(err => err);
     }
 
-    /*componentDidMount() {
-        this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
-            .onSnapshot(function (doc) {
-                console.log("Current data: ", doc.data());
-                this.props.pageStatus("matched");
-            });
-        /!*let riderStatus = "available";
-        this.props.firebase.auth.onAuthStateChanged((authUser) => {
-            if (authUser) { // Only if a user is logged in, otherwise current user will be null
-                let currentUser = this.props.firebase.auth.currentUser;
-                console.log('user', currentUser.uid);
-
-                this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
-                    .onSnapshot(function (doc) {
-                        console.log("Current data: ", doc.data());
-                        this.props.pageStatus("matched");
-                    });
-                console.log("Current rider status is " + riderStatus);
-            }
-        });*!/
-    }*/
-
     render() {
         return (
             <div>

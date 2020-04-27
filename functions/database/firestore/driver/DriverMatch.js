@@ -39,6 +39,7 @@ db.collection("cities").doc("DC").delete().then(function() {
       db.collection(Constants.DRIVER).
       where('matched_riders','array-contains',riderUID.toString()).get()
       .then((snapshot)=>{
+        console.log("Matched rider uid: ");
         console.log(snapshot)
         if (snapshot.empty ) {
           reject (new Error('Rider doesnt exist in Matched List'))

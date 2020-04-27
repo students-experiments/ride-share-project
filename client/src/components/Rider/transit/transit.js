@@ -42,7 +42,7 @@ class RiderTransitPageBase extends React.Component {
 
     //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
     render() {
-        if (this.state.riderStatus === 'available')
+        if (this.state.riderStatus === 'available' || this.state.riderStatus === 'idle')
             return (
                 <div>
                     <TransitMain />

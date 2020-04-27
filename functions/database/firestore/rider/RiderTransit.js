@@ -7,7 +7,7 @@ const admin=require('../../init-db').firebase_admin
 
 /*
 
-Adds a new fiel
+Adds a new field
 */
 module.exports.addDriverTransit = function addDriverTransit(riderUID,driverUID) {
   var docRef = db.collection(Constants.RIDER).doc(riderUID);
