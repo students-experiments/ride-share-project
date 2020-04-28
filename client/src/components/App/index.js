@@ -24,7 +24,6 @@ import RegisterPage from '../SignUp/RegisterPage';
 
 
 
-
 class App extends React.Component {
     render() {
         return (
@@ -42,13 +41,13 @@ class App extends React.Component {
               <Route   path = {ROUTES.LOG_IN} >
                 <LoginPage />
               </Route>
-              <Route   path= {ROUTES.RIDER_HOME + '/home'}>
+              <Route   path= {ROUTES.RIDER_HOME }>
                 <RiderHomePage  />
               </Route>
               <Route  path= {ROUTES.RIDER_HOME + '/transit'}>
                   <RiderTransitPage />
               </Route>
-              <Route  path= {ROUTES.DRIVER_HOME + '/home'}>
+              <Route  path= {ROUTES.DRIVER_HOME }>
                   <DriverHomePage />
               </Route>
               <Route  path= {ROUTES.DRIVER_HOME + '/transit'}>

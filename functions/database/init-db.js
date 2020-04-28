@@ -3,11 +3,11 @@ let firebase_admin = require("firebase-admin")
 const firebase=require("firebase");
 const path=require('path');
 //path.join(__filename('../uic-night-ride-read-only-access-service-account.json'));
-//const cred=require(require('path').join(__dirname,'uic-night-ride-service-account.json'));
+const cred=require(require('path').join(__dirname,'../../uic-night-ride-service-account.json'));
 
 
 const firebaseConfig = {
-    credentials: firebase_admin.credential.applicationDefault(),
+    credentials: firebase_admin.credential.cert('/Users/anoopnagabhushan/Desktop/UIC/CS494/ride match/final-project-create-table-students/firebase-service-account.json'),
     apiKey: "AIzaSyAlfC_SV4Nbc9lfnmLnpOed58K9jYMB8N8",
     authDomain: "uic-rider.firebaseapp.com",
     databaseURL: "https://uic-rider.firebaseio.com",

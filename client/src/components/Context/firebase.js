@@ -18,16 +18,35 @@ class Firebase {
         firebase.initializeApp(firebaseConfig);
         this.auth = firebase.auth();
         this.firestore=firebase.firestore();
-        this.uid = ''
+        this.user= ''
     }
     doCreateUserWithEmailAndPassword = (email, password) =>{
         console.log('email',email);
         return this.auth.createUserWithEmailAndPassword(email, password);
     }
+    getFirebaseUser = () =>{
+        return this.auth.currentUser.uid;
+    }
     
 
-    doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+    doSignInWithEmailAndPassword = (email, password) =>{
+        return this.auth.signInWithEmailAndPassword(email, password);
+        // this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        // .then(function() {
+        //     // Existing and future Auth states are now persisted in the current
+        //     // session only. Closing the window would clear any existing state even
+        //     // if a user forgets to sign out.
+        //     // ...
+        //     // New sign-in will be persisted with session persistence.
+        //     return this.auth.signInWithEmailAndPassword(email, password);
+        // })
+        // .catch(function(error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        // });
+    }
+    
 
     doSignOut = () => this.auth.signOut();
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);

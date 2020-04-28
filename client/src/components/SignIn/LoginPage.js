@@ -1,9 +1,9 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
 import { Button, Divider, Grid, Segment } from "semantic-ui-react";
 import resolveUser from '../../controller/UserController';
-import { withFirebase } from '../Context/context';
+//import { withFirebase } from '../Context/context';
 import LoginForm from "./LoginForm";
+import { withAuthentication } from "../Sessions";
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -44,6 +44,10 @@ class LoginPageBase extends React.Component {
 
       //this.props.login(data).then(() => this.props.history.push("/dashboard"));
     }
+    componentDidMount(){
+      console.log('login page state:',this.props)
+    }
+
     
   render() {
     return (
@@ -71,5 +75,5 @@ class LoginPageBase extends React.Component {
     );
   }
 }
-const LoginPage = withRouter(withFirebase(LoginPageBase)) 
+const LoginPage = withAuthentication(LoginPageBase);
 export default LoginPage;
