@@ -18,7 +18,7 @@ import RiderTransitPage from '../Rider/transit/transit';
 // auth
 import LoginPage from '../SignIn/LoginPage';
 import RegisterPage from '../SignUp/RegisterPage';
-
+import PreSignIn from '../SignIn/PreSignIn'
 
 
 
@@ -33,7 +33,7 @@ class App extends React.Component {
           <Router history = {history}>
             <Switch>
               <Route  exact path={ROUTES.ROOT} >
-                  <LoginPage  />
+                  <PreSignIn  />
               </Route>
               <Route   path ={ROUTES.REGISTER} >
                   <RegisterPage  />

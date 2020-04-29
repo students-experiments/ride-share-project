@@ -57,7 +57,7 @@ class GoogleMapsAutoComplete extends React.Component {
             <GooglePlacesAutocomplete
             loader = {<Loader />}
             required = {true}
-            inputClassName ={Input.toString}
+            
             value={this.state.address}
             onChange={this.handleChange}
             placeholder = {"My Location"}

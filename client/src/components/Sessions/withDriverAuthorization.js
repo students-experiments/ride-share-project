@@ -22,7 +22,6 @@ const withDriverAuthorization = (Component) => {
                 let currentUser = this.props.firebase.auth.currentUser;
 
                 if (currentUser) {
-                    localStorage.setItem('authUser', JSON.stringify(authUser));
                     console.log('current user',currentUser)
                     //this.setState({authUser: currentUser})
                     console.log('state in authorization',this.state)
