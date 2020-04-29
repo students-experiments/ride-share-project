@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Divider, Grid, Segment, Dimmer, Loader } from "semantic-ui-react";
+import { Button, Divider, Grid, Segment } from "semantic-ui-react";
 import resolveUser from '../../controller/UserController';
+import { withAuthentication } from "../Sessions";
 //import { withFirebase } from '../Context/context';
 import LoginForm from "./LoginForm";
-import { withAuthentication } from "../Sessions";
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -31,10 +31,7 @@ class LoginPageBase extends React.Component {
 
 
     submit(data){
-      console.log('data',data);
       this.setState({user: this.props.firebase.auth.currentUser})
-      
-      console.log('user',this.props.firebase);
       this.reRoute()
     }
     reRoute() {

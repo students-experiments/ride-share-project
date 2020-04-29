@@ -1,6 +1,5 @@
 import React from "react";
 import { withFirebase } from "../Context";
-import { AuthUserContext } from "./context";
 import { withRouter } from "react-router-dom";
 
 const withAuthentication = (Component) => {
