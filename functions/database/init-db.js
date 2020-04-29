@@ -7,7 +7,7 @@ const cred=require(require('path').join(__dirname,'../../uic-night-ride-service-
 
 
 const firebaseConfig = {
-    credentials: firebase_admin.credential.cert('/Users/anoopnagabhushan/Desktop/UIC/CS494/ride match/final-project-create-table-students/firebase-service-account.json'),
+    credentials: firebase_admin.credential.applicationDefault(),
     apiKey: "AIzaSyAlfC_SV4Nbc9lfnmLnpOed58K9jYMB8N8",
     authDomain: "uic-rider.firebaseapp.com",
     databaseURL: "https://uic-rider.firebaseio.com",
