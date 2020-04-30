@@ -53,7 +53,6 @@ class PreSignInBase extends React.Component {
 
     }
     render() {
-        const user=this.state;
         return(
             <div>
                 <Container >
