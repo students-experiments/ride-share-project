@@ -46,8 +46,8 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: functions Build
       run: |
-         npm install
-         npm run build
+        cd functions
+        npm install
          
     - name: Firebase Deploy
       run: |
