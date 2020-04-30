@@ -1,5 +1,5 @@
 import React from "react";
-import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 // If you want to use the provided css
 /*
 This component Loads the Seacrh Bar with Auto complete.
@@ -13,7 +13,7 @@ Examples code snippets help to understand the usage.
 */
 import "react-google-places-autocomplete/dist/index.min.css";
 import "semantic-ui-css/semantic.min.css";
-import { Button, Segment, Grid } from "semantic-ui-react";
+import { Grid, Segment } from "semantic-ui-react";
 
 class GoogleMapsAutoComplete extends React.Component {
   state = {
