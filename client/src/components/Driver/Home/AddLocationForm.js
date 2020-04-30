@@ -22,7 +22,7 @@ class AddLocationFormBase extends React.Component {
 
   onSubmit = () => {
     const errors = this.validate(this.state.data);
-    console.log('data',this.state.data);
+    console.log('props in location',this.props);
 
     this.setState({ errors });
     this.setState({loading: true});

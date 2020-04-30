@@ -3,7 +3,7 @@ let firebase_admin = require("firebase-admin")
 const firebase=require("firebase");
 const path=require('path');
 //path.join(__filename('../uic-night-ride-read-only-access-service-account.json'));
-//const cred=require(require('path').join(__dirname,'uic-night-ride-service-account.json'));
+const cred=require(require('path').join(__dirname,'../../uic-night-ride-service-account.json'));
 
 
 const firebaseConfig = {

@@ -15,7 +15,7 @@ class RegisterPageBase extends React.Component {
         console.log("history",this.props.history);
         console.log('user claims',claims)
         addCustomClaims(user,claims).then(()=>{
-            this.props.history.push('/login');
+            this.props.history.push('/');
         }).catch((err)=>{
             console.log('was not able to login. try again');
             console.log(err);
