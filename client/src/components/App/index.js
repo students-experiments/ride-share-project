@@ -18,23 +18,26 @@ import RiderTransitPage from '../Rider/transit/transit';
 // auth
 import LoginPage from '../SignIn/LoginPage';
 import RegisterPage from '../SignUp/RegisterPage';
+import PreSignIn from '../SignIn/PreSignIn'
 
+import DesktopContainer from '../MainContainer/container';
 
-
-
-
+import {
+  Segment
+} from 'semantic-ui-react'
 
 
 class App extends React.Component {
     render() {
         return (
           <div id="root">
-            <PageHeader />
+            <DesktopContainer >
+            <Segment style={{ padding: '8em 0em' }} vertical>
           <FirebaseContext.Provider value={new Firebase()}>
           <Router history = {history}>
             <Switch>
               <Route  exact path={ROUTES.ROOT} >
-                  <LoginPage  />
+                  <PreSignIn  />
               </Route>
               <Route   path ={ROUTES.REGISTER} >
                   <RegisterPage  />
@@ -42,16 +45,16 @@ class App extends React.Component {
               <Route   path = {ROUTES.LOG_IN} >
                 <LoginPage />
               </Route>
-              <Route   path= {ROUTES.RIDER_HOME + '/home'}>
+              <Route   path= {ROUTES.RIDER_HOME }>
                 <RiderHomePage  />
               </Route>
-              <Route  path= {ROUTES.RIDER_HOME + '/transit'}>
+              <Route  path= {ROUTES.RIDER_TRANSIT}>
                   <RiderTransitPage />
               </Route>
-              <Route  path= {ROUTES.DRIVER_HOME + '/home'}>
+              <Route  path= {ROUTES.DRIVER_HOME }>
                   <DriverHomePage />
               </Route>
-              <Route  path= {ROUTES.DRIVER_HOME + '/transit'}>
+              <Route  path= {ROUTES.DRIVER_TRANSIT }>
                   <DriverTransitPage />
               </Route>
 
@@ -61,8 +64,10 @@ class App extends React.Component {
               </Switch>
           </Router>
       </FirebaseContext.Provider>
-      <hr />
+
+      </Segment>
       <Footer /> 
+      </DesktopContainer>
           </div>
         );
       }

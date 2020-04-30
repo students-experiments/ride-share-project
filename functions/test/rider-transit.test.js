@@ -85,11 +85,18 @@ describe('application', async () => {
     it("requires the rider to be registered and \
     logged in before requesting a ride", () => {
       axios.post("/rider/FindMatch", {
+<<<<<<< HEAD
           data: {
               user: userObj,
+=======
+          data:{
+            user: userObj,
+            request: requestObj
+>>>>>>> 4e3707d184e3cf3196fde0450427e4becee7cda5
           }
       })
           .then((response) => {
+            console.log(response)
             assert(response.status !== 400);
           })
           .catch((err) => {
