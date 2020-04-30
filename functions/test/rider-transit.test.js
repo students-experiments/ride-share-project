@@ -7,7 +7,7 @@ const db = require("../database/init-db").firestore;
 const app = require('../app.js');
 
 const userObj = {
-    uid: 'eA54D',
+    uid: '0qseCUVPrsV35Cq2wQkw0F6GY153',
     role: 'rider'
 };
 
@@ -45,7 +45,7 @@ describe('application', async () => {
   let client = {};
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = `https://uic-rider.firebaseapp.com`;
+  axios.defaults.baseURL = `http://localhost:5001/uic-rider/us-central1/app/`;
   axios.defaults.validateStatus = () => true;
 
   /* Utility functions
@@ -85,8 +85,9 @@ describe('application', async () => {
     it("requires the rider to be registered and \
     logged in before requesting a ride", () => {
       axios.post("/rider/FindMatch", {
-          user: userObj,
-          request: requestObj
+          data: {
+              user: userObj,
+          }
       })
           .then((response) => {
             assert(response.status !== 400);
@@ -98,8 +99,9 @@ describe('application', async () => {
 
     it("lets a rider request a ride", () => {
       axios.post("/rider/FindMatch", {
-          user: userObj,
-          request: requestObj
+          data: {
+              user: userObj,
+          }
       }).then((response) => {
             assert(response.status === 200 || response.data.includes("You have been matched"));
       })
@@ -110,10 +112,11 @@ describe('application', async () => {
 
     it("lets a rider state their location", () => {
         axios.post("/rider/AddRide", {
-          user: userObj,
-          request: requestObj
+            data: {
+                user: userObj,
+                request: requestObj
+            }
       }).then((response) => {
-            console.log(response.data);
             assert(response.status === 200);
           })
           .catch((err) => {
@@ -123,14 +126,15 @@ describe('application', async () => {
 
     it("lets the rider know when a driver accepts the request", () => {
         axios.post('/rider/FindMatch', {
-            user: userObj,
-            request: requestObj
+            data: {
+                user: userObj,
+            }
         })
             .then((res) => {
                 assert(res.data.includes("will pick you up"));
             })
             .catch(err => err);
-    }); // Implementation Pending
+    });
 
     it("lets the rider see the time until pickup"); // Implementation Pending
 
@@ -147,7 +151,7 @@ describe('application', async () => {
           .catch((err) => {
             console.error(err);
           });
-    });
+    }); // Implementation Pending
 
     it("lets the rider know of driver status"); // Implementation Pending
 

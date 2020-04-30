@@ -16,3 +16,11 @@ export function findMatch(userObj) {
 
     return Server.post('rider/FindMatch', data);
 }
+
+export function deleteRide(userObj) {
+    const data = {
+        user: userObj
+    };
+
+    return Server.delete_request('rider/DeleteRide', data);
+}

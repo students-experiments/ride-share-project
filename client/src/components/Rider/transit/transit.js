@@ -11,6 +11,22 @@ import TransitFinal from "./transitFinal";
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
 
+const TransitCompleteMessage = (props) => {
+    if (props.transitComplete)
+        return (
+            <h2> Your ride has ended! </h2>
+        );
+    else
+        return (<h2></h2>);
+}
+
+const MatchMessage = (props) => {
+    if (props.matchMade === false)
+        return(
+            <h2> Sorry no drivers are available at the moment. Try again after a few minutes. </h2>
+        );
+    else return (<h2></h2>);
+}
 
 class RiderTransitPageBase extends React.Component {
 
@@ -18,8 +34,10 @@ class RiderTransitPageBase extends React.Component {
         super(props);
         this.state = {
             riderStatus: 'available',
-            driverID: ''
+            driverID: '',
+            transitComplete: null,
         };
+
     }
 
     componentDidMount() {
@@ -27,14 +45,31 @@ class RiderTransitPageBase extends React.Component {
             if (authUser) {
                 this.props.firebase.firestore.collection('rider').doc(this.props.firebase.auth.currentUser.uid)
                     .onSnapshot(function (doc) {
-                        console.log("Current data: ", doc.data());
-                        this.setState({
-                            riderStatus: doc.data().status
-                        });
-                        if (this.state.riderStatus !== 'available')
+                        let newDocStatus = doc.data().status;
+                        if (this.state.riderStatus === 'transit' && newDocStatus === 'idle')
                             this.setState({
-                                driverID: doc.data().matched_driver
+                                transitComplete: true
                             });
+
+                        else if (this.state.riderStatus === 'matched' && newDocStatus === 'idle')
+                            this.setState({
+                                transitComplete: false
+                            });
+
+                        if (newDocStatus === 'matched')
+                            this.setState({
+                                driverID: doc.data().matched_driver,
+                            });
+
+                        else if(newDocStatus === 'transit')
+                            this.setState({
+                                driverID: doc.data().transit_driver,
+                            });
+
+                        this.setState({
+                            riderStatus: newDocStatus
+                        });
+
                     }.bind(this));
             }
         });
@@ -45,20 +80,21 @@ class RiderTransitPageBase extends React.Component {
         if (this.state.riderStatus === 'available' || this.state.riderStatus === 'idle')
             return (
                 <div>
-                    <TransitMain />
+                    <TransitMain transitComplete = {this.state.transitComplete} />
                     <br />
                     <SignOut />
                 </div>
             );
 
-        else if (this.state.riderStatus === 'matched')
+        else if (this.state.riderStatus === 'matched') {
             return (
                 <div>
-                    <TransitMatched driverUID = {this.state.driverID} />
-                    <br />
-                    <SignOut />
+                    <TransitMatched driverUID={this.state.driverID}/>
+                    <br/>
+                    <SignOut/>
                 </div>
             );
+        }
 
         else if(this.state.riderStatus === 'transit')
             return (
@@ -68,6 +104,7 @@ class RiderTransitPageBase extends React.Component {
                     <SignOut />
                 </div>
             );
+
     }
 }
 

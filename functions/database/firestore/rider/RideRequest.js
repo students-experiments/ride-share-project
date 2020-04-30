@@ -9,6 +9,7 @@ const Status =require('../../../status/status')
 // https://medium.com/@aaron_lu1/firebase-cloud-firestore-add-set-update-delete-get-data-6da566513b1b
 module.exports.deleteRideRequest = function (uid) {
     var doc = db.collection(Constants.RIDER).doc(uid);
+    // This should delete request object as well as change rider status to idle and remove the matched driver field
     return doc.update ({
       request : admin.firestore.FieldValue.delete()
     }, { merge: true });

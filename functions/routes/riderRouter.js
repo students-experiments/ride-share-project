@@ -52,7 +52,7 @@ RiderRouter.post("/AddRide", RouterUtils.requireRiderAuth, (req, res) => {
     });
 });
 
-RiderRouter.delete("/DeleteRide", RouterUtils.requireRiderAuth, (req, res) => {
+RiderRouter.post("/DeleteRide", RouterUtils.requireRiderAuth, (req, res) => {
   const { user } = req.body.data;
   RideRequest.deleteRideRequest(user.uid)
     .then((result) => {

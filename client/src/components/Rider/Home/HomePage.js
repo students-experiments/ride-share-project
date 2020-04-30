@@ -53,12 +53,6 @@ class HomePageBase extends React.Component {
             }
         };
 
-        /*axios.post("http://localhost:5001/uic-rider/us-central1/app/rider/AddRide", {
-            data: {
-                user: userObject,
-                request: requestObject
-            }
-        })*/
         Actions.addCoordinates(userObject, requestObject)
             .then((res) => {
                 console.log("Sent rider locations");

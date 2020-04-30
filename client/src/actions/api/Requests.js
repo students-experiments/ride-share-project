@@ -6,6 +6,11 @@ export function post(route,data){
     return axios.post(url,{data});
 }
 
+export function delete_request(route, data) {
+    const url = getBaseURL() + route;
+    return axios.post(url, {data});
+}
+
 function getBaseURL() {
     if(process.env.NODE_ENV === "development"){
         console.log('dev env',process.env);
