@@ -4,7 +4,6 @@ module.exports.STATUS ='status'
 // takes input( '/driver',uid) => /driver/uid
 module.exports.referenceJoiner = function(...args){
     const path=args.filter(Boolean).join("/").trim()
-    console.log('path:',path)
     return path;
 }
 
