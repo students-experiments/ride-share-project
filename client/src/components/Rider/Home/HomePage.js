@@ -1,13 +1,12 @@
 import React from "react";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 // import { Link } from "react-router-dom";
-import { Button, Input,Segment,Grid,Header } from "semantic-ui-react";
+import { Button, Grid, Header, Segment } from "semantic-ui-react";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
 import * as ROUTES from "../../../constants/routes";
 import { withRiderAuthorization } from "../../Sessions";
 import SignOut from '../../SignOut/SignOutButton';
-import GoogleMapsAutoComplete from  '../../Driver/Home/DriverLocationSerachAutocomplete'
-import RiderLocationSearch from './RiderLocationSearchAutoComplete'
-import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import RiderLocationSearch from './RiderLocationSearchAutoComplete';
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -43,6 +42,7 @@ class HomePageBase extends React.Component {
             uid: this.props.firebase.auth.currentUser.uid,
             role: 'rider'
         };
+        // eslint-disable-next-line
         let start,end
         this.getLatLng(this.state.startDesc).then(res=> start=res)
         this.getLatLng(this.state.endDesc).then(res=> end=res)

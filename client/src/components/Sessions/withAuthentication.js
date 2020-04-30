@@ -4,10 +4,9 @@ import { withRouter } from "react-router-dom";
 
 const withAuthentication = (Component) => {
     class WithAuthentication extends React.Component {
+        // eslint-disable-next-line
         constructor(props) {
             super(props);
-            
-            
         }
 
         componentWillUnmount() {

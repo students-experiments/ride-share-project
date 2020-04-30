@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Grid, Segment, Header, Container } from "semantic-ui-react";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import { Button, Grid, Header, Segment } from "semantic-ui-react";
+import * as Actions from "../../../actions/driver/HomePageActions";
 import * as DriverHomeActions from "../../../actions/driver/HomePageActions";
 import { withDriverAuthorization } from "../../Sessions";
 import SignOut from "../../SignOut/SignOutButton";
 import GoogleMapsAutoComplete from "./DriverLocationSerachAutocomplete";
-import * as Actions from "../../../actions/driver/HomePageActions";
-import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -67,8 +67,6 @@ class HomePageBase extends React.Component {
 
   //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
-    var src= "https://maps.googleapis.com/maps/api/js?key=" + process.env.REACT_APP_API_KEY +
-    "&libraries=places";
     return (
       <Segment style={{ padding: "0em 0em" }} vertical>
         <Grid container stackable verticalAlign="middle">
