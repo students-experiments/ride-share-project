@@ -100,7 +100,7 @@ The UI should be completed with some of the CRUD functionalities.
 - Multiple rides should be shareable
 - Algorithm for ride sharing is logical and simple
 - Rider should be able to track driver after making a request
-- Enable notification for rider and driver with relevant information
+
 
 ## Specialization deliverables
 
@@ -111,22 +111,53 @@ The UI should be completed with some of the CRUD functionalities.
 
 ## Installation
 
-After cloning the repository:
+Firebase Access:
 
-```sh
+To get the app up and running,  request permission to use firebase resources.
+
+1. Client Side React App:
+	- Access the firebase sdk config, copy the config values and paste in the file: client/src/components/Context/firebase.js
+	- Replace the environment variables with config key value pairs.
+	- Steps detailed here: [How to add config to firebase web app](https://firebase.google.com/docs/web/setup#config-object "How to add config to firebase web app")
+2. Server side - functions express server:
+	- We also access firebase on the server side and the access mechanism is by using service accounts.
+	- Go to project console, settings -> service accounts ->. Generate Key.
+	- store that key as JSON file on the machine.
+	- on the terminal:
+		 `Mac terminal: $export GOOGLE_APPLICATION_CREDENTIALS = "[path to json]"`
+		 `Windows: $env:GOOGLE_APPLICATION_CREDENTIALS="[path to json]"`
+		 More details: [Firebase admin SDK setup](https://firebase.google.com/docs/admin/setup#windows "Firebase admin SDK setup")
+
+Note: If the above steps are not successfull, you will not be able to start the server.
+
+To get the app running: 
+
+1. Get the code:
+	```shell
+git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
+```
+2. Lets start the server on one terminal
+	```shell
 cd functions
 npm install
-npm install -g firebase-tools
-cd client ; npm run build ; cd ..
+sudo npm install -g firebase-tools
+cd ..
+firebase serve --only functions
 ```
 
-To start the application:
-
-```sh
-firebase serve --only functions,hosting
+3. Now let start the client:
+	```shell
+cd client
+npm install
+npm build
+cd ..
+firebase serve --only hosting
 ```
+
+4. This should have the app running on [http://localhost:5000/](http://localhost:5000/ "http://localhost:5000/")
+
+5. Now go ahead and either register as driver or rider.
   
-For testing https-based deployment:
+6. The production deployment is also available on the following site:
+[https://uic-rider.firebaseapp.com](https://uic-rider.firebaseapp.com "https://uic-rider.firebaseapp.com")
 
-- <https://uic-rider.firebaseapp.com>
-- "uic-night-ride-service-account.json" contains params for read only access for firebase data.
