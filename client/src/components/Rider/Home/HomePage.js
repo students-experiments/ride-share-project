@@ -111,7 +111,10 @@ class HomePageBase extends React.Component {
             
                 <Segment  style={{ padding: '0em 0em' }} vertical>
                     <Header as='h2' style={{ fontSize: '2em', textAlign: 'center' }}>
-                    <p>  Set your Pick up and drop location. </p>
+                    <p
+                    style={{
+                        color: 'white'
+                      }}>  Set your Pick up and drop location. </p>
                     <p>   </p>
                     </Header>
                 <Grid container stackable verticalAlign='middle' >
@@ -120,10 +123,17 @@ class HomePageBase extends React.Component {
                         <SignOut />
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row centered>
+                <Grid.Row centered
+                style={{
+                    height: '5rem'
+                }}
+                >
                     <Grid.Column textAlign={"right"} width={5}>
                         <Header as='h4' style={{ fontSize: '2em' }}>
-                        <p>  Pick Up Location </p>
+                        <p
+                        style={{
+                            color: 'white'
+                          }}>  Pick Up Location </p>
                         </Header>
                     </Grid.Column>
                     <Grid.Column  width={7}>
@@ -135,7 +145,10 @@ class HomePageBase extends React.Component {
                 <Grid.Row centered>
                     <Grid.Column textAlign={"right"} width={5}>
                         <Header as='h4' style={{ fontSize: '2em' }}>
-                        <p>  Drop Off Location </p>
+                        <p
+                        style={{
+                            color: 'white'
+                          }}>  Drop Off Location </p>
                         </Header>
                     </Grid.Column>
                     <Grid.Column  width={7}>
