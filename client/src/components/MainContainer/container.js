@@ -1,10 +1,11 @@
 
 import React, { Component } from 'react'
+import UICLogo from "./UICLogo.png"
+import headerBackground from "./back2.PNG"
 import {
 
   Container,
   Header,
-
   Responsive,
   Segment,
   Visibility,
@@ -15,28 +16,32 @@ const getWidth = () => {
   
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 }
+
 const HomepageHeading = ({ mobile }) => (
     <Container text>
+    
       <Header
         as='h5'
-        content='UIC Night Rider'
+        image = {UICLogo}
+        content='Night Rider'
         inverted
         style={{
+          
           fontSize: mobile ? '2em' : '4em',
           fontWeight: 'normal',
-          marginBottom: '0.1em',
-          marginTop:  '0.5em',
-        }}
-      />
+          marginBottom: '.5em',
+          marginTop:  '.5em',
+        }}  
+        />
       <Header
         as='h2'
-        content='Hello'
+        content='Start Your Journey Now'
         inverted
         style={{
           fontSize: mobile ? '1.5em' : '1.7em',
           fontWeight: 'normal',
           marginTop: 0,
-          marginBottom: '0.1em',
+          marginBottom: '.5rem',
         }}
       />
       
@@ -62,9 +67,15 @@ class DesktopContainer extends Component {
             >
 
             <Segment
+            
               inverted
               textAlign='center'
-              style={{ minHeight: 100, padding: '1em 0em' }}
+              style={{ 
+                minHeight: 100, 
+                padding: '1em 0em',
+                backgroundImage: `url(${headerBackground})`,
+                backgroundSize: '100% 100%', 
+              }}
               vertical
             >
               

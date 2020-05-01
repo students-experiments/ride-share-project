@@ -68,24 +68,43 @@ class HomePageBase extends React.Component {
   //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
     return (
-      <Segment style={{ padding: "0em 0em" }} vertical>
+      
+      <Segment style={{ 
+        
+        padding: "0em 0em",    
+      }} vertical>
+      
         <Grid container stackable verticalAlign="middle">
           <Grid.Row reversed="computer">
             <Grid.Column width={3}>
               <SignOut />
             </Grid.Column>
-          </Grid.Row>
+          </Grid.Row> 
           <Grid.Row centered>
+            
+
             {!this.state.locationAdded && (
               <Grid.Column textAlign={"center"} width={8}>
-                <Header as="h3" style={{ fontSize: "2em" }}>
-                  <p> Add your starting Location. </p>
+                <Header as="h3" style={{ fontSize: "2em", }}>
+                  <p
+                  style={{
+                    color: 'white'
+                  }}
+                  > Add your starting location. </p>
+                  
                 </Header>
-                <p>
+                <image src = "UICLogo.png"/>
+                <p
+                style={{
+                  color: 'white'
+                }}>
                   {" "}
-                  Currently we match riders based on your vehicle availabilty.{" "}
+                  Currently, we match riders based on your vehicle seat availabilty.{" "}
                 </p>
-                <p> By default its 4.</p>
+                <p
+                style={{
+                  color: 'white'
+                }}> By default, the vehicle capacity is 4 seats.</p>
               </Grid.Column>
             )}
             {this.state.locationAdded && (
@@ -132,6 +151,7 @@ class HomePageBase extends React.Component {
         </Grid>
         
       </Segment>
+      
     );
   }
 }
