@@ -133,26 +133,25 @@ Note: If the above steps are not successfull, you will not be able to start the 
 To get the app running: 
 
 1. Get the code:
-	```shell
-git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
-```
+	```shell  
+    git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git ```
 2. Lets start the server on one terminal
 	```shell
-cd functions
-npm install
-sudo npm install -g firebase-tools
-cd ..
-firebase serve --only functions
-```
+    cd functions
+    npm install
+    sudo npm install -g firebase-tools
+    cd ..
+    firebase serve --only functions
+	```
 
-3. Now let start the client:
+3. Now let start the client on the other:
 	```shell
-cd client
-npm install
-npm build
-cd ..
-firebase serve --only hosting
-```
+    cd client
+    npm install
+    npm build
+    cd ..
+    firebase serve --only hosting
+	```
 
 4. This should have the app running on [http://localhost:5000/](http://localhost:5000/ "http://localhost:5000/")
 
