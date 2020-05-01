@@ -14,7 +14,7 @@ class HeaderBase extends React.Component {
                     block>
                         Block Header
                     </Header> */} 
-                     <Header as='h1' size ={'huge'} block color ='lue'  >
+                     <Header as='h1' size ={'huge'} block color ='blue'  >
                         Block Header
                     </Header>
                     <div className = "app_header">

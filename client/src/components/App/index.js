@@ -19,7 +19,8 @@ import RiderTransitPage from '../Rider/transit/transit';
 import LoginPage from '../SignIn/LoginPage';
 import PreSignIn from '../SignIn/PreSignIn';
 import RegisterPage from '../SignUp/RegisterPage';
-
+//images
+import back from "./grey2.PNG"
 
 
 
@@ -28,7 +29,12 @@ class App extends React.Component {
         return (
           <div id="root">
             <DesktopContainer >
-            <Segment style={{ padding: '8em 0em' }} vertical>
+            <Segment style={{ 
+              padding: '0em 0em', 
+              height: '40rem',
+              backgroundImage: `url(${back})`,
+              backgroundSize: '100% 100%', 
+              }} vertical>
           <FirebaseContext.Provider value={new Firebase()}>
           <Router history = {history}>
             <Switch>

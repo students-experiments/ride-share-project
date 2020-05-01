@@ -5,10 +5,10 @@ import { Header,Container,Segment  } from "semantic-ui-react";
 class Footer extends React.Component {
     render() {
         return (
-                    <Segment inverted vertical style={{ padding: '5em 0em' }}>
+                    <Segment inverted vertical style={{ padding: '2em 0em' }}>
                         <Container>
                         <Header as='h4' inverted>
-                            Footer Header
+                            <a href="https://github.com/ckanich-classrooms/final-project-create-table-students"> More Information on UIC Night Rider</a>
                         </Header>
                         </Container>
                     </Segment>

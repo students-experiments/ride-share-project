@@ -56,8 +56,7 @@ class LoginPageBase extends React.Component {
   render() {
     return (
         
-      <div  >
-
+      <div>
             <br/>
             <div className="ui container">
             <div className="ui two column centered grid">
