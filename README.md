@@ -134,21 +134,21 @@ Note: If the above steps are not successfull, you will not be able to start the 
 To get the app running: 
 
 1. Clone the repository:
-    git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
+    - git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
     
 2. Lets start the server on one terminal
-    cd functions
-    npm install
-    npm install -g firebase-tools
-    cd ..
-    firebase serve --only functions
+    - cd functions
+    - npm install
+    - npm install -g firebase-tools
+    - cd ..
+    - firebase serve --only functions
 
 3. Now let start the client on another terminal:
-    cd client
-    npm install
-    npm build ("npm run-script build" on Powershell)
-    cd ..
-    firebase serve --only hosting
+    - cd client
+    - npm install
+    - npm build ("npm run-script build" on Powershell)
+    - cd ..
+    - firebase serve --only hosting
 
 4. This should have the app running on [http://localhost:5000/](http://localhost:5000/ "http://localhost:5000/")
 
