@@ -4,7 +4,7 @@ import {
 
   Container,
   Header,
-
+  Image,
   Responsive,
   Segment,
   Visibility,
@@ -15,10 +15,14 @@ const getWidth = () => {
   
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 }
+
+
 const HomepageHeading = ({ mobile }) => (
     <Container text>
+      <Image src = "UICLogo.png"/>
       <Header
         as='h5'
+        image = "UICLogo.png"
         content='UIC Night Rider'
         inverted
         style={{
@@ -26,8 +30,8 @@ const HomepageHeading = ({ mobile }) => (
           fontWeight: 'normal',
           marginBottom: '0.1em',
           marginTop:  '0.5em',
-        }}
-      />
+        }}  
+        />
       <Header
         as='h2'
         content='Hello'

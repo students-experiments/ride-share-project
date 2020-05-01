@@ -79,13 +79,14 @@ class HomePageBase extends React.Component {
             {!this.state.locationAdded && (
               <Grid.Column textAlign={"center"} width={8}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  <p> Add your starting Location. </p>
+                  <p> Add your starting location. </p>
                 </Header>
+                <image src = "UICLogo.png"/>
                 <p>
                   {" "}
-                  Currently we match riders based on your vehicle availabilty.{" "}
+                  Currently, we match riders based on your vehicle seat availabilty.{" "}
                 </p>
-                <p> By default its 4.</p>
+                <p> By default, the vehicle capacity is 4 seats.</p>
               </Grid.Column>
             )}
             {this.state.locationAdded && (
