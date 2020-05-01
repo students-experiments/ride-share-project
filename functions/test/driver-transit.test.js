@@ -100,7 +100,7 @@ describe('application', async () => {
         return;
       }); 
 
-
+    });
     it("ensures the database reflects the \
     driver's current seat capacity remaining");
 
