@@ -1,8 +1,9 @@
 import React from "react";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
+import { Header  } from "semantic-ui-react";
 
-class Header extends React.Component {
+class HeaderBase extends React.Component {
     render() {
         return (
                 <div>
@@ -13,6 +14,9 @@ class Header extends React.Component {
                     block>
                         Block Header
                     </Header> */} 
+                     <Header as='h1' size ={'huge'} block color ='lue'  >
+                        Block Header
+                    </Header>
                     <div className = "app_header">
                         <h1>UIC Night Rider</h1>
                         <p> Hello {this.props.name} </p>
@@ -23,4 +27,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default HeaderBase;

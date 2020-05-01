@@ -44,8 +44,8 @@ describe('application', async () => {
   let server = {};
   let client = {};
 
-  axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = `https://uic-rider.firebaseapp.com`;
+  
+  axios.defaults.baseURL = `http://localhost:5001/uic-rider/us-central1/app/`;
   axios.defaults.validateStatus = () => true;
 
   /* Utility functions
@@ -85,10 +85,13 @@ describe('application', async () => {
     it("requires the rider to be registered and \
     logged in before requesting a ride", () => {
       axios.post("/rider/FindMatch", {
-          user: userObj,
-          request: requestObj
+          data:{
+            user: userObj,
+            request: requestObj
+          }
       })
           .then((response) => {
+            console.log(response)
             assert(response.status !== 400);
           })
           .catch((err) => {

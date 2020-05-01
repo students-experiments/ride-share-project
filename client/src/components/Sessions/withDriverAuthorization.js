@@ -2,14 +2,12 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Context";
+import { AuthUserContext } from "./context";
 
 const withDriverAuthorization = (Component) => {
     class WithDriverAuthorization extends React.Component {
         constructor(props) {
             super(props);
-            this.state={
-                user: ""
-            }
             this.redirect = this.redirect.bind(this);
         }
 
@@ -24,6 +22,9 @@ const withDriverAuthorization = (Component) => {
                 let currentUser = this.props.firebase.auth.currentUser;
 
                 if (currentUser) {
+                    console.log('current user',currentUser)
+                    //this.setState({authUser: currentUser})
+                    console.log('state in authorization',this.state)
                     currentUser.getIdTokenResult()
                         .then((token) => {
                             console.log(token.claims);
@@ -38,6 +39,7 @@ const withDriverAuthorization = (Component) => {
                 }
 
                 else {
+                    
                     console.log("No user is logged in");
                     this.redirect("login");
                 }
@@ -50,7 +52,11 @@ const withDriverAuthorization = (Component) => {
 
         render() {
             return (
-                <Component {...this.props} />
+                <AuthUserContext.Consumer>
+                {authUser =>
+                   <Component {...this.props} authUser= {authUser} /> 
+                }
+              </AuthUserContext.Consumer>
             );
         }
     }
