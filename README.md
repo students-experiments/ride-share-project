@@ -116,13 +116,14 @@ Firebase Access:
 To get the app up and running,  request permission to use firebase resources.
 
 1. Client Side React App:
-	- Access the firebase sdk config, copy the config values and paste in the file: client/src/components/Context/firebase.js
-	- Replace the environment variables with config key value pairs.
+	- Access the firebase sdk config under firebase console-> settings -> General -> Config button
+	- Copy the config values to be placed in the file: client/src/components/Context/firebase.js
+	- Replace the environment variables with config key value pairs that were just copied.
 	- Steps detailed here: [How to add config to firebase web app](https://firebase.google.com/docs/web/setup#config-object "How to add config to firebase web app")
 2. Server side - functions express server:
 	- We also access firebase on the server side and the access mechanism is by using service accounts.
-	- Go to project console, settings -> service accounts ->. Generate Key.
-	- store that key as JSON file on the machine.
+	- Go to project console, settings -> service accounts -> Generate Key.
+	- Store that key as JSON file on the machine.
 	- on the terminal:
 		 `Mac terminal: $export GOOGLE_APPLICATION_CREDENTIALS = "[path to json]"`
 		 `Windows: $env:GOOGLE_APPLICATION_CREDENTIALS="[path to json]"`
@@ -132,26 +133,22 @@ Note: If the above steps are not successfull, you will not be able to start the 
 
 To get the app running: 
 
-1. Get the code:
-	```shell  
-    git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git ```
+1. Clone the repository:
+    git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
+    
 2. Lets start the server on one terminal
-	```shell
     cd functions
     npm install
-    sudo npm install -g firebase-tools
+    npm install -g firebase-tools
     cd ..
     firebase serve --only functions
-	```
 
-3. Now let start the client on the other:
-	```shell
+3. Now let start the client on another terminal:
     cd client
     npm install
-    npm build
+    npm build ("npm run-script build" on Powershell)
     cd ..
     firebase serve --only hosting
-	```
 
 4. This should have the app running on [http://localhost:5000/](http://localhost:5000/ "http://localhost:5000/")
 
