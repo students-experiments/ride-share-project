@@ -12,7 +12,6 @@ firebase.initializeApp(firebaseConfig);
 
 exports.firebase_admin=firebase_admin;
 exports.firestore=firebase_admin.firestore();
-exports.realtimedb=firebase_admin.database();
 // USAGE:
 /*
     - require the needed module from this init-db file.
