@@ -7,11 +7,19 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-firebase_admin.initializeApp(firebaseConfig);
-firebase.initializeApp(firebaseConfig);
+if(process.env.NODE_ENV ==='TEST'){
+  firebase_admin.initializeApp();
+  firebase.initializeApp();
+}
+else{
+  firebase_admin.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+}
+
 
 exports.firebase_admin=firebase_admin;
 exports.firestore=firebase_admin.firestore();
+
 // USAGE:
 /*
     - require the needed module from this init-db file.
