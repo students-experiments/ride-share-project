@@ -7,7 +7,6 @@ jobs:
     name: All test
     runs-on: ubuntu-latest
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets. FIREBASE_SERVICE_ACCOUNT_CREDS }}
       NODE_ENV: TEST
     timeout-minutes: 5
     steps:
