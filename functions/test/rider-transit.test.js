@@ -95,7 +95,7 @@ describe('application', async () => {
           }
       })
           .then((response) => {
-            console.log(response)
+            
             assert(response.status !== 400);
           })
           .catch(() => {
@@ -113,7 +113,7 @@ describe('application', async () => {
               },
           }
       }).then((response) => {
-          console.log(response);
+          
             assert(response.status === 200 || response.data.includes("You have been matched"));
       })
           .catch(() => {
@@ -132,7 +132,7 @@ describe('application', async () => {
                 request: requestObj
             }
       }).then((response) => {
-            console.log(response);
+            
             assert(response.status === 200);
           })
           .catch((err) => {
@@ -151,7 +151,7 @@ describe('application', async () => {
             }
         })
             .then((res) => {
-                console.log(res);
+                
                 assert(res.data.includes("will pick you up"));
             })
             .catch(err => err);
@@ -168,7 +168,7 @@ describe('application', async () => {
         }
       })
       .then((response) => {
-          console.log(response)
+          
             assert(response.status === 200);
             return;
           })
@@ -192,7 +192,7 @@ describe('application', async () => {
               }
           }
       }).then((response) => {
-          console.log(response);
+          
             assert(response.status === 200);
             return;
           })
@@ -202,12 +202,12 @@ describe('application', async () => {
                     .then((doc) => {
                       assert(doc.data().status === "idle");
                     })
-                    .catch((err) => {
-                      console.error(err);
+                    .catch(() => {
+                      
                     })
               })
               .catch(() => {
-                //console.error(err);
+                
               });
     });
 
@@ -226,7 +226,7 @@ describe('application', async () => {
             }
         })
             .then(res => {
-                console.log(res);
+                
                 assert(res.status === 200 && res.data.includes("Request Ride"));
             })
             .catch(err => err);
