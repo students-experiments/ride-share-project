@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Grid } from "semantic-ui-react";
 import { withFirebase } from "../../Context";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
 import * as ROUTES from "../../../constants/routes";
@@ -50,11 +50,16 @@ class TransitMain extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick = {this.requestRide}> Request Ride </Button>
+                <Grid className="center aligned"style={{
+                    padding:'5rem',
+                }}>
+                <Button onClick = {this.requestRide}
+                > Request Ride </Button>
 
                 <Link to = {ROUTES.RIDER_HOME + '/home'}>
                     <Button> Update Coordinates </Button>
                 </Link>
+                </Grid>
             </div>
         );
     }

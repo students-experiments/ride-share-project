@@ -111,10 +111,19 @@ class HomePageBase extends React.Component {
               <div>
                 <Grid.Column textAlign={"center"} width={8}>
                   <Header as="h3" style={{ fontSize: "2em" }}>
-                    <p> Now you are all set. </p>
+                    <p
+                    style={{
+                      color: 'white'
+                    }}> Now you are all set. </p>
                   </Header>
-                  <p> Click this when are ready to Go. </p>
-                  <p> We will match a rider in a jiffy. </p>
+                  <p
+                  style={{
+                    color: 'white'
+                  }}> Click this when are ready to Go. </p>
+                  <p
+                  style={{
+                    color: 'white'
+                  }}> We will match a rider in a jiffy. </p>
                 </Grid.Column>
               </div>
             )}
