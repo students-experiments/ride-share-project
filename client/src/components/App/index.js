@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
+import { Segment } from 'semantic-ui-react';
 import * as ROUTES from '../../constants/routes';
 import Footer from '../../decorators/Footer';
-//Header & Footer
-import PageHeader from "../../decorators/Header";
 // Imports from internals
 import history from '../../history';
 import Firebase, { FirebaseContext } from '../Context';
 import DriverHomePage from '../Driver/Home/Homepage';
 import DriverTransitPage from '../Driver/Transit/TransitPage';
+import DesktopContainer from '../MainContainer/container';
 import ForgotPasswordForm from '../PasswordForget/ForgotPassword';
 //Home Pages
 import RiderHomePage from '../Rider/Home/HomePage';
@@ -17,14 +17,11 @@ import RiderHomePage from '../Rider/Home/HomePage';
 import RiderTransitPage from '../Rider/transit/transit';
 // auth
 import LoginPage from '../SignIn/LoginPage';
+import PreSignIn from '../SignIn/PreSignIn';
 import RegisterPage from '../SignUp/RegisterPage';
-import PreSignIn from '../SignIn/PreSignIn'
+//images
+import back from "./grey2.PNG"
 
-import DesktopContainer from '../MainContainer/container';
-
-import {
-  Segment
-} from 'semantic-ui-react'
 
 
 class App extends React.Component {
@@ -32,7 +29,12 @@ class App extends React.Component {
         return (
           <div id="root">
             <DesktopContainer >
-            <Segment style={{ padding: '8em 0em' }} vertical>
+            <Segment style={{ 
+              padding: '0em 0em', 
+              height: '40rem',
+              backgroundImage: `url(${back})`,
+              backgroundSize: '100% 100%', 
+              }} vertical>
           <FirebaseContext.Provider value={new Firebase()}>
           <Router history = {history}>
             <Switch>

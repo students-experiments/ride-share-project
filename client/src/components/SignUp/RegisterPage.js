@@ -26,17 +26,18 @@ class RegisterPageBase extends React.Component {
             console.log("error occure diring delteion", err);
           })
         })
-        
-       
-
-       
-
     }
   render() {
     return (
       <div>
             <section className="section-login" >
-                <h2> Register your Account </h2>
+                <h2
+                style={{
+                  padding: '1rem',
+                  color: 'white',
+                  textAlign: 'center',
+                }}
+                > Register Your Account </h2>
                     <RegisterForm  submit={this.submit} />
             </section>
       </div>

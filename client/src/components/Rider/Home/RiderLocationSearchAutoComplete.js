@@ -13,7 +13,7 @@ Examples code snippets help to understand the usage.
 */
 import "react-google-places-autocomplete/dist/index.min.css";
 import "semantic-ui-css/semantic.min.css";
-import { Button, Segment, Grid } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 
 class RiderLocationSearch extends React.Component {
   state = {

@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Grid, Segment, Header, Container } from "semantic-ui-react";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import { Button, Grid, Header, Segment } from "semantic-ui-react";
+import * as Actions from "../../../actions/driver/HomePageActions";
 import * as DriverHomeActions from "../../../actions/driver/HomePageActions";
 import { withDriverAuthorization } from "../../Sessions";
 import SignOut from "../../SignOut/SignOutButton";
 import GoogleMapsAutoComplete from "./DriverLocationSerachAutocomplete";
-import * as Actions from "../../../actions/driver/HomePageActions";
-import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -69,37 +69,63 @@ class HomePageBase extends React.Component {
 
   //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
-    var src= "https://maps.googleapis.com/maps/api/js?key=" + process.env.REACT_APP_API_KEY +
-    "&libraries=places";
     return (
-      <Segment style={{ padding: "0em 0em" }} vertical>
+      
+      <Segment style={{ 
+        
+        padding: "0em 0em",    
+      }} vertical>
+      
         <Grid container stackable verticalAlign="middle">
           <Grid.Row reversed="computer">
             <Grid.Column width={3}>
               <SignOut />
             </Grid.Column>
-          </Grid.Row>
+          </Grid.Row> 
           <Grid.Row centered>
+            
+
             {!this.state.locationAdded && (
               <Grid.Column textAlign={"center"} width={8}>
-                <Header as="h3" style={{ fontSize: "2em" }}>
-                  <p> Add your starting Location. </p>
+                <Header as="h3" style={{ fontSize: "2em", }}>
+                  <p
+                  style={{
+                    color: 'white'
+                  }}
+                  > Add your starting location. </p>
+                  
                 </Header>
-                <p>
+                <image src = "UICLogo.png"/>
+                <p
+                style={{
+                  color: 'white'
+                }}>
                   {" "}
-                  Currently we match riders based on your vehicle availabilty.{" "}
+                  Currently, we match riders based on your vehicle seat availabilty.{" "}
                 </p>
-                <p> By default its 4.</p>
+                <p
+                style={{
+                  color: 'white'
+                }}> By default, the vehicle capacity is 4 seats.</p>
               </Grid.Column>
             )}
             {this.state.locationAdded && (
               <div>
                 <Grid.Column textAlign={"center"} width={8}>
                   <Header as="h3" style={{ fontSize: "2em" }}>
-                    <p> Now you are all set. </p>
+                    <p
+                    style={{
+                      color: 'white'
+                    }}> Now you are all set. </p>
                   </Header>
-                  <p> Click this when are ready to Go. </p>
-                  <p> We will match a rider in a jiffy. </p>
+                  <p
+                  style={{
+                    color: 'white'
+                  }}> Click this when are ready to Go. </p>
+                  <p
+                  style={{
+                    color: 'white'
+                  }}> We will match a rider in a jiffy. </p>
                 </Grid.Column>
               </div>
             )}
@@ -136,6 +162,7 @@ class HomePageBase extends React.Component {
         </Grid>
         
       </Segment>
+      
     );
   }
 }

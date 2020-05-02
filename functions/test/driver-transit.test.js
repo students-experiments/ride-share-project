@@ -68,11 +68,43 @@ describe('application', async () => {
   }
 
   describe("transit", async () => {
-    it("requires the driver to be registered and \
-     logged in before searching for riders");
-    it("lets a driver start a ride");  
+     it("requires the driver to be registered and \
+     logged in before searching for riders", async () => {
+       // register user
+      let registerAccount = axios.post("/register-driver", {
+        email : "abc@xyz.com", 
+        password : "Hell0", 
+      });
+      registerAccount.then(()=>{
+        let response = axios.post("/login-driver", {
+          email : "abc@xyz.com",
+          password : "Hell0"
+        });
+        return response;
+      }).then((response)=>{
+        assert(response.data.includes("Welcome"));
+        return;          
+      })
+       .catch(()=>{
+      return
+    });      
+    });
+
+    it("lets a driver start a ride", async () => {
+      const startPickup = axios.post('/readyPickup');
+      startPickup.then((response) => {
+        assert(responseReady.data.includes('Start the ride'));
+        return;  
+      })
+       .catch(()=>{
+        return;
+      }); 
+
+    });
     it("ensures the database reflects the \
     driver's current seat capacity remaining");
+
+    
     it("notifies a driver of the nearest rider request"); 
     it("allows a driver to accept/deny request");
 

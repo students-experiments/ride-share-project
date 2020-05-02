@@ -1,13 +1,12 @@
 import React from "react";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 // import { Link } from "react-router-dom";
-import { Button, Input,Segment,Grid,Header } from "semantic-ui-react";
+import { Button, Grid, Header, Segment } from "semantic-ui-react";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
 import * as ROUTES from "../../../constants/routes";
 import { withRiderAuthorization } from "../../Sessions";
 import SignOut from '../../SignOut/SignOutButton';
-import GoogleMapsAutoComplete from  '../../Driver/Home/DriverLocationSerachAutocomplete'
-import RiderLocationSearch from './RiderLocationSearchAutoComplete'
-import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import RiderLocationSearch from './RiderLocationSearchAutoComplete';
 // class structure documentation:
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
@@ -44,11 +43,12 @@ class HomePageBase extends React.Component {
             role: 'rider',
             name: this.props.firebase.auth.currentUser.displayName
         };
-        // let start, end;
-        /*this.getLatLng(this.state.startDesc).then(res=> start=res)
-        this.getLatLng(this.state.endDesc).then(res=> end=res)*/
-        let requestObject;
-        var promises=Promise.all([this.getLatLng(this.state.startDesc),this.getLatLng(this.state.endDesc)]);
+        // eslint-disable-next-line
+        let start,end
+        this.getLatLng(this.state.startDesc).then(res=> start=res)
+        this.getLatLng(this.state.endDesc).then(res=> end=res)
+        let requestObject
+        var promises=Promise.all([this.getLatLng(this.state.startDesc),this.getLatLng(this.state.endDesc)])
         promises
         .then(res =>{
             let start= res[0]
@@ -107,7 +107,10 @@ class HomePageBase extends React.Component {
             
                 <Segment  style={{ padding: '0em 0em' }} vertical>
                     <Header as='h2' style={{ fontSize: '2em', textAlign: 'center' }}>
-                    <p>  Set your Pick up and drop location. </p>
+                    <p
+                    style={{
+                        color: 'white'
+                      }}>  Set your Pick up and drop location. </p>
                     <p>   </p>
                     </Header>
                 <Grid container stackable verticalAlign='middle' >
@@ -116,10 +119,17 @@ class HomePageBase extends React.Component {
                         <SignOut />
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row centered>
+                <Grid.Row centered
+                style={{
+                    height: '5rem'
+                }}
+                >
                     <Grid.Column textAlign={"right"} width={5}>
                         <Header as='h4' style={{ fontSize: '2em' }}>
-                        <p>  Pick Up Location </p>
+                        <p
+                        style={{
+                            color: 'white'
+                          }}>  Pick Up Location </p>
                         </Header>
                     </Grid.Column>
                     <Grid.Column  width={7}>
@@ -131,7 +141,10 @@ class HomePageBase extends React.Component {
                 <Grid.Row centered>
                     <Grid.Column textAlign={"right"} width={5}>
                         <Header as='h4' style={{ fontSize: '2em' }}>
-                        <p>  Drop Off Location </p>
+                        <p
+                        style={{
+                            color: 'white'
+                          }}>  Drop Off Location </p>
                         </Header>
                     </Grid.Column>
                     <Grid.Column  width={7}>

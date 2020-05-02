@@ -4,6 +4,7 @@ const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const stoppable = require('stoppable');
 
+console.log('ENV VARIABLE:',process.env.NODE_ENV);
 const app = require('../app.js');
 
 
@@ -78,7 +79,7 @@ describe('application', async () => {
           return;  
         })
          .catch(()=>{
-        return
+        return;
       });
       });
 
