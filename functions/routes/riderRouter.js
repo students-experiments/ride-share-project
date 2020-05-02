@@ -4,6 +4,7 @@ const RideRequest = require("../database/firestore/rider/RideRequest");
 const Transit = require("../database/firestore/common/Transit");
 const RouterUtils = require("./utils");
 const RetriveDrivers = require("../database/firestore/driver/RetriveDrivers");
+
 const RetriveRiders = require("../database/firestore/rider/RetriveRider");
 const DriverMatch = require("../database/firestore/driver/DriverMatch");
 const RiderStatus = require("../database/firestore/rider/RiderStatus");
@@ -39,7 +40,7 @@ RiderRouter.post("/AddRide", RouterUtils.requireRiderAuth, (req, res) => {
     console.log(user);
     console.log(request);
 
-  RideRequest.addRideRequest(user.uid, request)
+  RideRequest.addRideRequest(user.uid, request, user.name)
     .then((result) => {
       console.log("Rider Request Successful");
       res.status(200).send({
@@ -54,7 +55,8 @@ RiderRouter.post("/AddRide", RouterUtils.requireRiderAuth, (req, res) => {
 
 RiderRouter.post("/DeleteRide", RouterUtils.requireRiderAuth, (req, res) => {
   const { user } = req.body.data;
-  RideRequest.deleteRideRequest(user.uid)
+
+  RideRequest.deleteRideRequest(user.uid, user.name)
     .then((result) => {
       console.log("Ride request deleted for User");
       res.status(200).send({
@@ -106,11 +108,14 @@ The API: does following things:
 RiderRouter.post("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
   const { user } = req.body.data;
   var riderUID = user.uid;
+  var riderName = user.name;
   var driverPromise = RetriveDrivers.getPotentialDriver(); // gets the driver with cap more than 0
   var riderRequestPromise = RetriveRiders.getRiderRequest(user.uid); // will get start and to of the rider.
   var riderRequest;
   var driverUID;
   var driverData;
+  var driverName;
+
   Promise.all([driverPromise, riderRequestPromise])
     .then((result) => {
       // if the driver doesnt exists:
@@ -119,20 +124,22 @@ RiderRouter.post("/FindMatch", RouterUtils.requireRiderAuth, (req, res) => {
       }
       driverUID = result[0].docs[0].id;
       driverData = result[0].docs[0].data();
+      driverName = driverData.name;
       riderRequest = result[1];
       console.log("Potential driver matched: ", driverUID);
       console.log("rider req:", riderRequest);
       return DriverMatch.addRiderToMatchesList(
         driverUID,
         riderUID,
-        riderRequest
+        riderRequest,
+        riderName
       );
     })
     .then(() => {
       console.log("Rider matched to driver.");
       return Promise.all([
         RiderStatus.changeRiderStatus(riderUID, Status.MATCHED),
-        RiderMatch.addDriverMatched(riderUID,driverUID)
+        RiderMatch.addDriverMatched(riderUID,driverUID, driverName)
       ])
 
     })

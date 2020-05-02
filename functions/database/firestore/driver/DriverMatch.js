@@ -9,13 +9,14 @@ Creates a new Collection if it doesnt exit in driver-uid named: transit_riders
 this collections contains documents with each rider, whose ride has been accepted by the driver.
 
 */
-module.exports.addRiderToMatchesList = function addRiderToMatchesList(driverUID, riderUID,data) {
+
+module.exports.addRiderToMatchesList = function addRiderToMatchesList(driverUID, riderUID, data, riderName) {
+
     return db.collection(Constants.DRIVER).doc(driverUID)
     .update({
+      [FieldStrings.DRIVER_MATCHED_RIDER_NAMES]: admin.firestore.FieldValue.arrayUnion(riderName),
       [FieldStrings.DRIVER_FOUND_MATCHES]: admin.firestore.FieldValue.arrayUnion(riderUID)
-    })
-    
-
+    });
 }
 
 /*
@@ -26,11 +27,12 @@ db.collection("cities").doc("DC").delete().then(function() {
 });
 */
 
-  module.exports.removeRiderFromMatchesList = function removeRiderFromMatchesList(driverUID, riderUID) {
+  module.exports.removeRiderFromMatchesList = function removeRiderFromMatchesList(driverUID, riderUID, driverName, riderName) {
     return db.collection(Constants.DRIVER).doc(driverUID)
     .update({
-      [FieldStrings.DRIVER_FOUND_MATCHES]: admin.firestore.FieldValue.arrayRemove(riderUID)
-    })
+      [FieldStrings.DRIVER_FOUND_MATCHES]: admin.firestore.FieldValue.arrayRemove(riderUID),
+      [FieldStrings.DRIVER_MATCHED_RIDER_NAMES]: admin.firestore.FieldValue.arrayRemove((riderName ? riderName : ''))
+    });
   }
 
   module.exports.verifyRiderInMatchesList = function verifyRiderInMatchesList(driverUID,riderUID) {

@@ -2,7 +2,7 @@ import React from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 // If you want to use the provided css
 /*
-This component Loads the Seacrh Bar with Auto complete.
+This component Loads the Search Bar with Auto complete.
 
 references:
 Package: https://www.npmjs.com/package/react-google-places-autocomplete
@@ -41,21 +41,19 @@ class RiderLocationSearch extends React.Component {
       gmapsLoaded: true,
     });
   };
+
   handleSelect = (result) => {
     console.log("handling start: ", result.description);
     this.setState({ description: result.description });
     this.props.provideDesc(result.description);
   };
 
-
-
-
   render() {
 
     return (
       <div>
 
-        < Segment style={{ padding: '3em 0em' }} vertical active={this.props.loading}>
+        <Segment style={{ padding: '3em 0em' }} vertical active={this.props.loading}>
          
                 <GooglePlacesAutocomplete
                   required={true}
@@ -65,9 +63,7 @@ class RiderLocationSearch extends React.Component {
                   placeholder={'Search Here'}
                   onSelect={this.handleSelect}
                 />
-            
-               
-           
+
         </Segment>
       </div>
     );

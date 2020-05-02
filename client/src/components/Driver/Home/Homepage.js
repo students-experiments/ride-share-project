@@ -50,6 +50,8 @@ class HomePageBase extends React.Component {
   };
 
   readyToPick = (e) => {
+    console.log("Name");
+    console.log(this.props.firebase.auth.currentUser.displayName);
     console.log(this.props);
     console.log(this.props.firebase.getFirebaseUser());
     this.setState({ readyLoading: true });

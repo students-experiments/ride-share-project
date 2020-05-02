@@ -18,12 +18,14 @@ import * as Server from '../api/Requests';
   }
 
   */
-export function acceptRider(driverUID,riderUID){
+export function acceptRider(driverUID,riderUID, driverName, riderName){
     
     const data={
         user:{
             uid:driverUID,
-            role: 'driver'
+            role: 'driver',
+            name: driverName,
+            riderName: riderName
         },
         rider:{
             uid: riderUID
@@ -33,15 +35,30 @@ export function acceptRider(driverUID,riderUID){
     
 }
 
-export function endRider(driverUID,riderUID){
-    
+export function cancelRider(driverUID, riderUID) {
+    const data = {
+        user: {
+            uid: driverUID,
+            role: 'driver'
+        },
+        rider: {
+            uid: riderUID
+        }
+    };
+
+    return Server.post('driver/CancelRide', data);
+}
+
+export function endRider(driverUID,riderUID, riderName){
+
     const data={
         user:{
             uid:driverUID,
-            role: 'driver'
+            role: 'driver',
         },
         rider:{
-            uid: riderUID
+            uid: riderUID,
+            name: riderName
         }
     }
     return Server.post('driver/EndRide',data)

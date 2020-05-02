@@ -9,13 +9,15 @@ const admin=require('../../init-db').firebase_admin
 
 Adds a new field
 */
-module.exports.addDriverTransit = function addDriverTransit(riderUID,driverUID) {
+module.exports.addDriverTransit = function addDriverTransit(riderUID,driverUID, driverName) {
   var docRef = db.collection(Constants.RIDER).doc(riderUID);
   return docRef.set(
     {
-      [FieldStrings.TRANSIT_DRIVER]: driverUID,
-      [FieldStrings.STATUS]: Status.TRANSIT,
-      [FieldStrings.MATCHED_DRIVER]: admin.firestore.FieldValue.delete(),
+        [FieldStrings.TRANSIT_DRIVER]: driverUID,
+        [FieldStrings.TRANSIT_DRIVER_NAME]: driverName,
+        [FieldStrings.STATUS]: Status.TRANSIT,
+        [FieldStrings.MATCHED_DRIVER]: admin.firestore.FieldValue.delete(),
+        [FieldStrings.MATCHED_DRIVER_NAME]: admin.firestore.FieldValue.delete()
     },
     { merge: true }
   );
@@ -27,6 +29,7 @@ module.exports.endRide = function endRide(riderUID) {
     return docRef.set(
       {
         [FieldStrings.TRANSIT_DRIVER]: admin.firestore.FieldValue.delete(),
+          [FieldStrings.TRANSIT_DRIVER_NAME]: admin.firestore.FieldValue.delete(),
         [FieldStrings.STATUS]: Status.IDLE
       },
       { merge: true }

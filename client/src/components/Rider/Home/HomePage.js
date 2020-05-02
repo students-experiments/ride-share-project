@@ -41,13 +41,14 @@ class HomePageBase extends React.Component {
         // Make an axios post call to appropriate route and take rider to transit page
         let userObject = {
             uid: this.props.firebase.auth.currentUser.uid,
-            role: 'rider'
+            role: 'rider',
+            name: this.props.firebase.auth.currentUser.displayName
         };
-        let start,end
-        this.getLatLng(this.state.startDesc).then(res=> start=res)
-        this.getLatLng(this.state.endDesc).then(res=> end=res)
-        let requestObject
-        var promises=Promise.all([this.getLatLng(this.state.startDesc),this.getLatLng(this.state.endDesc)])
+        // let start, end;
+        /*this.getLatLng(this.state.startDesc).then(res=> start=res)
+        this.getLatLng(this.state.endDesc).then(res=> end=res)*/
+        let requestObject;
+        var promises=Promise.all([this.getLatLng(this.state.startDesc),this.getLatLng(this.state.endDesc)]);
         promises
         .then(res =>{
             let start= res[0]
@@ -68,23 +69,19 @@ class HomePageBase extends React.Component {
             return Actions.addCoordinates(userObject, requestObject);
         }).then((res) => {
             console.log("Sent rider locations",res);
+            console.log(this.props.firebase.auth.currentUser);
             this.props.history.push(ROUTES.RIDER_TRANSIT );
         }).catch(err => err);
-        
-
-        Actions.addCoordinates(userObject, requestObject)
-            .then((res) => {
-                console.log("Sent rider locations");
-                this.props.history.push(ROUTES.RIDER_HOME + '/transit');
-            })
-            .catch(err => err);
     }
+
     provideStart = (desc) => {
         this.setState({ startDesc: desc });
-      };
+    };
+
     provideEnd = (desc) => {
     this.setState({ endDesc: desc });
     };
+
     componentDidMount() {
         if (!this.state.gmapsLoaded) {
           window.initMap = this.initMap;

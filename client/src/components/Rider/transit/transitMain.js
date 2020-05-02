@@ -29,29 +29,14 @@ class TransitMain extends React.Component {
             transitComplete: this.props.transitComplete
         };
         this.requestRide = this.requestRide.bind(this);
-        this.cancelRide = this.cancelRide.bind(this);
-    }
-
-    cancelRide() {
-        const userObj = {
-            uid: this.props.firebase.auth.currentUser.uid,
-            role: 'rider'
-        };
-        Actions.deleteRide(userObj)
-            .then(res => {
-                console.log("Deleted ride request successfully");
-                this.setState({
-                    matchMade: null
-                });
-            })
-            .catch(err => err);
     }
 
     requestRide() {
         // Make an axios post call to appropriate rider router route
         let userObj = {
             uid: this.props.firebase.auth.currentUser.uid,
-            role: 'rider'
+            role: 'rider',
+            name: (this.props.firebase.auth.currentUser.displayName ? this.props.firebase.auth.currentUser.displayName : '')
         };
 
         Actions.findMatch(userObj)
@@ -70,7 +55,7 @@ class TransitMain extends React.Component {
     }
 
     render() {
-        const invalid = this.state.matchMade !== null;
+
         return (
             <div>
                 <TransitMessage transitComplete = {this.state.transitComplete} />
@@ -81,7 +66,6 @@ class TransitMain extends React.Component {
                     <Button> Update Coordinates </Button>
                 </Link>
 
-                <Button disabled = {invalid} onClick = {this.cancelRide}> Cancel Ride </Button>
             </div>
         );
     }

@@ -2,24 +2,24 @@ import React from "react";
 import { Button, Message, Segment } from "semantic-ui-react";
 import * as DriverTransitActions from '../../../actions/driver/TransitPageActions';
 import SegmentLoader from './SegmentLoader';
+import {withFirebase} from "../../Context";
 
 class RideRequestActionBox extends React.Component {
   state = {
     data: {
         riderUID :this.props.riderUID,
-        riderName : 'Unknown',
+        riderName : this.props.riderName,
         driverUID: this.props.driverUID
     },
     loading:false,
     errors:{}
   };
 
-
   onAcceptRide = () => {
     console.log(this.props)
     console.log("this.state",this.state.data.riderUID)
     this.setState({loading:true})
-    DriverTransitActions.acceptRider(this.state.data.driverUID,this.state.data.riderUID)
+    DriverTransitActions.acceptRider(this.state.data.driverUID, this.state.data.riderUID, this.props.firebase.auth.currentUser.displayName, this.state.data.riderName)
     .then(()=>
     this.setState({loading:false}))
     .catch((err)=>{
@@ -30,7 +30,8 @@ class RideRequestActionBox extends React.Component {
 
   render() {
     const { loading,errors } = this.state;
-
+      console.log("From rider action box");
+      console.log(this.state.data.riderUID);
     return (
       <Segment>
             <div class="item" >
@@ -59,11 +60,11 @@ class RideRequestActionBox extends React.Component {
                     </div>
                 
             </div>
-            </Segment>
+      </Segment>
 
 
     );
   }
 }
 
-export default RideRequestActionBox;
+export default withFirebase(RideRequestActionBox);

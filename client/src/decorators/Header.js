@@ -2,8 +2,16 @@ import React from "react";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import { Header  } from "semantic-ui-react";
+import { withFirebase} from "../components/Context";
 
 class HeaderBase extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: this.props.firebase.auth.currentUser ? this.props.firebase.auth.currentUser.displayName : ''
+        };
+    }
+
     render() {
         return (
                 <div>
@@ -19,7 +27,7 @@ class HeaderBase extends React.Component {
                     </Header>
                     <div className = "app_header">
                         <h1>UIC Night Rider</h1>
-                        <p> Hello {this.props.name} </p>
+                        <p> Hello {this.state.name} </p>
                     </div>
 
                 </div>
@@ -27,4 +35,4 @@ class HeaderBase extends React.Component {
     }
 }
 
-export default HeaderBase;
+export default withFirebase(HeaderBase);

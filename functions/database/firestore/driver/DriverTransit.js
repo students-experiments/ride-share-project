@@ -11,16 +11,14 @@ Creates a new Collection if it doesnt exit in driver-uid named: transit_riders
 this collections contains documents with each rider, whose ride has been accepted by the driver.
 
 */
-module.exports.addRiderToTransit = function addRiderToTransit(
-  driverUID,
-  riderUID,
-  transitData
-) {
-  return db
+module.exports.addRiderToTransit = function addRiderToTransit(driverUID, riderUID, driverName, riderName) {
+
+    return db
     .collection(Constants.DRIVER)
     .doc(driverUID)
     .update({
       [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayUnion(riderUID),
+      [FieldStrings.DRIVER_ACCEPTED_RIDER_NAMES]: admin.firestore.FieldValue.arrayUnion(riderName),
       [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(-1)
     })
   
@@ -34,10 +32,13 @@ db.collection("cities").doc("DC").delete().then(function() {
 });
 */
 
-module.exports.removeRiderFromTransit = function removeRiderFromTransit(driverUID,riderUID) {
+
+module.exports.removeRiderFromTransit = function removeRiderFromTransit(driverUID,riderUID, riderName) {
+
   return db.collection(Constants.DRIVER).doc(driverUID)
   .update({
     [FieldStrings.DRIVER_ACCEPTED_RIDERS]: admin.firestore.FieldValue.arrayRemove(riderUID),
+      [FieldStrings.DRIVER_ACCEPTED_RIDER_NAMES]: admin.firestore.FieldValue.arrayRemove(riderName),
     [FieldStrings.CAPACITY_AVAILABILE]: admin.firestore.FieldValue.increment(1)
   })
 };

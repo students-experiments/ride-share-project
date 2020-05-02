@@ -16,7 +16,10 @@ class TransitPageBase extends React.Component {
     super(props);
     this.state = {
       transitRidersList: [],
+      transitRidersNamesList: [],
       matchedRidersList: [],
+      matchedRidersNamesList: [],
+      riderMapper: {},
       driverUID: this.props.firebase.auth.currentUser
         ? this.props.firebase.auth.currentUser.uid
         : null,
@@ -38,6 +41,37 @@ class TransitPageBase extends React.Component {
     The following code is a placeholder for the realtime update of the driver Side.
     */
 
+  mapUidToName(old_matched_rider_names, new_matched_rider_names, old_rider_uids, new_rider_uids) {
+    let newRiderName = '', newRiderUID = '', newMapper = {};
+    new_rider_uids.map(riderUID => {
+
+      if (!(riderUID in old_rider_uids)) {
+        newRiderUID = riderUID;
+      }
+      return;
+    });
+
+    new_matched_rider_names.map(riderName => {
+      if (!(riderName in old_matched_rider_names)) {
+        newRiderName = riderName;
+      }
+      return;
+    });
+
+
+    for (let i = 0; i < new_rider_uids.length; i += 1)
+      newMapper[new_rider_uids[i]] = new_matched_rider_names[i];
+
+    console.log(new_rider_uids);
+    console.log(new_matched_rider_names);
+    console.log(newMapper);
+
+    this.setState({
+      riderMapper: newMapper
+    });
+    console.log(this.state.riderMapper);
+  }
+
   componentDidMount() {
     console.log("props", this.props);
     this.setState({ loading: true });
@@ -47,10 +81,19 @@ class TransitPageBase extends React.Component {
         .doc(this.state.driverUID)
         .onSnapshot((doc) => {
           console.log(doc.data());
-          if (doc.data().matched_riders)
-            this.setState({ matchedRidersList: doc.data().matched_riders });
-          if (doc.data().transit_riders)
-            this.setState({ transitRidersList: doc.data().transit_riders });
+          if (doc.data().matched_riders) {
+            let new_matched_riders_names = doc.data().matched_rider_names;
+            let new_matched_riders_uids = doc.data().matched_riders;
+
+            this.mapUidToName(this.state.matchedRidersNamesList, new_matched_riders_names, this.state.matchedRidersList, new_matched_riders_uids);
+
+            this.setState({matchedRidersList: new_matched_riders_uids, matchedRidersNamesList: new_matched_riders_names });
+          }
+          else this.setState({matchedRidersList: []});
+
+          if (doc.data().transit_riders) {
+            this.setState({transitRidersList: doc.data().transit_riders, transitRidersNamesList: doc.data().transit_rider_names});
+          }
         });
     }
   }
@@ -72,6 +115,7 @@ class TransitPageBase extends React.Component {
 
   //protect these routes as mentioned in : https://www.robinwieruch.de/react-pass-props-to-component
   render() {
+
     return (
       <Container>
         <Grid>
@@ -80,13 +124,17 @@ class TransitPageBase extends React.Component {
               <h2 class="ui orange center aligned header">Ride Requests</h2>
               <div class="ui divided items">
                 {this.state.matchedRidersList.map((riderUID) => {
+                  console.log("From transit page");
+                  console.log(riderUID);
                   return (
                     <RideRequestActionBox
                       riderUID={riderUID}
+                      riderName = {this.state.riderMapper[riderUID]}
                       driverUID={this.state.driverUID}
                     />
                   );
-                })}
+                })
+                }
               </div>
             </Grid.Column>
             <Grid.Column width={6}>
@@ -97,6 +145,7 @@ class TransitPageBase extends React.Component {
                 return (
                   <IntransitActionBox
                     riderUID={riderUID}
+                    riderName = {this.state.riderMapper[riderUID]}
                     driverUID={this.state.driverUID}
                   />
                 );

@@ -27,7 +27,7 @@ const DriverPickUp = require('../database/firestore/driver/DriverPickUp')
  DriverRouter.post('/AddLocation',Utils.requireDriverAuth,(req,res)=>{
    console.log(req.body.data)
   const {user, location} = req.body.data;
-  AddDriverLocation_FireStore.writeDriverLocation(user.uid,location)
+  AddDriverLocation_FireStore.writeDriverLocation(user.uid, location, user.name)
   .then(()=>{
     console.log("Added Driver Location");
     res.sendStatus(200);
@@ -36,8 +36,6 @@ const DriverPickUp = require('../database/firestore/driver/DriverPickUp')
     res.status(404).send(err)
   })
 })
-
-
 
   /*
   Following is how to use change status api
@@ -98,17 +96,17 @@ JSON Request:
  }
 
 */
-function moverRiderFromMatchedToTransit(driverUID,riderUID){
+
+function moverRiderFromMatchedToTransit(driverUID,riderUID, driverName, riderName){
   return new Promise((resolve,reject)=>{
-    var data
     DriverMatch.verifyRiderInMatchesList(driverUID,riderUID)
     .then(()=>{
       console.log('moving rider to transit')
-      return DriverTransit.addRiderToTransit(driverUID,riderUID,data)
+      return DriverTransit.addRiderToTransit(driverUID,riderUID,driverName, riderName)
     })
     .then(()=>{
       console.log('removing rider from matched list')
-      return DriverMatch.removeRiderFromMatchesList(driverUID,riderUID)
+      return DriverMatch.removeRiderFromMatchesList(driverUID,riderUID, driverName, riderName)
     })
     .then(()=>{
       resolve(riderUID)
@@ -140,12 +138,14 @@ function moverRiderFromMatchedToTransit(driverUID,riderUID){
 */
 DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
   const {user,rider} = req.body.data;
-  var riderUID=rider.uid
-  var driverUID=user.uid
+  var riderUID=rider.uid;
+  var driverUID=user.uid;
+  var driverName = user.name;
+  var riderName = user.riderName;
 
-  moverRiderFromMatchedToTransit(driverUID,riderUID)
+  moverRiderFromMatchedToTransit(driverUID,riderUID, driverName, riderName)
   .then(()=>{
-    return RiderTransit.addDriverTransit(riderUID,driverUID)
+    return RiderTransit.addDriverTransit(riderUID,driverUID, driverName)
   })
   .then(()=>{
     console.log('Driver Ride accept success')
@@ -166,9 +166,22 @@ DriverRouter.post('/AcceptRider',Utils.requireDriverAuth,(req,res)=>{
   //   })
 })
 
+DriverRouter.post('/CancelRide', Utils.requireDriverAuth, (req, res) => {
+  const {driver, rider} = req.body.data;
+  DriverTransit.removeRiderFromMatched(driver.uid, rider.uid)
+      .then(() => {
+        console.log("Rider " + rider.uid + "cancelled his ride");
+        res.sendStatus(200);
+      })
+      .catch(err => {
+        res.status(404).send(err);
+      });
+});
+
 DriverRouter.post('/EndRide',Utils.requireDriverAuth,(req,res)=>{
   const {user,rider} = req.body.data;
-  DriverTransit.removeRiderFromTransit(user.uid,rider.uid)
+
+  DriverTransit.removeRiderFromTransit(user.uid,rider.uid, rider.name)
   .then(()=>{
     console.log('removed Rider from Driver')
     return RiderTransit.endRide(rider.uid);

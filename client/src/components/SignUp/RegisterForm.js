@@ -9,10 +9,11 @@ import {withRouter} from 'react-router-dom';
 
 class RegisterFormBase extends React.Component {
     Initial={
-      email: "",
-      password: "",
-      uin:"",
-      role:""
+        email: "",
+        password: "",
+        name: "",
+        uin:"",
+        role:""
     }
   state = {
     data: this.Initial,
@@ -43,17 +44,27 @@ class RegisterFormBase extends React.Component {
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
         this.setState({ loading: true });
+
         //extract data from state.
         const {email, password} = this.state.data;
         const {role , uin}=this.state.data;
+        const {name} = this.state.data;
+
         // init claims
         const user_claims = {role : role, uin : uin}
         this.props.firebase
           .doCreateUserWithEmailAndPassword(email, password)
+
           .then(authUser => {
               console.log(authUser);
               this.setState({data : this.Initial});
               this.setState(({loading: false}))
+              console.log("Name entered is " +name);
+              authUser.user.updateProfile({
+                  displayName: name
+              })
+                  .then(() => {return;})
+                  .catch(err => err);
               this.props
               .submit(authUser.user,user_claims)
           })
@@ -69,6 +80,7 @@ class RegisterFormBase extends React.Component {
     const errors = {};
     
     if (!isEmail(data.email)) errors.email = "Invalid email";
+    if (!data.name) errors.name = "Name can't be blank";
     if (!data.password) errors.password = "Can't be blank";
     if (!data.uin) errors.uin="Can't be blank"
     if (!validator.isNumeric(data.uin)) errors.uin="Should be only  numbers"
@@ -83,6 +95,19 @@ class RegisterFormBase extends React.Component {
     return (
         <div>
       <Form  onSubmit={this.onSubmit} loading={loading}>
+          <Form.Field error = {!!errors.name}>
+              <label htmlFor = "name"> Name </label>
+              <Form.Input
+                  type = "text"
+                  name = "name"
+                  id = "name"
+                  placeholder = "e.g. John Smith"
+                  value = {data.name}
+                  onChange = {this.onChange}
+              />
+              {errors.name && <InlineError text = {errors.name} />}
+          </Form.Field>
+
         <Form.Field error={!!errors.uin}>
             <label htmlFor= "uin">UIN</label>
             <Form.Input

@@ -38,3 +38,4 @@ helper function which adds claims to the user provided with uid
 export function addCustomClaims(user, claims){
     return postUserClaims(user, claims);
 }
+

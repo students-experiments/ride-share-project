@@ -1,13 +1,14 @@
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { withFirebase } from "../Context";
 import {
 
-  Container,
-  Header,
-
-  Responsive,
-  Segment,
-  Visibility,
+    Container,
+    Header,
+    Image, ItemImage,
+    Responsive,
+    Segment,
+    Visibility,
 } from 'semantic-ui-react'
 
 const getWidth = () => {
@@ -15,6 +16,7 @@ const getWidth = () => {
   
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 }
+
 const HomepageHeading = ({ mobile }) => (
     <Container text>
       <Header
@@ -28,9 +30,10 @@ const HomepageHeading = ({ mobile }) => (
           marginTop:  '0.5em',
         }}
       />
+
       <Header
         as='h2'
-        content='Hello'
+        content="Hello"
         inverted
         style={{
           fontSize: mobile ? '1.5em' : '1.7em',
@@ -44,8 +47,7 @@ const HomepageHeading = ({ mobile }) => (
   )
 
 class DesktopContainer extends Component {
-    state = {}
-  
+
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
   
@@ -68,7 +70,7 @@ class DesktopContainer extends Component {
               vertical
             >
               
-              <HomepageHeading />
+              <HomepageHeading/>
             </Segment>
           </Visibility>
           {children}
@@ -76,4 +78,4 @@ class DesktopContainer extends Component {
       )
     }
   }
-export default DesktopContainer;
+export default withFirebase(DesktopContainer);

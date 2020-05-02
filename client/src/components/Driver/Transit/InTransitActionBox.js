@@ -8,7 +8,7 @@ class IntransitActionBox extends React.Component {
   state = {
     data: {
       riderUID :this.props.riderUID,
-      riderName : 'Unknown',
+      riderName : this.props.riderName,
       driverUID: this.props.driverUID
     },
     loading:false,
@@ -19,7 +19,7 @@ class IntransitActionBox extends React.Component {
     console.log(this.props)
     console.log("this.state",this.state.data.riderUID)
     this.setState({loading:true})
-    DriverTransitActions.endRider(this.state.data.driverUID,this.state.data.riderUID)
+    DriverTransitActions.endRider(this.state.data.driverUID,this.state.data.riderUID, this.state.data.riderName)
     .then(()=>
     this.setState({loading:false}))
     .catch((err)=>{

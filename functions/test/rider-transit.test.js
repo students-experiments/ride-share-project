@@ -7,7 +7,7 @@ const db = require("../database/init-db").firestore;
 const app = require('../app.js');
 
 const userObj = {
-    uid: '0qseCUVPrsV35Cq2wQkw0F6GY153',
+    uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
     role: 'rider'
 };
 
@@ -85,14 +85,9 @@ describe('application', async () => {
     it("requires the rider to be registered and \
     logged in before requesting a ride", () => {
       axios.post("/rider/FindMatch", {
-<<<<<<< HEAD
-          data: {
-              user: userObj,
-=======
           data:{
             user: userObj,
             request: requestObj
->>>>>>> 4e3707d184e3cf3196fde0450427e4becee7cda5
           }
       })
           .then((response) => {
@@ -146,9 +141,11 @@ describe('application', async () => {
     it("lets the rider see the time until pickup"); // Implementation Pending
 
     it("lets the rider cancel the ride", () => {
-      axios.delete("/rider/DeleteRide", {
-        params: {
-          uid: "eA5kl"
+      axios.post("/rider/DeleteRide", {
+        data: {
+            uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+            role: 'rider',
+            name: 'sid_rider2'
         }
       })
       .then((response) => {
@@ -164,13 +161,22 @@ describe('application', async () => {
 
     it("updates the DB rider transit status once ride is over", () => {
       axios.post("/driver/EndRide", { // Driver is the one who stops the ride
-        uid: "eA4KJlm"
+          data: {
+              user: {
+                  uid: "hwsw6ygJkwOBPxV0laKQ2rVpn7C2",
+                  role: 'driver'
+              },
+              rider: {
+                  uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                  name: 'sid_rider2'
+              }
+          }
       }).then((response) => {
             assert(response.status === 200);
             return;
           })
               .then(() => {
-                let riderDb = db.collection("rider").doc("eA4KJlm");
+                let riderDb = db.collection("rider").doc("0qseCUVPrsV35Cq2wQkw0F6GY153");
                 riderDb.get()
                     .then((doc) => {
                       assert(doc.data().status === "idle");
@@ -183,7 +189,25 @@ describe('application', async () => {
                 console.error(err);
               });
     });
+
     it("sends a user back to the \"Request a Ride\" page \
-    after ride finishes"); // Implementation Pending
+    after ride finishes", () => {
+        axios.post('/driver/EndRide', {
+            data: {
+                user: {
+                    uid: "hwsw6ygJkwOBPxV0laKQ2rVpn7C2",
+                    role: 'driver'
+                },
+                rider: {
+                    uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                    name: 'sid_rider2'
+                }
+            }
+        })
+            .then(res => {
+                assert(res.status === 200 && res.data.includes("Request Ride"));
+            })
+            .catch(err => err);
+    });
   });
 });

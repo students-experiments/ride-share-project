@@ -3,11 +3,6 @@ import {Button} from "semantic-ui-react";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
 import {withFirebase} from "../../Context";
 
-/*const TransitMatched = (props) => {
-    return (
-        <h1> You have been matched to {props.driverUID} </h1>
-    );
-};*/
 
 class TransitMatched extends React.Component {
     constructor(props) {
@@ -18,7 +13,8 @@ class TransitMatched extends React.Component {
     cancelRide() {
         const userObj = {
             uid: this.props.firebase.auth.currentUser.uid,
-            role: 'rider'
+            role: 'rider',
+            name: this.props.firebase.auth.currentUser.displayName
         };
 
         Actions.deleteRide(userObj)
@@ -30,7 +26,7 @@ class TransitMatched extends React.Component {
     render() {
         return (
             <div>
-                <h1> You have been matched to {this.props.driverUID}</h1>
+                <h1> You have been matched to {this.props.driverName} - {this.props.driverUID}</h1>
                 <Button onClick = {this.cancelRide}> Cancel Ride </Button>
             </div>
         );

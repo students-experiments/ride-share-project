@@ -25,6 +25,7 @@ class Firebase {
         console.log('email',email);
         return this.auth.createUserWithEmailAndPassword(email, password);
     }
+
     getFirebaseUser = () =>{
         return this.auth.currentUser.uid;
     }

@@ -7,7 +7,8 @@ export function addLocation(latitude,longitude,user){
     const data={
         user:{
             uid:user.uid,
-            role: 'driver'
+            role: 'driver',
+            name: user.displayName
         },
         location :{
             latitude : latitude,

@@ -11,23 +11,6 @@ import TransitFinal from "./transitFinal";
 // https://github.com/Remchi/bookworm-react/tree/9fe352164ce287d29b9ca3440267a17c041d7fa1
 // video: https://www.youtube.com/watch?v=RCPMuJ0zYak
 
-const TransitCompleteMessage = (props) => {
-    if (props.transitComplete)
-        return (
-            <h2> Your ride has ended! </h2>
-        );
-    else
-        return (<h2></h2>);
-}
-
-const MatchMessage = (props) => {
-    if (props.matchMade === false)
-        return(
-            <h2> Sorry no drivers are available at the moment. Try again after a few minutes. </h2>
-        );
-    else return (<h2></h2>);
-}
-
 class RiderTransitPageBase extends React.Component {
 
     constructor(props) {
@@ -35,9 +18,9 @@ class RiderTransitPageBase extends React.Component {
         this.state = {
             riderStatus: 'available',
             driverID: '',
+            driverName: '',
             transitComplete: null,
         };
-
     }
 
     componentDidMount() {
@@ -58,6 +41,7 @@ class RiderTransitPageBase extends React.Component {
 
                         if (newDocStatus === 'matched')
                             this.setState({
+                                driverName: doc.data().matched_driver_name,
                                 driverID: doc.data().matched_driver,
                             });
 
@@ -89,7 +73,7 @@ class RiderTransitPageBase extends React.Component {
         else if (this.state.riderStatus === 'matched') {
             return (
                 <div>
-                    <TransitMatched driverUID={this.state.driverID}/>
+                    <TransitMatched driverUID={this.state.driverID} driverName = {this.state.driverName} />
                     <br/>
                     <SignOut/>
                 </div>
@@ -99,7 +83,7 @@ class RiderTransitPageBase extends React.Component {
         else if(this.state.riderStatus === 'transit')
             return (
                 <div>
-                    <TransitFinal driverUID = {this.state.driverID} />
+                    <TransitFinal driverUID = {this.state.driverID} driverName = {this.state.driverName} />
                     <br />
                     <SignOut />
                 </div>
