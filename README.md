@@ -111,49 +111,54 @@ The UI should be completed with some of the CRUD functionalities.
 
 ## Installation
 
-Firebase Access:
+### PreRequisites:
 
-To get the app up and running,  request permission to use firebase resources.
+1. Node.
+2. Firebase Project Access (through request)
 
-1. Client Side React App:
-	- Access the firebase sdk config under firebase console-> settings -> General -> Config button
-	- Copy the config values to be placed in the file: client/src/components/Context/firebase.js
-	- Replace the environment variables with config key value pairs that were just copied.
+
+### To get the app up and running 
+
+1. Clone the repository:
+    - git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
+    - cd to repo.
+
+2. Client Side React App Access:
+	- Access the firebase: Go to firebase console(https://firebase.google.com/)
+	- Project settings -> General -> Config button
+	- Copy the config values to be placed in the file: client/src/components/Context/firebase.js OR Replace the environment variables with config key value pairs that were just copied.
 	- Steps detailed here: [How to add config to firebase web app](https://firebase.google.com/docs/web/setup#config-object "How to add config to firebase web app")
-2. Server side - functions express server:
-	- We also access firebase on the server side and the access mechanism is by using service accounts.
-	- Go to project console, settings -> service accounts -> Generate Key.
+3. Server side Google Cloud Functions with express server:
+	- We also access firebase on the server side by using service account. You need to get service account key.
+	- Go to google cloud console, project settings -> service accounts -> Generate Key from local-service-account-test@uic-rider.iam.gserviceaccount.com.
 	- Store that key as JSON file on the machine.
 	- on the terminal:
 		 `Mac terminal: $export GOOGLE_APPLICATION_CREDENTIALS = "[path to json]"`
 		 `Windows: $env:GOOGLE_APPLICATION_CREDENTIALS="[path to json]"`
 		 More details: [Firebase admin SDK setup](https://firebase.google.com/docs/admin/setup#windows "Firebase admin SDK setup")
 
-Note: If the above steps are not successfull, you will not be able to start the server.
+    #### Note: If the above steps are not successfull, you will not be able to start the server.
 
-To get the app running: 
-
-1. Clone the repository:
-    - git clone https://github.com/ckanich-classrooms/final-project-create-table-students.git
-    
-2. Lets start the server on one terminal
+4. Lets start the server on one terminal
+	- repo is the root
     - cd functions
     - npm install
     - npm install -g firebase-tools
     - cd ..
     - firebase serve --only functions
 
-3. Now let start the client on another terminal:
+5. Now let start the client on another terminal:
+	- repo is the root
     - cd client
     - npm install
     - npm build ("npm run-script build" on Powershell)
     - cd ..
     - firebase serve --only hosting
 
-4. This should have the app running on [http://localhost:5000/](http://localhost:5000/ "http://localhost:5000/")
+6. This should have the app running on [http://localhost:5000/](http://localhost:5000/ "http://localhost:5000/")
 
-5. Now go ahead and either register as driver or rider.
+7. Now go ahead and either register as driver or rider.
   
-6. The production deployment is also available on the following site:
+8. The production deployment is also available on the following site:
 [https://uic-rider.firebaseapp.com](https://uic-rider.firebaseapp.com "https://uic-rider.firebaseapp.com")
 
