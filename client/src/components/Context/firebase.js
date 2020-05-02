@@ -4,14 +4,14 @@ import firebase from 'firebase' ;
 // https://firebase.google.com/docs/auth/admin/custom-claims
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAlfC_SV4Nbc9lfnmLnpOed58K9jYMB8N8",
-  authDomain: "uic-rider.firebaseapp.com",
-  databaseURL: "https://uic-rider.firebaseio.com",
-  projectId: "uic-rider",
-  storageBucket: "uic-rider.appspot.com",
-  messagingSenderId: "158636708222",
-  appId: "1:158636708222:web:519350eb086a15306a632f",
-  measurementId: "G-1QYZ38TLBN"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId : process.env.REACT_APP_APP_ID,
+    measurementId : process.env.REACT_APP_MEASUREMENT_ID
 };
 class Firebase {
     constructor() {
