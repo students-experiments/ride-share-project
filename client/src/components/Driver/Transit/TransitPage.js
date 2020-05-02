@@ -58,7 +58,6 @@ class TransitPageBase extends React.Component {
       return;
     });
 
-
     for (let i = 0; i < new_rider_uids.length; i += 1)
       newMapper[new_rider_uids[i]] = new_matched_rider_names[i];
 
@@ -70,6 +69,7 @@ class TransitPageBase extends React.Component {
       riderMapper: newMapper
     });
     console.log(this.state.riderMapper);
+
   }
 
   componentDidMount() {
@@ -82,6 +82,7 @@ class TransitPageBase extends React.Component {
         .onSnapshot((doc) => {
           console.log(doc.data());
           if (doc.data().matched_riders) {
+
             let new_matched_riders_names = doc.data().matched_rider_names;
             let new_matched_riders_uids = doc.data().matched_riders;
 

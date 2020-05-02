@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import UICLogo from "./UICLogo.png"
 import headerBackground from "./back2.PNG"
+import {withFirebase} from "../Context";
+
 import {
 
   Container,

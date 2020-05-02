@@ -18,6 +18,7 @@ It would be great if you could deep dive.
 
 */
 module.exports.requireRiderAuth = function (req, res, next) {
+  
   console.log("\n\nRequest body printed here")
   console.log(req);
   console.log('\n\n');

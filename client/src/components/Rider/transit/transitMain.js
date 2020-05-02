@@ -5,22 +5,6 @@ import { withFirebase } from "../../Context";
 import * as Actions from "../../../actions/rider/RiderAPICalls";
 import * as ROUTES from "../../../constants/routes";
 
-const TransitMessage = (props) => {
-    if (props.transitComplete)
-        return (
-            <h2> Your ride has ended! </h2>
-        );
-    else return (<h2></h2>);
-};
-
-const MatchMessage = (props) => {
-    if (props.matchMade === false)
-    return (
-        <h2> Sorry no drivers available at the moment. Try again after a few minutes. </h2>
-    );
-    else return (<h2></h2>);
-}
-
 class TransitMain extends React.Component {
     constructor(props) {
         super(props);
