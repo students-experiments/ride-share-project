@@ -47,13 +47,15 @@ export function endRider(driverUID,riderUID){
     return Server.post('driver/EndRide',data)
     
 }
-export function endTransit(driverUID){
+export function endTransit(driverUID,matchedRidersList,transitRidersList){
     
     const data={
         user:{
             uid:driverUID,
             role: 'driver'
-        }
+        },
+        matchedRidersList : matchedRidersList,
+        transitRidersList : transitRidersList
     }
     return Server.post('driver/EndTransit',data)
     

@@ -6,6 +6,7 @@ const RetriveDrivers = require( '../database/firestore/driver/RetriveDrivers');
 const Utils = require('./utils');
 const DriverTransit = require('../database/firestore/driver/DriverTransit');
 const DriverMatch = require('../database/firestore/driver/DriverMatch')
+const RiderMatch=require ('../database/firestore/rider/Match')
 const RiderTransit =require('../database/firestore/rider/RiderTransit')
 const DriverPickUp = require('../database/firestore/driver/DriverPickUp')
  /*
@@ -184,12 +185,27 @@ DriverRouter.post('/EndRide',Utils.requireDriverAuth,(req,res)=>{
 
 
 DriverRouter.post('/EndTransit',Utils.requireDriverAuth,(req,res)=>{
-  const {user} = req.body.data;
+  const {user,matchedRidersList,transitRidersList} = req.body.data;
+  console.log('mathc',matchedRidersList)
+  console.log('transit',transitRidersList)
+
   DriverTransit.endTransit(user.uid)
   .then(()=>{
     console.log('Ended Transit for Driver')
-    
-      res.sendStatus(200);
+    const matchespromises = []
+    matchedRidersList.forEach(riderUID => {
+      matchespromises.push(RiderMatch.removeDriverMatched(riderUID))
+    });
+    return Promise.all(promises)
+  }).then(()=>{
+    const transitpromises = []
+    transitRidersList.forEach(riderUID =>{
+      transitpromises.push(RiderTransit.endRide(riderUID))
+    })
+    return Promise.all(promises)
+  }).then(()=>{
+
+    res.sendStatus(200);
     }).catch((err)=>{
       console.log(err);
       res.status(404).send(err)

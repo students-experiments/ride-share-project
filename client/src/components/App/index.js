@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import { Segment } from 'semantic-ui-react';
 import * as ROUTES from '../../constants/routes';
-import Footer from '../../decorators/Footer';
+//import Footer from '../../decorators/Footer';
 // Imports from internals
 import history from '../../history';
 import Firebase, { FirebaseContext } from '../Context';
@@ -68,8 +68,9 @@ class App extends React.Component {
       </FirebaseContext.Provider>
 
       </Segment>
-      <Footer /> 
+      
       </DesktopContainer>
+      {/* <Footer />  */}
           </div>
         );
       }

@@ -57,7 +57,7 @@ class TransitPageBase extends React.Component {
 
   onEndTransit = () => {
     console.log(this.props);
-    DriverTransitActions.endTransit(this.state.driverUID)
+    DriverTransitActions.endTransit(this.state.driverUID, this.state.matchedRidersList, this.state.transitRidersList)
       .then(() => {
         if (this.state.listener) {
           this.state.listener();
