@@ -197,7 +197,7 @@ describe('application', async () => {
             return;
           })
               .then(() => {
-                let riderDb = db.collection("rider").doc("0qseCUVPrsV35Cq2wQkw0F6GY153");
+                let riderDb = db.collection("rider").doc("s2JXI33kzuXgSZrFXwyS8ECVfIG2");
                 riderDb.get()
                     .then((doc) => {
                       assert(doc.data().status === "idle");
