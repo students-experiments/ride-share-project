@@ -38,7 +38,10 @@ class RideRequestActionBox extends React.Component {
               }
                {errors.global && (
           <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
+            <Message.Header
+            style={{
+              color: 'white'
+            }}>Something went wrong</Message.Header>
             <p>{errors.global}</p>
           </Message>
         )}
@@ -48,8 +51,14 @@ class RideRequestActionBox extends React.Component {
                 </div>
 
                     <div class="description">
-                        <p>Rider UID: {this.state.data.riderUID} </p>
-                        <p>Rider Name: {this.state.data.riderName}</p>
+                        <p
+                        style={{
+                          color: 'white'
+                        }}>Rider UID: {this.state.data.riderUID} </p>
+                        <p
+                        style={{
+                          color: 'white'
+                        }}>Rider Name: {this.state.data.riderName}</p>
                     </div>
                     <div class="extra">
                         <Button  positive onClick ={this.onAcceptRide}>

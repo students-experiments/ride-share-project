@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Grid } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 import validator from "validator";
@@ -82,22 +82,36 @@ class RegisterFormBase extends React.Component {
 
     return (
         <div>
+          <Grid className="center aligned">
       <Form  onSubmit={this.onSubmit} loading={loading}>
         <Form.Field error={!!errors.uin}>
-            <label htmlFor= "uin">UIN</label>
+            <label htmlFor= "uin"
+            style={{
+              color: 'white',
+              textAlign: 'center'
+            }}>UIN</label>
             <Form.Input
+            style={{
+              width: '100%',
+              display: "block",
+              textAlign: 'center'
+            }}
             type="text"
             id="uin"
             name="uin"
             placeholder="12345678"
+            maxWidth="20rem"
             value={data.uin}
-            
             onChange={this.onChange}
           />
           {errors.uin && <InlineError text={errors.uin} />}
         </Form.Field>
         <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"
+          style={{
+            color: 'white',
+            textAlign: 'center'
+          }}>Email</label>
           <Form.Input
             type="email"
             id="email"
@@ -110,7 +124,11 @@ class RegisterFormBase extends React.Component {
         </Form.Field>
 
         <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password"
+          style={{
+            color: 'white',
+            textAlign: 'center'
+          }}>Password</label>
           <input
             type="password"
             id="password"
@@ -122,10 +140,12 @@ class RegisterFormBase extends React.Component {
           {errors.password && <InlineError text={errors.password} />}
         </Form.Field>
 
-        <Button secondary name="role" value="driver" onClick={this.onChange}>Register as Driver</Button>
+        <Button secondary name="role" value="driver" onClick={this.onChange}
+        >Register as Driver</Button>
         <Button primary name="role" value="rider" onClick={this.onChange}>Register as Rider</Button>
 
       </Form>
+      </Grid>
       </div>
     );
   }

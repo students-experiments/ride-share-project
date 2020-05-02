@@ -2,7 +2,13 @@ import React from "react";
 
 const TransitMatched = (props) => {
     return (
-        <h1> You have been matched to {props.driverUID} </h1>
+        <h1
+        style={{
+            color: 'white',
+            padding: '5rem',
+            textAlign: 'center'
+          }}> You have been matched to {props.driverUID} </h1>
+          
     );
 };
 
