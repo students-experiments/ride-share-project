@@ -38,10 +38,7 @@ class RideRequestActionBox extends React.Component {
               }
                {errors.global && (
           <Message negative>
-            <Message.Header
-            style={{
-              color: 'white'
-            }}>Something went wrong</Message.Header>
+            <Message.Header>Something went wrong</Message.Header>
             <p>{errors.global}</p>
           </Message>
         )}
