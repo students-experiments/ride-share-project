@@ -8,7 +8,7 @@ const db = require("../database/init-db").firestore;
 const app = require('../app.js');
 
 const userObj = {
-    uid: 'eA54D',
+    uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
     role: 'rider'
 };
 
@@ -45,7 +45,7 @@ describe('application', async () => {
   let server = {};
   let client = {};
 
-  
+  axios.defaults.withCredentials = true;
   axios.defaults.baseURL = `http://localhost:5001/uic-rider/us-central1/app/`;
   axios.defaults.validateStatus = () => true;
 
@@ -87,8 +87,11 @@ describe('application', async () => {
     logged in before requesting a ride", () => {
       axios.post("/rider/FindMatch", {
           data:{
-            user: userObj,
-            request: requestObj
+            user: {
+                uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                role: 'rider',
+                name: 'sid_rider2'
+            }
           }
       })
           .then((response) => {
@@ -102,9 +105,15 @@ describe('application', async () => {
 
     it("lets a rider request a ride", () => {
       axios.post("/rider/FindMatch", {
-          user: userObj,
-          request: requestObj
+          data: {
+              user: {
+                  uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                  role: 'rider',
+                  name: 'sid_rider2'
+              },
+          }
       }).then((response) => {
+          console.log(response);
             assert(response.status === 200 || response.data.includes("You have been matched"));
       })
           .catch(() => {
@@ -114,37 +123,52 @@ describe('application', async () => {
 
     it("lets a rider state their location", () => {
         axios.post("/rider/AddRide", {
-          user: userObj,
-          request: requestObj
+            data: {
+                user: {
+                    uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                    role: 'rider',
+                    name: 'sid_rider2'
+                },
+                request: requestObj
+            }
       }).then((response) => {
-            console.log(response.data);
+            console.log(response);
             assert(response.status === 200);
           })
-          .catch(() => {
-            //console.error(err);
+          .catch((err) => {
+            return err;
           });
     });
 
     it("lets the rider know when a driver accepts the request", () => {
         axios.post('/rider/FindMatch', {
-            user: userObj,
-            request: requestObj
+            data: {
+                user: {
+                    uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                    role: 'rider',
+                    name: 'sid_rider2'
+                },
+            }
         })
             .then((res) => {
+                console.log(res);
                 assert(res.data.includes("will pick you up"));
             })
             .catch(err => err);
-    }); // Implementation Pending
-
-    it("lets the rider see the time until pickup"); // Implementation Pending
+    });
 
     it("lets the rider cancel the ride", () => {
-      axios.delete("/rider/DeleteRide", {
-        params: {
-          uid: "eA5kl"
+      axios.post("/rider/DeleteRide", {
+        data: {
+            user: {
+                uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                role: 'rider',
+                name: 'sid_rider2'
+            }
         }
       })
       .then((response) => {
+          console.log(response)
             assert(response.status === 200);
             return;
           })
@@ -153,18 +177,27 @@ describe('application', async () => {
           });
     });
 
-    it("lets the rider know of driver status"); // Implementation Pending
 
     it("updates the DB rider transit status once ride is over", () => {
       
       axios.post("/driver/EndRide", { // Driver is the one who stops the ride
-        uid: "eA4KJlm"
+          data: {
+              user: {
+                  uid: "hwsw6ygJkwOBPxV0laKQ2rVpn7C2",
+                  role: 'driver'
+              },
+              rider: {
+                  uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                  name: 'sid_rider2'
+              }
+          }
       }).then((response) => {
+          console.log(response);
             assert(response.status === 200);
             return;
           })
               .then(() => {
-                let riderDb = db.collection("rider").doc("eA4KJlm");
+                let riderDb = db.collection("rider").doc("0qseCUVPrsV35Cq2wQkw0F6GY153");
                 riderDb.get()
                     .then((doc) => {
                       assert(doc.data().status === "idle");
@@ -177,8 +210,27 @@ describe('application', async () => {
                 //console.error(err);
               });
     });
+
     it("sends a user back to the \"Request a Ride\" page \
-    after ride finishes"); // Implementation Pending
+    after ride finishes", () => {
+        axios.post('/driver/EndRide', {
+            data: {
+                user: {
+                    uid: "hwsw6ygJkwOBPxV0laKQ2rVpn7C2",
+                    role: 'driver'
+                },
+                rider: {
+                    uid: 's2JXI33kzuXgSZrFXwyS8ECVfIG2',
+                    name: 'sid_rider2'
+                }
+            }
+        })
+            .then(res => {
+                console.log(res);
+                assert(res.status === 200 && res.data.includes("Request Ride"));
+            })
+            .catch(err => err);
+    });
   });
 });
  
